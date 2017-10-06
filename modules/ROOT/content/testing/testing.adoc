@@ -4,11 +4,10 @@ include::_attributes.adoc[]
 endif::[]
 :page-aliases: testing.adoc
 
-//matches only Testing With Mule ESB 3
 This section describes how to test your Mule application.
 
-* xref:3.6@testing/introduction-to-testing-mule.adoc[Introduction to Testing Mule]
-* xref:3.6@testing/unit-testing.adoc[Unit Testing]
-* xref:3.7@testing/functional-testing.adoc[Functional Testing]
-* xref:3.6@testing/testing-strategies.adoc[Testing Strategies]
-* xref:1.3@munit::index.adoc[MUnit]
+* xref:testing/introduction-to-testing-mule.adoc[Introduction to Testing Mule]
+* xref:testing/unit-testing.adoc[Unit Testing]
+* xref:testing/functional-testing.adoc[Functional Testing]
+* xref:testing/testing-strategies.adoc[Testing Strategies]
+* xref:munit.adoc[MUnit]

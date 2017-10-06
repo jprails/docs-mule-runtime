@@ -65,7 +65,7 @@ Open the relevant file and comment or uncomment items in the lists to manually c
 
 == Anypoint Enterprise Security and FIPS
 
-xref:3.6@security/anypoint-enterprise-security.adoc[Anypoint Enterprise Security] version 1.3 supports FIPS security mode. When in FIPS security mode, Mule will not register a security provider, allowing the module to rely on the platform security provider.
+xref:security/anypoint-enterprise-security.adoc[Anypoint Enterprise Security] version 1.3 supports FIPS security mode. When in FIPS security mode, Mule will not register a security provider, allowing the module to rely on the platform security provider.
 
 Note that not all encryption schemes and signatures included in Anypoint Enterprise Security configuration options are FIPS compliant. If you see an error at runtime that reads, "`Could not find encryption algorithm '<algorithm-name>'. You are running in FIPS mode, so please verify that the algorithm is compliant with FIPS`" this means that your application is using an algorithm that is not approved for FIPS use. Adjust your configuration to select an approved algorithm. Keep in mind that your different environments may have different security configurations, including different encryption schemes and algorithm selections; thus you may see this error only in certain environments, depending on how they are set up.
 

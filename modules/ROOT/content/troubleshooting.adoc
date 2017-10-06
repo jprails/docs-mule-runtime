@@ -5,6 +5,6 @@ endif::[]
 
 This section introduces a number of techniques useful in troubleshooting Mule problems and in gathering information for technical support.
 
-* xref:3.6@debug/configuring-mule-stacktraces.adoc[Configuring Mule Stacktraces]
-* xref:3.7@debug/debugging-outside-studio.adoc[Debugging Outside Studio]
-* xref:3.7@debug/logging.adoc[Logging]
+* xref:debug/configuring-mule-stacktraces.adoc[Configuring Mule Stacktraces]
+* xref:debug/debugging-outside-studio.adoc[Debugging Outside Studio]
+* xref:debug/logging.adoc[Logging]

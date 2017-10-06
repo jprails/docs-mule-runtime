@@ -5,7 +5,7 @@ endif::[]
 :page-aliases: xmlobject-transformers.adoc
 :keywords: anypoint studio, esb, transformers
 
-This pair of transformers converts XML code to serialized objects and back again. For serialization of Java XML objects, see xref:3.7@modules/domtoxml-transformer.adoc[DomToXml Transformer].
+This pair of transformers converts XML code to serialized objects and back again. For serialization of Java XML objects, see xref:modules/domtoxml-transformer.adoc[DomToXml Transformer].
 
 == Object to XML
 
@@ -38,7 +38,7 @@ For example:
 
 == Testing the Transformers
 
-The transformers can be tested using functional tests. For example, the following functional test uses `FunctionalTestCase`, which is part of Mule's xref:3.7@testing/functional-testing.adoc[Test support], to test the Object to XML transformer.
+The transformers can be tested using functional tests. For example, the following functional test uses `FunctionalTestCase`, which is part of Mule's xref:testing/functional-testing.adoc[Test support], to test the Object to XML transformer.
 
 //github
 

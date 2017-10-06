@@ -3,6 +3,7 @@ ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
 :page-aliases: enabling-ws-security.adoc
+:keywords: cxf, security, ws-security
 
 *_Enterprise_*
 
@@ -12,7 +13,7 @@ To implement application-layer security, enable http://msdn.microsoft.com/en-us/
 
 * Encryption
 * Digital signature
-* Time stamp
+* Timestamp
 
 You can also <<addtokenvalidator,add a custom token validator>> to the SOAP Component.
 
@@ -22,7 +23,7 @@ You can also <<addtokenvalidator,add a custom token validator>> to the SOAP Comp
 
 To enable WS-security on a CXF Web service in your application, you must add WS-configurations to the *SOAP Component* in your flow. This approach enables WS-security locally within your flow, for one Web service only.
 
-To the Mule flow that involves a Web service, add a xref:components/cxf-component-reference.adoc[CXF Component] to publish, consume, or proxy a Web service. Complete the following steps to configure WS-security on the SOAP component.
+To the Mule flow that involves a Web service, add a xref:components/cxf-component-reference.adoc[*CXF Component*] to publish, consume, or proxy a Web service. Complete the following steps to configure WS-security on the SOAP component.
 
 [.ex]
 =====
@@ -65,7 +66,7 @@ image::modules/open-and-specify-value.png[]
 |===
 |*key* |Specify a name for the property.
 |*value* |Specify a http://people.apache.org/~fadushin/stage/wss4j/1.5.5-RETRACTED/site/apidocs/org/apache/ws/security/WSConstants.html[WS Constant ](a class to define the kind of access the server allows) or a http://people.apache.org/~fadushin/stage/wss4j/1.5.5-RETRACTED/site/apidocs/org/apache/ws/security/handler/WSHandlerConstants.html[WSHandlerConstant] (a class to specify the names, actions, and other strings for data deployment of the WSS handler). For example, enter `UsernameToken` in the value field.
-|*value-ref* |Specify the bean that the key must reference. When the key must reference a bean (for instance, when the key is `passwordCallbackRef`), specify the name of the bean as the value-ref.
+|*value- ref* |Specify the bean that the key must reference. When the key must reference a bean (for instance, when the key is `passwordCallbackRef`), specify the name of the bean as the value-ref.
 |===
 +
 . Repeat the preceding step to add as many WS-security configurations as you wish to your Web service. Refer to sample code below.
@@ -82,8 +83,9 @@ http://www.mulesoft.org/schema/mule/cxf http://www.mulesoft.org/schema/mule/cxf/
 +
 [source,xml,linenums]
 ----
+<http:listener-config name="listener-config" host="localhost" port="8081"/>
 <flow name="Creation1Flow1" doc:name="Creation1Flow1">
-    <http:inbound-endpoint host="localhost" port="8081"/>
+    <http:listener config-ref="listener-config" path="/" doc:name="HTTP Connector"/>
     <cxf:jaxws-service doc:name="SOAP">
         <cxf:ws-security>
             <cxf:ws-config>
@@ -118,7 +120,7 @@ Complete the following procedure to add token validators to your Web service.
 +
 image::modules/token-validators.png[token_validators]
 +
-[%header,cols="30a,70a"]
+[%header%autowidth.spread]
 |===
 |Token Validator |Purpose
 |*User Name* |Authenticates the username and password credentials associated with each message in a manner similar to HTTP Digest authentication.
@@ -129,7 +131,7 @@ image::modules/token-validators.png[token_validators]
 |*Binary Security Token* |Examines binary encoded security tokens (such as Kerberos) to make decisions about which messages to process.
 |===
 +
-. In the *Bean* field associated with the token validator you have selected, use the drop-down menu to select an existing bean that your token validator can reference to apply, replace, or extend the default behavior associated with a specific security token.
+. In the *Bean* field associated with the token validator you have selected, use the drop-down menu to select an existing bean that your token validator  references to apply, replace, or extend the default behavior associated with a specific security token.
 +
 [TIP]
 ====
@@ -222,8 +224,9 @@ http://www.mulesoft.org/schema/mule/cxf http://www.mulesoft.org/schema/mule/cxf/
     <spring:bean id="customTokenValidator" name="Bean" class="org.mule.example.myClass"/>
 </spring:beans>
 
+<http:listener-config name="listener-config" host="localhost" port="8081"/>
 <flow name="Creation1Flow1" doc:name="Creation1Flow1">
-    <http:inbound-endpoint host="localhost" port="8081"/>
+    <http:listener config-ref="listener-config" path="/" doc:name="HTTP Connector"/>
     <cxf:jaxws-service doc:name="SOAP">
         <cxf:ws-security>
             <cxf:ws-config>
@@ -251,7 +254,7 @@ xsi:schemaLocation="
 http://www.mulesoft.org/schema/mule/cxf http://www.mulesoft.org/schema/mule/cxf/current/mule-cxf.xsd">
 ----
 
-http://www.mulesoft.org/schema/mule/cxf/3.5/mule-cxf.xsd[View the Mule 3.5 CXF schema].
+http://www.mulesoft.org/schema/mule/cxf/3.6/mule-cxf.xsd[View the Mule 3.6 CXF schema].
 
 === View Example Code
 
@@ -260,15 +263,16 @@ http://www.mulesoft.org/schema/mule/cxf/3.5/mule-cxf.xsd[View the Mule 3.5 CXF s
 <spring:beans>
         <spring:bean id="Bean" name="samlCustomValidator" class="com.mulesoft.mule.example.security.SAMLCustomValidator"/>
     </spring:beans>
+    <http:listener-config name="listener-config" host="localhost" port="63081"/>
 
     <flow name="UnsecureServiceFlow" doc:name="UnsecureServiceFlow">
-        <http:inbound-endpoint host="localhost" port="63081" path="services/unsecure" />
+        <http:listener config-ref="listener-config" path="services/unsecure" doc:name="HTTP Connector"/>
  <cxf:jaxws-service serviceClass="com.mulesoft.mule.example.security.Greeter" doc:name="Unsecure service"/>
         <component class="com.mulesoft.mule.example.security.GreeterService" doc:name="Greeter Service" />
     </flow>
 
     <flow name="UsernameTokenServiceFlow" doc:name="UsernameTokenServiceFlow">
-        <http:inbound-endpoint host="localhost" port="63081" path="services/username" />
+        <http:listener config-ref="listener-config" path="services/username" doc:name="HTTP Connector"/>
  <cxf:jaxws-service serviceClass="com.mulesoft.mule.example.security.Greeter" doc:name="Secure UsernameToken service">
             <cxf:ws-security>
                 <cxf:ws-config>
@@ -281,7 +285,7 @@ http://www.mulesoft.org/schema/mule/cxf/3.5/mule-cxf.xsd[View the Mule 3.5 CXF s
     </flow>
 
     <flow name="UsernameTokenSignedServiceFlow" doc:name="UsernameTokenSignedServiceFlow">
-        <http:inbound-endpoint host="localhost" port="63081" path="services/signed" />
+        <http:listener config-ref="listener-config" path="services/signed" doc:name="HTTP Connector"/>
         <cxf:jaxws-service serviceClass="com.mulesoft.mule.example.security.Greeter" doc:name="Secure UsernameToken Signed service">
             <cxf:ws-security>
                 <cxf:ws-config>
@@ -295,7 +299,7 @@ http://www.mulesoft.org/schema/mule/cxf/3.5/mule-cxf.xsd[View the Mule 3.5 CXF s
     </flow>
 
     <flow name="UsernameTokenEncryptedServiceFlow" doc:name="UsernameTokenEncryptedServiceFlow">
-        <http:inbound-endpoint host="localhost" port="63081" path="services/encrypted" />
+        <http:listener config-ref="listener-config" path="services/encrypted" doc:name="HTTP Connector"/>
         <cxf:jaxws-service serviceClass="com.mulesoft.mule.example.security.Greeter" doc:name="Secure UsernameToken Encrypted service">
             <cxf:ws-security>
                 <cxf:ws-config>
@@ -309,7 +313,7 @@ http://www.mulesoft.org/schema/mule/cxf/3.5/mule-cxf.xsd[View the Mule 3.5 CXF s
     </flow>
 
     <flow name="SamlTokenServiceFlow" doc:name="SamlTokenServiceFlow">
-        <http:inbound-endpoint host="localhost" port="63081" path="services/saml" />
+        <http:listener config-ref="listener-config" path="services/saml" doc:name="HTTP Connector"/>
         <cxf:jaxws-service serviceClass="com.mulesoft.mule.example.security.Greeter" doc:name="Secure SAMLToken service">
             <cxf:ws-security>
                 <cxf:ws-config>
@@ -324,7 +328,7 @@ http://www.mulesoft.org/schema/mule/cxf/3.5/mule-cxf.xsd[View the Mule 3.5 CXF s
     </flow>
 
     <flow name="SignedSamlTokenServiceFlow" doc:name="SignedSamlTokenServiceFlow">
-        <http:inbound-endpoint host="localhost" port="63081" path="services/signedsaml" />
+        <http:listener config-ref="listener-config" path="services/signedsaml" doc:name="HTTP Connector"/>
         <cxf:jaxws-service serviceClass="com.mulesoft.mule.example.security.Greeter" doc:name="Secure SAMLToken Signed service">
             <cxf:ws-security>
                 <cxf:ws-config>
@@ -343,5 +347,4 @@ http://www.mulesoft.org/schema/mule/cxf/3.5/mule-cxf.xsd[View the Mule 3.5 CXF s
 == See Also
 
 * Learn more about configuring a xref:components/cxf-component-reference.adoc[CXF component] in your Mule application.
-* Review an the xref:soap-web-service-security-example.adoc[Mule example application] which demonstrates the use of WS-security.
-* Review a xref:xml-only-soap-web-service-example.adoc[Mule example application] which demonstrates a SOAP Web service.
+* See xref:2.0@exchange::exchange1.adoc[examples].

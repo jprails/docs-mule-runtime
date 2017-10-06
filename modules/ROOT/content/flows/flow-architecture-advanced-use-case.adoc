@@ -39,7 +39,7 @@ image::flows/load-balancing.png[load_balancing]
 == See Also
 
 * **NEXT STEP:** Learn the various ways you can xref:general:getting-started:index.adoc[deploy Mule applications].
-* Read about some alternative ways to control message processing within a flow using xref:3.6@routers/routers.adoc[routing message processors].
-* Refer to the xref:3.6@flows/flow-reference-component-reference.adoc[Flow Reference Component Reference] and xref:3.6@scopes/async-scope-reference.adoc[Async Scope].
-* Read more about xref:3.7@flows/flow-processing-strategies.adoc[Flow Processing Strategies].
-* Read more about setting up xref:3.6@scopes/transactional.adoc[transactional units] in Mule applications.
+* Read about some alternative ways to control message processing within a flow using xref:routers/routers.adoc[routing message processors].
+* Refer to the xref:flows/flow-reference-component-reference.adoc[Flow Reference Component Reference] and xref:scopes/async-scope-reference.adoc[Async Scope].
+* Read more about xref:flows/flow-processing-strategies.adoc[Flow Processing Strategies].
+* Read more about setting up xref:scopes/transactional.adoc[transactional units] in Mule applications.

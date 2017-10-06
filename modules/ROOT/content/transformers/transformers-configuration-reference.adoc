@@ -4,7 +4,7 @@ include::_attributes.adoc[]
 endif::[]
 :page-aliases: transformers-configuration-reference.adoc
 
-This page provides details on configuring the standard transformers. Note that many xref:3.6@transports/transports-reference.adoc[transports] and xref:3.7@modules/modules-reference.adoc[modules] provide their own transformers as well.
+This page provides details on configuring the standard transformers. Note that many xref:transports/transports-reference.adoc[transports] and xref:modules/modules-reference.adoc[modules] provide their own transformers as well.
 
 == Transformer
 

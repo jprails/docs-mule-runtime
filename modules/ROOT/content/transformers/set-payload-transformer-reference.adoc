@@ -3,35 +3,28 @@ ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
 :page-aliases: set-payload-transformer-reference.adoc
+:keywords: anypoint studio, esb, set payload, payload
 
-This transformer sets the payload to whatever you define. The payload can be a literal string or a xref:3.7@mel/mule-expression-language-mel.adoc[Mule Expression].
+This transformer sets the payload to whatever you define. The payload can be a literal string or a xref:mel/mule-expression-language-mel.adoc[Mule Expression].
 
 == Configuration
 
 [.ex]
 =====
 [discrete.view]
-=== STUDIO Visual Editor
+=== Studio Visual Editor
 
 image::transformers/set-payload.png[set_payload]
 
 [%header,cols="4*"]
 |===
 |Field |Value |Description |XML
-|Display Name |Set Payload |Customize to display a unique name for the transformer in your application. a|
-[source,text,linenums]
-----
-doc:name="Set Payload"
-----
-|Value |String or Mule Expression |Enter a literal string or a Mule expression that defines how Mule should set the payload. a|
-[source,text,linenums]
-----
-value="#['Hello, ' + message.payload]"
-----
+|Display Name |Set Payload |Customize to display a unique name for the transformer in your application. a|`doc:name="Set Payload"`
+|Value |String or Mule Expression |Enter a literal string or a Mule expression that defines how Mule should set the payload. a|`value="#['Hello, ' + message.payload]"`
 |===
 
 [discrete.view]
-=== XML Editor or Standalone
+=== XML "Editor or Standalone"
 
 [source,text,linenums]
 ----
@@ -59,7 +52,6 @@ Customize to display a unique name for the transformer in your application.
 
 Note: Attribute not required in Mule Standalone configuration.
 |===
-
 =====
 
 == Example
@@ -88,16 +80,15 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
 
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
 
+    <http:listener-config name="listener-config" host="localhost" port="8081" doc:name="HTTP Listener Configuration"/>
     <flow name="HelloFlow1" doc:name="HelloFlow1">
-        <http:inbound-endpoint host="localhost" port="8081" path="/" />
+        <http:listener config-ref="listener-config" path="/" doc:name="HTTP Connector"/>
         <set-payload value="#['Hello, World!' + ' Today is ' + server.dateTime.format('dd/MM/yy')]" doc:name="Set Payload"/>
     </flow>
 </mule>
 ----
-
 =====
-
 == See Also
 
 * See the xref:2.0@exchange::exchange1.adoc[examples].
-* Read more about xref:3.7@transformers/transformers.adoc[other transformers] available in Mule.
+* Read more about xref:transformers/transformers.adoc[other transformers] available in Mule.

@@ -2,6 +2,7 @@
 ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
+:keywords: mule, esb, studio, streaming, memory, large payload
 
 Streaming enables efficient processing of large data objects such as files, documents, and records by streaming the data through Mule ESB rather than reading the whole thing into memory. Streaming provides the following advantages:
 
@@ -14,16 +15,16 @@ Streaming enables efficient processing of large data objects such as files, docu
 
 The following transports, connectors and modules support streaming:
 
-* xref:3.6@modules/cxf-module-reference.adoc[CXF]
+* xref:modules/cxf-module-reference.adoc[CXF]
 * xref:5@studio::datamapper/streaming-data-processing-with-datamapper.adoc[DataMapper]
-* xref:3.6@transports/file-transport-reference.adoc[File] (set the `streaming` attribute to false to access the File object directly)
-* xref:3.6@transports/ftp-transport-reference.adoc[FTP]
-* xref:3.6@connectors::http-connector.adoc[HTTP] and xref:3.6@connectors::http-connector.adoc[HTTPS]
-* xref:3.6@transports/jetty-transport-reference.adoc[Jetty] and xref:3.6@transports/jetty-ssl-transport.adoc[Jetty SSL]
-* xref:3.6@transports/servlet-transport-reference.adoc[Servlet]
-* xref:3.6@transports/tcp-transport-reference.adoc[TCP]
-* xref:3.6@transports/udp-transport-reference.adoc[UDP]
-* xref:3.7@transports/vm-transport-reference.adoc[VM]
+* xref:transports/file-transport-reference.adoc[File] (set the `streaming` attribute to false to access the File object directly)
+* xref:transports/ftp-transport-reference.adoc[FTP]
+* xref:3.6@connectors::http-listener-connector.adoc[HTTP Listener] and HTTPS Listener
+* xref:transports/jetty-transport-reference.adoc[Jetty] and xref:transports/jetty-ssl-transport.adoc[Jetty SSL]
+* xref:transports/servlet-transport-reference.adoc[Servlet]
+* xref:transports/tcp-transport-reference.adoc[TCP]
+* xref:transports/udp-transport-reference.adoc[UDP]
+* xref:transports/vm-transport-reference.adoc[VM]
 
 == Streaming Transformers and Filters
 
@@ -31,7 +32,7 @@ Many transformers and filters can read input streams, process the contents, and 
 
 The following transformers and filters do support true streaming and process the data as streams without loading them into memory first:
 
-* xref:3.6@modules/xslt-transformer.adoc[XSLT Transformer]
-* xref:3.6@modules/xmltoxmlstreamreader-transformer.adoc[XmlToXMLStreamReader Transformer]
-* xref:3.7@modules/domtoxml-transformer.adoc[DomToOutputHandler transformer] (if the incoming XML format is a SAXSource or XMLStreamReader)
-* xref:3.7@modules/sxc-module-reference.adoc[SXC filter]
+* xref:modules/xslt-transformer.adoc[XSLT Transformer]
+* xref:modules/xmltoxmlstreamreader-transformer.adoc[XmlToXMLStreamReader Transformer]
+* xref:modules/domtoxml-transformer.adoc[DomToOutputHandler transformer] (if the incoming XML format is a SAXSource or XMLStreamReader)
+* xref:modules/sxc-module-reference.adoc[SXC filter]

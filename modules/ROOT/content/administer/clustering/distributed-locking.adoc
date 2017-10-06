@@ -78,8 +78,8 @@ public class MyCustomComponentB implements MessageProcessor
 
 == See Also
 
-* Access xref:3.6@administer/clustering/mule-high-availability-ha-clusters.adoc[Mule High Availability (HA) Clustering] for an overview.
+* Access xref:administer/clustering/mule-high-availability-ha-clusters.adoc[Mule High Availability (HA) Clustering] for an overview.
 
-* Learn how to xref:3.7@administer/clustering/creating-and-managing-a-cluster-manually.adoc[manually create and manage a cluster,] accessing additional options.
+* Learn how to xref:administer/clustering/creating-and-managing-a-cluster-manually.adoc[manually create and manage a cluster,] accessing additional options.
 
-* Learn how to enable xref:3.6@administer/clustering/distributed-file-polling.adoc[distributed file polling].
+* Learn how to enable xref:administer/clustering/distributed-file-polling.adoc[distributed file polling].

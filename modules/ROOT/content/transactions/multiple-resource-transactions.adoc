@@ -54,4 +54,4 @@ In the example above, Mule starts the local JMS transaction when it receives the
 
 Note that if you configure an inbound connector with a multiple resource transaction, you must also configure any other connectors as multiple resource transactions and the action set to "ALWAYS_JOIN" to become part of the virtual transaction unit.
 
-Refer to xref:3.6@transactions/transaction-management.adoc[Transaction Management] for details on how to configure a Multiple Resource transaction.
+Refer to xref:transactions/transaction-management.adoc[Transaction Management] for details on how to configure a Multiple Resource transaction.

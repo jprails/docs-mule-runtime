@@ -5,20 +5,20 @@ endif::[]
 
 This section offers information about how to use *Mule ESB* and *Anypoint Studio* to integrate systems, orchestrate Web services, or smoothly connect anything to anything. Use the navigation tree at left to access other sections and learn more about Mule features and projects.
 
-* xref:3.6@install/installing.adoc[Installing]
-* xref:3.7@developing.adoc[Developing]
-* xref:3.7@security/securing.adoc[Securing]
-* xref:3.7@debug/debugging.adoc[Debugging]
-* xref:3.6@testing/testing.adoc[Testing]
-* xref:3.6@deploy/deploying.adoc[Deploying]
-* xref:3.6@extending.adoc[Extending]
-* xref:3.7@reference.adoc[Reference]
+* xref:install/installing.adoc[Installing]
+* xref:developing.adoc[Developing]
+* xref:security/securing.adoc[Securing]
+* xref:debug/debugging.adoc[Debugging]
+* xref:testing/testing.adoc[Testing]
+* xref:deploy/deploying.adoc[Deploying]
+* xref:extending.adoc[Extending]
+* xref:reference.adoc[Reference]
 
 == See Also
 
-* xref:3.6@install/installing.adoc[Install and Run Mule ESB]
+* xref:install/installing.adoc[Install and Run Mule ESB]
 * xref:general:getting-started:index.adoc[Anypoint Fundamentals]
-* xref:3.7@mule-management-console::setting-up-mmc.adoc[Set up the Mule Management Console]
+* xref:3.6@mule-management-console::setting-up-mmc.adoc[Set up the Mule Management Console]
 * xref:cloudhub::index.adoc[Run Mule Applications on CloudHub]
 * xref:3.7@connector-devkit::index.adoc[Extend the Mule ESB with the DevKit]
-* http://www.mulesoft.com/webinars/esb/mule-101-intro-to-mule[Watch the Mule 101 Webinar to learn the basic Mule concepts]
+* https://www.mulesoft.com/webinars/api/mule-101-anypoint-platform-overview[Watch the Mule 101 Webinar to learn the basic Mule concepts]

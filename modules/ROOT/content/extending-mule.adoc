@@ -14,7 +14,7 @@ Out of the box, Mule comes with a healthy suite of pre-packaged features and fun
 |Addition |Description |Studio Instructions |Standalone Instructions
 |*Enterprise License* |Ready to deploy to production? Acquire, then install an Enterprise license on your instance of Mule. (Using the out-of-the-box trial runtime, you can run applications for a maximum of 12 continuous hours.) 2+|xref:install/installing-an-enterprise-license.adoc[Installing an Enterprise License]
 |*Community Runtime* |Want to explore what the open-source, community version of Mule has to offer? Add the Community runtime to your existing instance of Anypoint Studio, or download the latest Mule Community Standalone runtime listed under the "Standalone Community Edition Download" heading on the download site. |xref:6@studio::mule-runtime/adding-community-runtime.adoc[Adding Community Runtime] |http://www.mulesoft.org/download-mule-esb-community-edition[Download Community Standalone]
-|*Anypoint Connectors* |Need to connect to a SaaS application? Check our http://www.mulesoft.org/connectors[library of Anypoint Connectors], and add them your instance of Mule. 2+|xref:3.5@connectors::installing-connectors.adoc[Installing Connectors]
+|*Anypoint Connectors* |Need to connect to a SaaS application? Check our http://www.mulesoft.org/connectors[library of Anypoint Connectors], and add them your instance of Mule. 2+|xref:3.6@connectors::installing-connectors.adoc[Installing Connectors]
 |*Modules* |Add suites of functionality to your instance of Mule such as xref:security/installing-anypoint-enterprise-security.adoc[Anypoint Enterprise Security] and xref:3.0@healthcare-toolkit::index.adoc[Mule Healthcare Toolkit]. 2+|xref:6@studio::install-update-items-in-studio.adoc[Installing Extensions]
 |*New Versions* |Update your instance of Mule to the latest and greatest version available! |xref:6@studio::install-update-items-in-studio.adoc[Updating to new version] |*Enterprise*: https://support.mulesoft.com[Customer Portal]
 
@@ -23,7 +23,7 @@ Out of the box, Mule comes with a healthy suite of pre-packaged features and fun
 
 == Build Customized Functionality
 
-If you find that your integration development team regularly requires functionality not included with Mule out of the box, you can make use of the extensive xref:3.5@connector-devkit::index.adoc[Anypoint Connector DevKit] to build your own extensions.
+If you find that your integration development team regularly requires functionality not included with Mule out of the box, you can make use of the extensive xref:3.6@connector-devkit::index.adoc[Anypoint Connector DevKit] to build your own extensions.
 
 Use DevKit to:
 

@@ -5,11 +5,11 @@ endif::[]
 :page-aliases: configuring-components.adoc
 :keywords: components, anypoint, studio, esb
 
-Components contain the business logic for working with the messages passed through Mule ESB. A component can be any type of object, including a xref:3.7@spring-integration/using-spring-beans-as-flow-components.adoc[Spring bean], xref:3.7@components/configuring-java-components.adoc[POJO], xref:3.6@modules/scripting-module-reference.adoc[script], xref:3.7@api-usage/using-web-services.adoc[web service], or REST call.
+Components contain the business logic for working with the messages passed through Mule ESB. A component can be any type of object, including a xref:spring-integration/using-spring-beans-as-flow-components.adoc[Spring bean], xref:components/configuring-java-components.adoc[POJO], xref:modules/scripting-module-reference.adoc[script], xref:api-usage/using-web-services.adoc[web service], or REST call.
 
-Because they are highly specific to your implementation, you will typically xref:3.7@components/developing-components.adoc[create your own custom components], or simply use an existing POJO. Mule also ships with some standard components you can use or extend as needed. This page describes how to configure the different types of components.
+Because they are highly specific to your implementation, you will typically xref:components/developing-components.adoc[create your own custom components], or simply use an existing POJO. Mule also ships with some standard components you can use or extend as needed. This page describes how to configure the different types of components.
 
-For detailed information on the elements you configure for components, see xref:3.6@components/component-configuration-reference.adoc[Component Configuration Reference].
+For detailed information on the elements you configure for components, see xref:components/component-configuration-reference.adoc[Component Configuration Reference].
 
 == Simple Components
 
@@ -21,14 +21,14 @@ There are several simple components included with Mule that are useful for testi
 |*<log-component/>* |Logs component invocations, outputting the received message as a string. This component does not return a response.
 |*<echo-component/>* |Extends the log component to log and echo the incoming message. The message is transformed before being returned, so transformations on inbound endpoints will be applied.
 |*<null-component/>* |Throws an exception when invoked. This is useful for testing use cases that use a forwarding consumer inbound router.
-|*<test:component/>* |Configures the Mule `FunctionalTestComponent`, which allows more complex testing scenarios to be created. For more information, see xref:3.7@testing/functional-testing.adoc[Functional Testing].
+|*<test:component/>* |Configures the Mule `FunctionalTestComponent`, which allows more complex testing scenarios to be created. For more information, see xref:testing/functional-testing.adoc[Functional Testing].
 |===
 
 == Java Components
 
 Java components specify a Java class to be used as the component or configure a reference to an implementation in a container such as Spring. They also configure the way in which Mule should manage the Java component's life-cycle, invoke it, and (if pooled) manage the pool of instances.
 
-Java components can be configured quickly and easily by simply specifying the component implementation class name on the `<component>` or `<pooled-component>` element. The `<pooled-component>` element allows you to establish a pooling profile for the flow (see xref:3.6@administer/tuning-performance.adoc[Tuning Performance]). In both cases, the `PrototypeObjectFactory` will be used by default and a new object instance will be created for each request or (for pooled components) for each new object in the pool.
+Java components can be configured quickly and easily by simply specifying the component implementation class name on the `<component>` or `<pooled-component>` element. The `<pooled-component>` element allows you to establish a pooling profile for the flow (see xref:administer/tuning-performance.adoc[Tuning Performance]). In both cases, the `PrototypeObjectFactory` will be used by default and a new object instance will be created for each request or (for pooled components) for each new object in the pool.
 
 [source,xml,linenums]
 ----
@@ -46,11 +46,11 @@ Alternatively, you can explicitly specify object factories, such as the `Singlet
 </component>
 ----
 
-The explicit syntax is required instead of the shortcut `<component class>` syntax if you add interceptors to the component. For further configuration options and information on the default settings that are applied, see xref:3.7@components/configuring-java-components.adoc[Configuring Java Components].
+The explicit syntax is required instead of the shortcut `<component class>` syntax if you add interceptors to the component. For further configuration options and information on the default settings that are applied, see xref:components/configuring-java-components.adoc[Configuring Java Components].
 
 == Customizing Behavior with Interceptors
 
-Mule interceptors are useful for attaching behaviors to multiple components. The interceptor pattern is often referred to as practical AOP (Aspect Oriented Programming), as it allows the developer to intercept processing on an object and potentially alter the processing and outcome. For complete information, see xref:3.6@components/using-interceptors.adoc[Using Interceptors].
+Mule interceptors are useful for attaching behaviors to multiple components. The interceptor pattern is often referred to as practical AOP (Aspect Oriented Programming), as it allows the developer to intercept processing on an object and potentially alter the processing and outcome. For complete information, see xref:components/using-interceptors.adoc[Using Interceptors].
 
 == Lifecycle
 

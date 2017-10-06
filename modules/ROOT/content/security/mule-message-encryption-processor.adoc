@@ -3,7 +3,7 @@ ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
 :page-aliases: mule-message-encryption-processor.adoc
-:keywords: encryption, security, processor, component
+:keywords: esb, encryption, security, processor, component
 
 == Encrypting a Message Payload
 
@@ -62,7 +62,7 @@ image::security/encrypt.png[]
 . Create an global `encryption:config` element, set above all the flows in your config file.
 . Configure the attributes of the element according to the table below.
 +
-[source,xml,linenums]
+[source,xml]
 ----
 <encryption:config name="Encryption" defaultEncrypter="JCE_ENCRYPTER" doc:name="Encryption"/>
 ----
@@ -74,6 +74,7 @@ image::security/encrypt.png[]
 |*defaultEncrypter* |  |JCE_ENCRYPTER
 |*doc:name* |  |A display name for the element in Studio's Visual Editor. Not applicable for Standalone.
 |===
++
 . Add an `encryption:encrypt` element to the flow in which you wish to encrypt data in the message payload.
 . Configure the element's attributes and child elements according to the tables below.
 +
@@ -96,7 +97,7 @@ image::security/encrypt.png[]
 [%header%autowidth.spread]
 |===
 |Child Attribute |Req'd
-|*encryption:jce-encrypter* |x
+|*http://encryptionjce-encrypter/[encryption:jce-encrypter]* |x
 |===
 +
 [%header%autowidth.spread]
@@ -154,7 +155,7 @@ image::security/xml-encrypter.png[xml_encrypter]
 . Create an global `encryption:config` element, set above all the flows in your config file.
 . Configure the attributes of the element according to the table below.
 +
-[source,xml,linenums]
+[source,xml]
 ----
 <encryption:config name="Encryption" defaultEncrypter="XML_ENCRYPTER" doc:name="Encryption"/>
 ----
@@ -166,6 +167,7 @@ image::security/xml-encrypter.png[xml_encrypter]
 |*defaultEncrypter* |  |XML_ENCRYPTER
 |*doc:name* |  |A display name for the element in Studio's Visual Editor. Not applicable for Standalone.
 |===
++
 . Add an `encryption:encrypt` element to the flow in which you wish to encrypt data in the message payload.
 . Configure the element's attributes and child element according to the tables below.
 +
@@ -277,7 +279,7 @@ Additionally, you can add an Xpath expression attribute to the XML decrypter to 
 
 == See Also
 
-Examine the xref:security/anypoint-enterprise-security-example-application.adoc[Anypoint Enterprise Security Example Application] which illustrates how to encrypt and decrypt a message in a Mule flow.
+* Examine the xref:security/anypoint-enterprise-security-example-application.adoc[Anypoint Enterprise Security Example Application] which illustrates how to encrypt and decrypt a message in a Mule flow.
 
 == Appendix
 

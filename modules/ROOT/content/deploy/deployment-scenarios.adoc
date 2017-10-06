@@ -3,6 +3,7 @@ ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
 :page-aliases: deployment-scenarios.adoc
+:keywords: deploy, deploying, cloudhub, on premises, on premise
 
 [IMPORTANT]
 This document covers the ways in which Mule runtime can be used to deploy applications in a standalone way. To take full advantage of the available management and monitoring features, you should xref:runtime-manager::deploying-to-your-own-servers.adoc[deploy to your runtimes] via the https://anypoint.mulesoft.com[Anypoint Platform]. Read how this and other deployment strategies work xref:runtime-manager::deployment-strategies.adoc[here].
@@ -13,30 +14,29 @@ The table below lists the standalone ways in which you can deploy a Mule runtime
 |===
 |Deployment Mode |Container |Pros |Cons |HA |MMC
 |Standalone |Mule ESB a|
-* uses the Mule Deployment Model
-* can run multiple apps
-* supports hot deployment
-* requires minimal resources
-* easy to install
+* Uses the Mule Deployment Model
+* Can run multiple apps
+* Supports hot deployment
+* Requires minimal resources
+* Easy to install
 a|
 * Mule must be provisioned into your environment
 |Supported |Supported
 |Embedded `.war` file |App Server a|
-* uses webapp deployment model
-* can run multiple apps
-* webapp contains all dependencies
+* Uses webapp deployment model
+* Can run multiple apps
+* Webapp contains all dependencies
 a|
-* each web app runs own mule instance, thereby increasing the size of the webapp
+* Each web app runs own mule instance, thereby increasing the size of the webapp
 |App Server HA |Supported*
 |Embedded Java |Java App / IDE a|
-* requires no external container
+* Requires no external container
 a|
-* does not support hot deployment
+* Does not support hot deployment
 |Not Supported |Supported*
 |===
 
 *When Mule is embedded in some other container, the xref:3.7@mule-management-console::index.adoc[Mule Management Console] cannot perform auto-discovery or server restarts.
-
 
 [TIP]
 Learn about other xref:runtime-manager::deployment-strategies.adoc[deployment strategies] that leverage https://anypoint.mulesoft.com[Anypoint Platform].
@@ -45,9 +45,9 @@ Learn about other xref:runtime-manager::deployment-strategies.adoc[deployment st
 
 The recommended approach is to run Mule Standalone from the command prompt, as a service or daemon, or from a script. As the simplest architecture, it reduces the number of points where errors can occur. It's typically best for performance as well, since it reduces the number of layers and eliminates the inherent performance impact of an application server on the overall solution.
 
-You can also run multiple applications side-by-side in a Mule instance using the Mule Deployment Model. This model supports live deployment and hot redeployment of applications.  Further, Mule Standalone fully support for xref:3.6@administer/clustering/mule-high-availability-ha-clusters.adoc[Mule High Availability] module and use of the xref:3.7@mule-management-console::index.adoc[Mule management console].
+You can also run multiple applications side-by-side in a Mule instance using the Mule Deployment Model. This model supports live deployment and hot redeployment of applications.  Further, Mule Standalone fully support for xref:administer/clustering/mule-high-availability-ha-clusters.adoc[Mule High Availability] module and use of the xref:3.7@mule-management-console::index.adoc[Mule management console].
 
-For more information on running Mule standalone, see xref:3.7@deploy/mule-deployment-model.adoc[Mule Deployment Model].
+For more information on running Mule standalone, see xref:deploy/mule-deployment-model.adoc[Mule Deployment Model].
 
 [NOTE]
 ====
@@ -63,22 +63,22 @@ Listed below are some of the advantages of running Mule standalone vs running it
 
 == Embedding Mule in a Java Application or Webapp
 
-You can start and stop Mule from a Java application or embed it in a Webapp (such as a JSP or servlet). For general instructions, see xref:3.6@deploy/embedding-mule-in-a-java-application-or-webapp.adoc[Embedding Mule in a Java Application or Webapp]. Listed below are links to documentation which offer application server-specifc information regarding Mule application deployment.
+You can start and stop Mule from a Java application or embed it in a Webapp (such as a JSP or servlet). For general instructions, see xref:deploy/embedding-mule-in-a-java-application-or-webapp.adoc[Embedding Mule in a Java Application or Webapp]. Listed below are links to documentation which offer application server-specifc information regarding Mule application deployment.
 
-* xref:3.6@deploy/deploying-mule-to-jboss.adoc[Deploying Mule to JBoss]
-* xref:3.7@deploy/deploying-mule-to-weblogic.adoc[Deploying Mule to WebLogic]
-* xref:3.7@deploy/deploying-mule-to-websphere.adoc[Deploying Mule to WebSphere]
-* xref:3.6@deploy/deploying-mule-as-a-service-to-tomcat.adoc[Deploying Mule as a Service to Tomcat]
-* http://geronimo.apache.org[Geronimo] (The Geronimo application server uses ActiveMQ as its default JMS provider. For details, see xref:3.7@transports/activemq-integration.adoc[ActiveMQ Integration].)
+* xref:deploy/deploying-mule-to-jboss.adoc[Deploying Mule to JBoss]
+* xref:deploy/deploying-mule-to-weblogic.adoc[Deploying Mule to WebLogic]
+* xref:deploy/deploying-mule-to-websphere.adoc[Deploying Mule to WebSphere]
+* xref:deploy/deploying-mule-as-a-service-to-tomcat.adoc[Deploying Mule as a Service to Tomcat]
+* http://geronimo.apache.org[Geronimo] (The Geronimo application server uses ActiveMQ as its default JMS provider. For details, see xref:transports/activemq-integration.adoc[ActiveMQ Integration].)
 
-For details on how to support Mule hot deployment within some application servers, see xref:3.7@deploy/application-server-based-hot-deployment.adoc[Application Server Based Hot Deployment].
+For details on how to support Mule hot deployment within some application servers, see xref:deploy/application-server-based-hot-deployment.adoc[Application Server Based Hot Deployment].
 
 Note that when embedded, Mule does not support the Mule Deployment Model or High Availability. Furthermore, because the application server needs control of Mule, the Mule Management Console's capabilities are reduced; specifically, you cannot restart the server via the Mule Management Console.
 
 == Using Spring
 
-Mule fully integrates with Spring, allowing you to take advantage of Spring's many features, including JNDI and EJB session beans. You can also use Spring remoting to access Mule from an external application. For details, see xref:3.6@spring-integration/using-mule-with-spring.adoc[Using Mule with Spring].
+Mule fully integrates with Spring, allowing you to take advantage of Spring's many features, including JNDI and EJB session beans. You can also use Spring remoting to access Mule from an external application. For details, see xref:spring-integration/using-mule-with-spring.adoc[Using Mule with Spring].
 
 == Sharing Resources
 
-If you're deploying multiple applications to the same place, in whichever of the ways explained above, and those applications could share the same resources, then you can create a common domain where you can define common configurations that can then be referenced by multiple projects. This allows you to, for example, expose different services in different projects through the same HTTP host and port and be able to deploy everything without any conflicts. Read More.
+If you're deploying multiple applications to the same place, in whichever of the ways explained above, and those applications could share the same resources, then you can create a common *domain* where you can define common configurations that can then be referenced by multiple projects. This allows you to, for example, expose different services in different projects through the same HTTP host and port and be able to deploy everything without any conflicts. xref:shared-resources/domain-project-shared-resources.adoc[Read More].

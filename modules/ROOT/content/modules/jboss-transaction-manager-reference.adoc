@@ -5,7 +5,7 @@ endif::[]
 :page-aliases: jboss-transaction-manager-reference.adoc
 :keywords: mule, esb, studio, jboss, bpms
 
-This module enables Mule to use the JBoss transaction manager (previously Arjuna) to configure xref:3.7@transactions/xa-transactions.adoc[XA transactions]. Developers can configure one Transaction Manger per Mule instance. For more information, see http://www.jboss.org/jbosstm/[JBoss Transactions].
+This module enables Mule to use the JBoss transaction manager (previously Arjuna) to configure xref:transactions/xa-transactions.adoc[XA transactions]. Developers can configure one Transaction Manger per Mule instance. For more information, see http://www.jboss.org/jbosstm/[JBoss Transactions].
 
 == Configuration
 

@@ -2,16 +2,17 @@
 ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
+:keywords: develop
 
 This chapter contains material for designing and developing applications with Mule.
 
-Regardless of the integration development environment you choose to work with Mule – xref:6@studio::index.adoc[Anypoint™ Studio], Eclipse, IntelliJ, etc. – these materials aim to provide the details you need to configure the components of your application. Browse the child pages in this chapter to access documentation for both Mule ESB and Anypoint Studio.
+Regardless of the integration development environment you choose to work with Mule – xref:6@studio::index.adoc[Anypoint Studio], Eclipse, IntelliJ, etc. – these materials aim to provide the details you need to configure the components of your application. Browse the child pages in this chapter to access documentation for both Mule ESB and Anypoint Studio.
 
 Access the xref:general:getting-started:index.adoc[Anypoint Fundamentals] to find out more about combining MuleSoft products to build highly visible and scalable integration systems.
 
 Topics:
 
-* xref:3.5@connectors::index.adoc[Anypoint Connectors]
+* xref:3.6@connectors::index.adoc[Anypoint Connectors]
 * xref:message-processors.adoc[Message Processors]
 * xref:error-handling.adoc[Error Handling]
 * xref:mel/mule-expression-language-mel.adoc[Mule Expression Language MEL]

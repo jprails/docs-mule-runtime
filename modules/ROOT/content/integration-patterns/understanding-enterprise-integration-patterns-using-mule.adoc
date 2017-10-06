@@ -3,6 +3,7 @@ ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
 :page-aliases: understanding-enterprise-integration-patterns-using-mule.adoc
+:keywords: anypoint studio, studio, mule esb, integration patterns
 
 The Enterprise Integration Patterns are accepted solutions to recurring problems within a given context and they provide a framework for designing, building messaging and integration systems as well as a common language for teams to use when architecting solutions.
 
@@ -19,8 +20,8 @@ There is a list of patterns that can be mapped directly with Mule objects. Find 
 [%header,cols="2*"]
 |===
 |Pattern |Mapping to a Mule Object
-|File Transfer |xref:3.6@transports/file-transport-reference.adoc[File Transport]
-|Shared Database |xref:3.6@transports/jdbc-transport-reference.adoc[JDBC Transport]
+|File Transfer |xref:transports/file-transport-reference.adoc[File Transport]
+|Shared Database |xref:transports/jdbc-transport-reference.adoc[JDBC Transport]
 |Messaging |Mule is all about Messaging
 |===
 
@@ -31,9 +32,9 @@ There is a list of patterns that can be mapped directly with Mule objects. Find 
 |Pattern |Mapping to a Mule Object
 |Message Channel |Mule provides a message channel that connects the message processors in a flow.
 |Pipes and Filters |A Flow implements a pipe and filter architecture
-|Message Router |xref:3.6@routers/routers.adoc[Message Routers]
-|Message Translator |xref:3.6@transformers/using-transformers.adoc[Message Transformer]
-|Message Endpoint |Inbound & Outbound xref:3.6@endpoints/endpoint-configuration-reference.adoc[Endpoints]
+|Message Router |xref:routers/routers.adoc[Message Routers]
+|Message Translator |xref:transformers/using-transformers.adoc[Message Transformer]
+|Message Endpoint |Inbound & Outbound xref:endpoints/endpoint-configuration-reference.adoc[Endpoints]
 |===
 
 === Messaging Channels
@@ -63,7 +64,7 @@ There is a list of patterns that can be mapped directly with Mule objects. Find 
 [%header,cols="2*"]
 |===
 |Pattern |Mapping to a Mule Object
-|Content Enricher |xref:3.6@scopes/message-enricher.adoc[Message Enricher]
+|Content Enricher |xref:scopes/message-enricher.adoc[Message Enricher]
 |===
 
 === Messaging Endpoints
@@ -83,7 +84,3 @@ You can declare endpoints to be transactional as needed.
 |Pattern |Mapping to a Mule Object
 |Wire Tap |Wire Tap
 |===
-
-== Related Topics
-
-* xref:configuration-patterns.adoc[Configuring Mule with Patterns]

@@ -5,7 +5,7 @@ endif::[]
 :page-aliases: inboundattachments-annotation.adoc
 :keywords: annotations, custom java code, inbound attachments
 
-This annotation controls how the current message inbound attachments are passed into a method. The annotation supports, Map, List, single attachment, wildcards and optional entries. It can be used on component entry points and xref:3.6@transformers/custom/transformer-annotation.adoc[@Transformer] methods.
+This annotation controls how the current message inbound attachments are passed into a method. The annotation supports, Map, List, single attachment, wildcards and optional entries. It can be used on component entry points and xref:transformers/custom/transformer-annotation.adoc[@Transformer] methods.
 
 == Accessing Message Attachments
 
