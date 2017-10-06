@@ -1,0 +1,12 @@
+= Mule ESB 3 Javadoc
+ifndef::env-site,env-github[]
+include::_attributes.adoc[]
+endif::[]
+:page-aliases: mule-esb-3-and-test-api-javadoc.adoc
+
+You can find the javadoc for Mule ESB 3.2.1 https://www.mulesoft.org/docs/site/3.2.1/apidocs/[here].
+You can find the javadoc for Mule ESB 3.1.1 https://www.mulesoft.org/docs/site/3.1.1/apidocs/[here].
+You can find the javadoc for Mule ESB 3.1.0 https://www.mulesoft.org/docs/site/3.1.0/apidocs/[here].
+You can find the javadoc for Mule ESB 3.0 https://www.mulesoft.org/docs/site/3.0.0/apidocs/[here].
+You can find the javadoc for the Mule ESB 3.1.1 Test API http://www.mulesource.org/docs/site/3.1.1/testapidocs/[here].
+You can find the javadoc for the Mule ESB 3.1.0 Test API http://www.mulesource.org/docs/site/3.1.0/testapidocs/[here].

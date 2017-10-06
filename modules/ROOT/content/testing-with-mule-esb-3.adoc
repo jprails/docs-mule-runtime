@@ -1,0 +1,14 @@
+= Testing With Mule ESB 3
+ifndef::env-site,env-github[]
+include::_attributes.adoc[]
+endif::[]
+
+This section describes how to test your Mule application.
+
+* xref:testing/introduction-to-testing-mule.adoc[Introduction to Testing Mule]
+* xref:logger-element-for-flows.adoc[Logger Element for Flows]
+* xref:testing/unit-testing.adoc[Unit Testing]
+* xref:testing/functional-testing.adoc[Functional Testing]
+* http://www.mulesource.org/display/MJA/Home[Running Benchmark Tests]
+* xref:using-dynamic-ports-in-mule-test-cases.adoc[Using Dynamic Ports in Mule Test Cases]
+* xref:testing/profiling-mule.adoc[Profiling Mule]
