@@ -10,4 +10,7 @@ This section describes how to test your Mule application.
 * xref:testing/unit-testing.adoc[Unit Testing]
 * xref:testing/functional-testing.adoc[Functional Testing]
 * xref:testing/testing-strategies.adoc[Testing Strategies]
-* xref:munit.adoc[MUnit]
+
+== See Also
+
+* xref:1.1@munit::index.adoc[MUnit v1.1.1]

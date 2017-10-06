@@ -7,8 +7,10 @@ endif::[]
 This section describes advanced techniques of using Mule.
 
 * xref:object-scopes/storing-objects-in-the-registry.adoc[Storing Objects in the Registry]
+* xref:object-scopes/unifying-the-mule-registry.adoc[Unifying the Mule Registry]
 * xref:object-scopes/object-scopes.adoc[Object Scopes]
 * xref:spring-integration/using-mule-with-spring.adoc[Using Mule with Spring]
+* xref:object-scopes/dependency-injection.adoc[Dependency Injection]
 * xref:configuring-properties.adoc[Configuring Properties]
 * xref:administer/clustering/creating-and-managing-a-cluster-manually.adoc[Creating and Managing a Cluster Manually]
 * xref:administer/clustering/distributed-file-polling.adoc[Distributed File Polling]

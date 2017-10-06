@@ -22,7 +22,7 @@ Add a *Mule Message Encryption Processor* to a flow to change the content of a m
 
 === JCE Encrypter
 
-As Mule’s default encryption strategy, the http://docs.oracle.com/javase/1.4.2/docs/guide/security/jce/JCERefGuide.html[Java Cryptology Extension (JCE)] encrypter encodes a message payload, or part of a payload.
+As Mule’s default encryption strategy, the Java Cryptology Extension (JCE), as part of the http://docs.oracle.com/javase/8/docs/technotes/guides/security/crypto/CryptoSpec.html[Java Cryptography Architecture (JCA)] encodes a message payload, or part of a payload.
 
 [.ex]
 =====
@@ -62,7 +62,7 @@ image::security/encrypt.png[]
 . Create an global `encryption:config` element, set above all the flows in your config file.
 . Configure the attributes of the element according to the table below.
 +
-[source,xml]
+[source,xml,linenums]
 ----
 <encryption:config name="Encryption" defaultEncrypter="JCE_ENCRYPTER" doc:name="Encryption"/>
 ----
@@ -74,7 +74,6 @@ image::security/encrypt.png[]
 |*defaultEncrypter* |  |JCE_ENCRYPTER
 |*doc:name* |  |A display name for the element in Studio's Visual Editor. Not applicable for Standalone.
 |===
-+
 . Add an `encryption:encrypt` element to the flow in which you wish to encrypt data in the message payload.
 . Configure the element's attributes and child elements according to the tables below.
 +
@@ -97,7 +96,7 @@ image::security/encrypt.png[]
 [%header%autowidth.spread]
 |===
 |Child Attribute |Req'd
-|*http://encryptionjce-encrypter/[encryption:jce-encrypter]* |x
+|*encryption:jce-encrypter* |x
 |===
 +
 [%header%autowidth.spread]
@@ -155,7 +154,7 @@ image::security/xml-encrypter.png[xml_encrypter]
 . Create an global `encryption:config` element, set above all the flows in your config file.
 . Configure the attributes of the element according to the table below.
 +
-[source,xml]
+[source,xml,linenums]
 ----
 <encryption:config name="Encryption" defaultEncrypter="XML_ENCRYPTER" doc:name="Encryption"/>
 ----
@@ -167,7 +166,6 @@ image::security/xml-encrypter.png[xml_encrypter]
 |*defaultEncrypter* |  |XML_ENCRYPTER
 |*doc:name* |  |A display name for the element in Studio's Visual Editor. Not applicable for Standalone.
 |===
-+
 . Add an `encryption:encrypt` element to the flow in which you wish to encrypt data in the message payload.
 . Configure the element's attributes and child element according to the tables below.
 +

@@ -4,7 +4,7 @@ include::_attributes.adoc[]
 endif::[]
 :page-aliases: tibco-ems-integration.adoc
 
-The following example demonstrates how to configure Mule to use the http://www.tibco.com/products/automation/enterprise-messaging/enterprise-message-servicep[TIBCO Enterprise Message Server (EMS)] with authentication in place.
+The following example demonstrates how to configure Mule to use the http://www.tibco.com/products/automation/enterprise-messaging/enterprise-message-service[TIBCO Enterprise Message Server (EMS)] with authentication in place.
 
 [source,xml,linenums]
 ----

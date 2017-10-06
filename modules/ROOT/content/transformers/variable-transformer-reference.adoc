@@ -1,4 +1,4 @@
-= Variable Transformer Reference
+= Flow Variable Transformer Reference
 ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
@@ -95,9 +95,9 @@ In many cases, it is useful to preserve the original payload of a message, befor
 image::transformers/variable-transformer-example.png[variable+transformer+example]
 +
 
-. Configure the variable transformer according to the screenshot below.
-+
-image::transformers/set-variable.png[set+variable]
+. Configure the variable transformer according to the screenshot below. +
+ +
+image::transformers/set-variable.png[set+variable]
 +
 
 . Configure the exception strategy of the flow with a logger that retrieves this variable in the event an exception occurs. +
@@ -123,6 +123,7 @@ image::transformers/studio-flowvars-logger.png[Studio_FlowVars_Logger]
      </catch-exception-strategy>
 </flow>
 ----
+
 =====
 
 == Complete Code Example

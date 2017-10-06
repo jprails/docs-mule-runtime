@@ -6,9 +6,9 @@ endif::[]
 
 In Mule 3.6 and later, the legacy endpoint-based HTTP connector has been replaced with an operation-based HTTP connector. The HTTP Reponse Builder is also deprecated.
 
-When the xref:3.6@connectors::http-listener-connector.adoc[HTTP Connector works as a listener], you can configure a status code and a status reason on the connector itself, separately for both success and failure scenarios. To generate a response from an HTTP template, use the *xref:transformers/parse-template-reference.adoc[Parse Template]* element.
+When the xref:3.7@connectors::http-listener-connector.adoc[HTTP Connector works as a listener], you can configure a status code and a status reason on the connector itself, separately for both success and failure scenarios. To generate a response from an HTTP template, use the *xref:transformers/parse-template-reference.adoc[Parse Template]* element.
 
-See xref:3.6@connectors::http-connector.adoc[HTTP Connector] for information about the 3.6 and later operation-based HTTP connector. For information on the deprecated HTTP connector, see xref:3.6@connectors::http-connector-deprecated.adoc[HTTP Connector - Deprecated].
+See xref:3.7@connectors::http-connector.adoc[HTTP Connector] for information about the 3.6 and later operation-based HTTP connector. For information on the deprecated HTTP connector, see xref:3.7@connectors::http-connector-deprecated.adoc[HTTP Connector - Deprecated].
 
 The HTTP response builder is an HTTP component that allows you to easily configure HTTP responses. It replaces the content of the message payload with the HTTP response, allowing you to provide custom responses to an application. Typically, the response builder is used at the last step before returning a response to the user, although it is still possible to perform more steps to alter the payload after it.
 
@@ -175,7 +175,7 @@ image::components/ex-1-2.png[ex+1+2]
 . Send the HTTP endpoint a POST HTTP request to` http://localhost:8081/ex1`.
 +
 [WARNING]
-The easiest way to do this is to send a POST via a browser extension such as https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm[Postman] (for Google Chrome) or the http://curl.haxx.se/[curl] command line utility.
+The easiest way to do this is to send a POST via a browser extension such as Postman (for Google Chrome) or the http://curl.haxx.se/[curl] command line utility.
 +
 [source,console,linenums]
 ----
@@ -230,7 +230,7 @@ a|HTTP Response Builder
 . Send the HTTP endpoint a POST HTTP request to` http://localhost:8081/ex1`.
 +
 [WARNING]
-The easiest way to do this is to send a POST via a browser extension such as https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm[Postman] (for Google Chrome) or the http://curl.haxx.se/[curl] command line utility.
+The easiest way to do this is to send a POST via a browser extension such as Postman (for Google Chrome) or the http://curl.haxx.se/[curl] command line utility.
 +
 [source,console,linenums]
 ----
@@ -280,7 +280,7 @@ image::components/ex-1-2.png[ex+1+2]
 . Send the HTTP endpoint a POST HTTP request to` http://localhost:8081/ex2`.
 +
 [TIP]
-The easiest way to do this is to send a POST via a browser extension such as https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm[Postman] (for Google Chrome) or the http://curl.haxx.se/[curl] command line utility.
+The easiest way to do this is to send a POST via a browser extension such as Postman (for Google Chrome) or the http://curl.haxx.se/[curl] command line utility.
 +
 This returns a few headers, a cookie and a Status code of *200* and the following payload:
 +
@@ -355,7 +355,7 @@ a|HTTP Response Builder
 . Send the HTTP endpoint a POST HTTP request to` http://localhost:8081/ex2`.
 +
 [TIP]
-The easiest way to do this is to send a POST via a browser extension such as https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm[Postman] (for Google Chrome) or the http://curl.haxx.se/[curl] command line utility.
+The easiest way to do this is to send a POST via a browser extension such as Postman (for Google Chrome) or the http://curl.haxx.se/[curl] command line utility.
 +
 [source,console,linenums]
 ----
@@ -386,5 +386,5 @@ source
 
 == See Also
 
-* Read about the xref:3.6@connectors::http-connector.adoc[HTTP Connector]
+* Read about the xref:3.7@connectors::http-connector.adoc[HTTP Connector]
 * Learn how to create and manage a API with the xref:api-manager::index.adoc[API Manager]

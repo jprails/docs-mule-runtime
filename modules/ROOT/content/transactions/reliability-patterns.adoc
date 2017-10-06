@@ -2,7 +2,7 @@
 ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
-:page-aliases: 3.6@mule-management-console::reliability-patterns.adoc, reliability-patterns.adoc
+:page-aliases: 3.7@mule-management-console::reliability-patterns.adoc, reliability-patterns.adoc
 
 == Overview
 

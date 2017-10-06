@@ -10,6 +10,7 @@ This page provides three examples of consuming REST APIs: a <<Simple Example: Co
 == Simple Example: Consuming a REST API
 
 
+
 This is a humorous but fully functional example designed for quick and effortless setup and testing. It queries the http://baconipsum.com/[Bacon Ipsum] REST API, which generates http://en.wikipedia.org/wiki/Lorem_ipsum[lorem ipsum] text, and is convenient because it does not require HTTPS or setting up an account to use. The example consists of only one flow, shown below.
 
 image::api-usage/rest-api-1.png[rest+api+1]
@@ -40,7 +41,7 @@ http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/fil
 </mule>
 ----
 
-The first element, an xref:3.6@connectors::http-connector.adoc[HTTP listener], listens on localhost port 8081 (the default) for incoming GET requests. Hitting the listener triggers the flow. Requests to the HTTP listener must take the form:
+The first element, an xref:3.7@connectors::http-connector.adoc[HTTP listener], listens on localhost port 8081 (the default) for incoming GET requests. Hitting the listener triggers the flow. Requests to the HTTP listener must take the form:
 
 [source,text,linenums]
 ----
@@ -365,7 +366,7 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
 </mule>
 ----
 
-The first element, an xref:3.6@connectors::http-connector.adoc[HTTP listener] , listens on localhost port 8081 (the default) for incoming GET requests. Hitting the listener triggers the flow. Requests to the HTTP listener must take the form:
+The first element, an xref:3.7@connectors::http-connector.adoc[HTTP listener] , listens on localhost port 8081 (the default) for incoming GET requests. Hitting the listener triggers the flow. Requests to the HTTP listener must take the form:
 
 [source,text,linenums]
 ----
@@ -410,7 +411,7 @@ So if you were to use this example application to query several stock symbols at
 
 To split the incoming XML, the splitter uses the xref:mel/mule-expression-language-mel.adoc[Mule Expression Language] expression `#[xpath3('//results')]`, which as you can see contains the http://en.wikipedia.org/wiki/XPath[XPath] expression that actually retrieves the XML element `<results>`.
 
-The last element in the flow, a xref:3.6@connectors::database-connector.adoc[Database (JDBC)] connector, receives each XML chunk corresponding to each queried symbol. The JDBC connector is configured to run the following SQL query:
+The last element in the flow, a xref:3.7@connectors::database-connector.adoc[Database (JDBC)] connector, receives each XML chunk corresponding to each queried symbol. The JDBC connector is configured to run the following SQL query:
 
 [source,text,linenums]
 ----
@@ -732,7 +733,7 @@ image::api-usage/db-conn-adv-tab.png[db_conn_adv_tab]
 
 The database global connector is a xref:global-elements.adoc[global element] that contains the connection configuration for the desired database. It is referenced by the database connector in the application flow.
 
-Note that you must install the appropriate driver for your database in your Studio application. For details, see the Adding the Database Driver section in xref:3.6@connectors::database-connector.adoc[Database Connector].
+Note that you must install the appropriate driver for your database in your Studio application. For details, see the Adding the Database Driver section in xref:3.7@connectors::database-connector.adoc[Database Connector].
 
 [.ex]
 =====
@@ -888,21 +889,21 @@ The above query retrieves information for ticker symbol GE, for General Electric
 
 *View the JSON returned by the REST API*
 
-[source,text,linenums]
+[source,json,linenums]
 ----
 {"query":{"count":1,"created":"2014-04-10T16:33:09Z","lang":"en","results":{"quote":{"symbol":"GE","Ask":null,"AverageDailyVolume":"36983100","Bid":null,"AskRealtime":"25.87","BidRealtime":"25.86","BookValue":"12.978","Change_PercentChange":"-0.09 - -0.35%","Change":"-0.09","Commission":null,"ChangeRealtime":"-0.09","AfterHoursChangeRealtime":"N/A - N/A","DividendShare":"0.82","LastTradeDate":"4/10/2014","TradeDate":null,"EarningsShare":"1.264","ErrorIndicationreturnedforsymbolchangedinvalid":null,"EPSEstimateCurrentYear":"1.70","EPSEstimateNextYear":"1.82","EPSEstimateNextQuarter":"0.40","DaysLow":"25.80","DaysHigh":"26.11","YearLow":"21.11","YearHigh":"28.09","HoldingsGainPercent":"- - -","AnnualizedGain":null,"HoldingsGain":null,"HoldingsGainPercentRealtime":"N/A - N/A","HoldingsGainRealtime":null,"MoreInfo":"cn","OrderBookRealtime":null,"MarketCapitalization":"259.5B","MarketCapRealtime":null,"EBITDA":"28.875B","ChangeFromYearLow":"+4.75","PercentChangeFromYearLow":"+22.50%","LastTradeRealtimeWithTime":"N/A - <b>25.86</b>","ChangePercentRealtime":"N/A - -0.35%","ChangeFromYearHigh":"-2.23","PercebtChangeFromYearHigh":"-7.94%","LastTradeWithTime":"12:18pm - <b>25.86</b>","LastTradePriceOnly":"25.86","HighLimit":null,"LowLimit":null,"DaysRange":"25.80 - 26.11","DaysRangeRealtime":"N/A - N/A","FiftydayMovingAverage":"25.6261","TwoHundreddayMovingAverage":"25.9491","ChangeFromTwoHundreddayMovingAverage":"-0.0891","PercentChangeFromTwoHundreddayMovingAverage":"-0.34%","ChangeFromFiftydayMovingAverage":"+0.2339","PercentChangeFromFiftydayMovingAverage":"+0.91%","Name":"General Electric","Notes":null,"Open":"26.09","PreviousClose":"25.95","PricePaid":null,"ChangeinPercent":"-0.35%","PriceSales":"1.79","PriceBook":"2.00","ExDividendDate":"Feb 20","PERatio":"20.53","DividendPayDate":"Apr 25","PERatioRealtime":null,"PEGRatio":"1.80","PriceEPSEstimateCurrentYear":"15.26","PriceEPSEstimateNextYear":"14.26","Symbol":"GE","SharesOwned":null,"ShortRatio":"2.50","LastTradeTime":"12:18pm","TickerTrend":"&nbsp;======&nbsp;","OneyrTargetPrice":"28.73","Volume":"13263903","HoldingsValue":null,"HoldingsValueRealtime":null,"YearRange":"21.11 - 28.09","DaysValueChange":"- - -0.35%","DaysValueChangeRealtime":"N/A - N/A","StockExchange":"NYSE","DividendYield":"3.16","PercentChange":"-0.35%"}}}}
 ----
 
-The HTTP Request Connector passes the JSON it received from the API to a xref:modules/json-module-reference.adoc[JSON-to-object transformer] configured to output a java.util.Map object. The transformer sends this object, which contains the JSON data as key=value pairs, to the last element in the flow, a xref:3.6@connectors::database-connector.adoc[database connector]. This connector uses an SQL query with embedded xref:mel/mule-expression-language-mel.adoc[Mule Expression Language] expressions to extract specific values from the JSON and insert them into the external database. The full SQL query is shown below.
+The HTTP Request Connector passes the JSON it received from the API to a xref:modules/json-module-reference.adoc[JSON-to-object transformer] configured to output a java.util.Map object. The transformer sends this object, which contains the JSON data as key=value pairs, to the last element in the flow, a xref:3.7@connectors::database-connector.adoc[database connector]. This connector uses an SQL query with embedded xref:mel/mule-expression-language-mel.adoc[Mule Expression Language] expressions to extract specific values from the JSON and insert them into the external database. The full SQL query is shown below.
 
-[source,text,linenums]
+[source,sql,linenums]
 ----
 {"query":{"count":1,"created":"2014-04-10T16:33:09Z","lang":"en","results":{"quote":{"symbol":"GE","Ask":null,"AverageDailyVolume":"36983100","Bid":null,"AskRealtime":"25.87","BidRealtime":"25.86","BookValue":"12.978","Change_PercentChange":"-0.09 - -0.35%","Change":"-0.09","Commission":null,"ChangeRealtime":"-0.09","AfterHoursChangeRealtime":"N/A - N/A","DividendShare":"0.82","LastTradeDate":"4/10/2014","TradeDate":null,"EarningsShare":"1.264","ErrorIndicationreturnedforsymbolchangedinvalid":null,"EPSEstimateCurrentYear":"1.70","EPSEstimateNextYear":"1.82","EPSEstimateNextQuarter":"0.40","DaysLow":"25.80","DaysHigh":"26.11","YearLow":"21.11","YearHigh":"28.09","HoldingsGainPercent":"- - -","AnnualizedGain":null,"HoldingsGain":null,"HoldingsGainPercentRealtime":"N/A - N/A","HoldingsGainRealtime":null,"MoreInfo":"cn","OrderBookRealtime":null,"MarketCapitalization":"259.5B","MarketCapRealtime":null,"EBITDA":"28.875B","ChangeFromYearLow":"+4.75","PercentChangeFromYearLow":"+22.50%","LastTradeRealtimeWithTime":"N/A - <b>25.86</b>","ChangePercentRealtime":"N/A - -0.35%","ChangeFromYearHigh":"-2.23","PercebtChangeFromYearHigh":"-7.94%","LastTradeWithTime":"12:18pm - <b>25.86</b>","LastTradePriceOnly":"25.86","HighLimit":null,"LowLimit":null,"DaysRange":"25.80 - 26.11","DaysRangeRealtime":"N/A - N/A","FiftydayMovingAverage":"25.6261","TwoHundreddayMovingAverage":"25.9491","ChangeFromTwoHundreddayMovingAverage":"-0.0891","PercentChangeFromTwoHundreddayMovingAverage":"-0.34%","ChangeFromFiftydayMovingAverage":"+0.2339","PercentChangeFromFiftydayMovingAverage":"+0.91%","Name":"General Electric","Notes":null,"Open":"26.09","PreviousClose":"25.95","PricePaid":null,"ChangeinPercent":"-0.35%","PriceSales":"1.79","PriceBook":"2.00","ExDividendDate":"Feb 20","PERatio":"20.53","DividendPayDate":"Apr 25","PERatioRealtime":null,"PEGRatio":"1.80","PriceEPSEstimateCurrentYear":"15.26","PriceEPSEstimateNextYear":"14.26","Symbol":"GE","SharesOwned":null,"ShortRatio":"2.50","LastTradeTime":"12:18pm","TickerTrend":"&nbsp;======&nbsp;","OneyrTargetPrice":"28.73","Volume":"13263903","HoldingsValue":null,"HoldingsValueRealtime":null,"YearRange":"21.11 - 28.09","DaysValueChange":"- - -0.35%","DaysValueChangeRealtime":"N/A - N/A","StockExchange":"NYSE","DividendYield":"3.16","PercentChange":"-0.35%"}}}}
 ----
 
 In the query shown above, the MEL expressions expand to the text of each specified element within the JSON data. For example, `#[message.payload.query.results.quote.symbol]` retrieves the value of `symbol` from the JSON structure shown below.
 
-[source,text,linenums]
+[source,json,linenums]
 ----
 {
   "query":    {
@@ -1201,7 +1202,7 @@ image::api-usage/db-conn-adv-tab.png[db_conn_adv_tab]
 
 The database global connector is a global element that contains the connection configuration for the desired database. It is referenced by the database connector in the application flow.
 
-Note that you must install the appropriate driver for your database in your Studio application. For details, see the Adding the Database Driver section in Database Connector.
+Note that you must install the appropriate driver for your database in your Studio application. For details, see the Adding the Database Driver section in the Database Connector.
 
 [.ex]
 =====

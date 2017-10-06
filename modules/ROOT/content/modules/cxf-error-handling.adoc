@@ -6,7 +6,7 @@ endif::[]
 :keywords: cxf, soap connector, error handling
 
 [NOTE]
-When sending requests to an external web service, the recommended approach is to use the xref:3.6@connectors::web-service-consumer.adoc[Web Service Consumer]﻿ rather than the CXF Module.
+When sending requests to an external web service, the recommended approach is to use the xref:3.7@connectors::web-service-consumer.adoc[Web Service Consumer]﻿ rather than the CXF Module.
 
 == Overview
 

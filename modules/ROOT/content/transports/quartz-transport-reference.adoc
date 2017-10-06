@@ -6,7 +6,7 @@ endif::[]
 :keywords: quartz
 
 [TIP]
-When scheduling tasks, it's recommended that you instead resort to the xref:3.7@scopes/poll-reference.adoc[Poll Scope]
+When scheduling tasks, it's recommended that you instead resort to the xref:scopes/poll-reference.adoc[Poll Scope]
 
 The Quartz transport provides support for scheduling events and for triggering new events. An inbound quartz endpoint can be used to trigger inbound events that can be repeated, such as every second. Outbound quartz endpoints can be used to schedule an existing event to fire at a later date. Users can create schedules using cron expressions, and events can be persisted in a database.
 
@@ -46,10 +46,10 @@ Following are some examples:
 |0 15 10 * * ? 2005 |Fire at 10:15am every day during the year 2005
 |0 * 14 * * ? |Fire every minute starting at 2pm and ending at 2:59pm, every day
 |0 0/5 14 * * ? |Fire every 5 minutes starting at 2pm and ending at 2:55pm, every day
-|1 1 1 1,6 * |Fire the first day of January and the first day of June, every year (in the first second of the first minute of the first hour) +
+|0 0 0 1,6 * ? |Fire the first day of January and the first day of June, every year (in the first second of the first minute of the first hour) +
 |===
 
-If you are not familiar with cron syntax, don't be intimidated! It's reasonably easy to learn, here is a http://www.quartz-scheduler.org/documentation/quartz-1.x/tutorials/crontrigger[good tutorial], or you can even leverage online tools that can build cron expressions for you.
+If you are not familiar with cron syntax, don't be intimidated! It's reasonably easy to learn, here is a http://www.quartz-scheduler.org/documentation/quartz-2.1.x/tutorials/crontrigger.html[good tutorial], or you can even leverage online tools that can build cron expressions for you.
 
 == About Jobs
 
@@ -104,7 +104,8 @@ If Quartz connectors share the same value for `instanceName` property, these con
       xmlns:quartz="http://www.mulesoft.org/schema/mule/quartz"
       xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
-       http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+       http://www.mulesoft.org/schema/mule/core
+       http://www.mulesoft.org/schema/mule/core/current/mule.xsd
        http://www.mulesoft.org/schema/mule/quartz http://www.mulesoft.org/schema/mule/quartz/current/mule-quartz.xsd">
 
     <quartz:connector name="quartzConnector1" scheduler-ref="myScheduler">
@@ -147,7 +148,7 @@ An outbound Quartz endpoint allows existing events to be stored and fired at a l
 *Type*: integer +
 *Required*: no +
 *Default*: -1
-|startDelay |The number of milliseconds that elapse before the first event is fired.
+|startDelay |The number of milliseconds that elapse before the first event fires.
 
 *Type*: long +
 *Required*: no +
@@ -200,7 +201,7 @@ A Quartz inbound endpoint can be used to generate events. It is most useful when
 
 === Child Elements of <inbound-endpoint...>
 
-[%header,cols="34,33,33"]
+[%header,cols="20a,20a,60a"]
 |===
 |Name |Cardinality |Description
 |abstract-job |1..1 |A placeholder for Quartz jobs that can be set on the endpoint.
@@ -242,7 +243,7 @@ A global endpoint that can be used as a template to create inbound and outbound 
 *Default*: none
 |===
 
-==== Child Elements of <endpoint...>
+=== Child Elements of <endpoint...>
 
 [%header,cols="20a,20a,60a"]
 |===
@@ -250,11 +251,11 @@ A global endpoint that can be used as a template to create inbound and outbound 
 |abstract-job |0..1 |A placeholder for Quartz jobs that can be set on the endpoint.
 |===
 
-=== Abstract Job
+== Abstract Job
 
 A placeholder for Quartz jobs that can be set on the endpoint.
 
-==== Attributes of <abstract-job...>
+=== Attributes of <abstract-job...>
 
 [%header,cols="30a,70a"]
 |===
@@ -419,13 +420,13 @@ The event get dispatches using the configured endpoint reference.
 
 [source,xml,linenums]
 ----
-<description>
-This outbound Quartz endpoint receives an event after the
-component processes it and stores it in the event store.
-When the trigger kicks in at 10:15 am everyday, it dispatches
-the event on the endpoint referenced as 'scheduledDispatchEndpoint'.
-Since the 'repeatCount' is set to 0, the event is only sent once.
-</description>
+  <description>
+  This outbound Quartz endpoint receives an event after the
+  component processes it and stores it in the event store.
+  When the trigger kicks in at 10:15 am everyday, it dispatches
+  the event on the endpoint referenced as 'scheduledDispatchEndpoint'.
+  Since the 'repeatCount' is set to 0, the event is only sent once.
+  </description>
 <quartz:connector name="Quartz" validateConnections="true" doc:name="Quartz"/>
  <flow name="test2Flow1" doc:name="test2Flow1">
         <vm:inbound-endpoint exchange-pattern="one-way" path="INBOUND.QUEUE" doc:name="VM"/>
@@ -528,6 +529,6 @@ Allows a job to be stored on the current message. This can only be used on outbo
 
 == See Also
 
-* See the xref:3.6@connectors::quartz-connector.adoc[Quartz Connector] for details on setting the properties for a Quartz endpoint in Studio's visual editor.
+* See the xref:3.7@connectors::quartz-connector.adoc[Quartz Connector] for details on setting the properties for a Quartz endpoint in Studio's visual editor.
 * Read a https://blogs.mulesoft.com/dev/mule-dev/mule-and-quartz-scheduled-jobs-and-long-running-tasks/[post in MuleSoft's blog] about using Quartz in Mule
 * Read http://quartz-scheduler.org/documentation[Quartz's documentation]

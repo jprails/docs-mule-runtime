@@ -52,7 +52,6 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
 
 This type of bridge can be combined with filters for easy message routing. For fast XPath routing of messages, you can use the xref:modules/sxc-module-reference.adoc[SXC Module Reference].
 
-
 == WSProxyService
 
 The WSProxyService allows you to serve WSDLs locally while proxying remote web services. This is handy when you have an alternate WSDL you want to service, or if you don't want WSDL requests to be routed with all the other SOAP message requests. Any request that comes in with a "?wsdl" attached to the HTTP URL will be redirected, and the specified WSDL will be served instead.

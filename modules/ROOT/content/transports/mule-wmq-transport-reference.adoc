@@ -39,7 +39,7 @@ Before you can use the Mule WMQ transport, you must copy the following JARs from
 
 Additionally, if you are using local bindings (`transportType="BINDINGS_MQ"`), you must set the following environment variable:
 
-[source,text,linenums]
+[source,java]
 ----
 export LD_LIBRARY_PATH=/opt/mqm/java/lib
 ----
@@ -50,7 +50,7 @@ Set this variable to the location of the Java library directory that shipped wit
 
 XML namespace:
 
-[source,text,linenums]
+[source,java]
 ----
 xmlns:wmq="http://www.mulesoft.org/schema/mule/ee/wmq"
 ----

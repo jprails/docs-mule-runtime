@@ -12,7 +12,7 @@ Mule is designed to facilitate the use of Web services in the following ways:
 * JAX-WS or Simple services
 * Web services can be proxied or modified without much code
 
-xref:3.6@connectors::web-service-consumer.adoc[Web Service Consumer] - Describes how to consume web services.
+xref:3.7@connectors::web-service-consumer.adoc[Web Service Consumer] - Describes how to consume web services.
 
 xref:modules/cxf-module-reference.adoc[CXF Module Reference] - Describes how to build web services with CXF.
 

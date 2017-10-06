@@ -116,7 +116,13 @@ This points directly to the line that needs to be corrected. It is much more use
 
 == About Spring Configuration
 
-The Mule facility for parsing configurations embeds Spring, so that a Mule configuration can, in addition to defining Mule-specific constructs, do anything a Spring configuration can do: create Spring Beans, configure lists and maps, define property placeholders, and so on. We will look at this in more detail in the following sections. Note that, as always, it will be necessary to reference the proper schemas.
+The Mule facility for parsing configurations embeds Spring, so that a Mule configuration can, in addition to defining Mule-specific constructs, do anything a Spring configuration can do:
+
+* create Spring Beans
+* configure lists and maps
+* define property placeholders, etc.
+
+We will look at this in more detail in the following sections. Note that, as always, it will be necessary to reference the proper schemas.
 
 === Spring Beans
 
@@ -541,7 +547,7 @@ Entry point resolvers are for advanced use. Almost all of the time, Mule finds t
 
 An Anypoint connector calls a cloud service.
 
-❾ Calls authorize.net to authorize a credit card purchase, passing it information from the message.  For more about connectors, see xref:3.6@connectors::index.adoc[Anypoint Connectors].
+❾ Calls authorize.net to authorize a credit card purchase, passing it information from the message.  For more about connectors, see xref:3.7@connectors::index.adoc[Anypoint Connectors].
 
 ==== Processor Chain
 
@@ -679,7 +685,6 @@ Example:
 ----
 
 This creates a proxy for the weather forecasting service located on server1.
-
 
 === Custom Elements
 

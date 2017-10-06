@@ -3,29 +3,29 @@ ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
 :page-aliases: general-configuration-reference.adoc
-:keywords: configure, finetune
+:keywords: esb, configure, finetune
 
-Mule provides Javadoc-style http://www.mulesoft.org/docs/site/current3/schemadocs/[schema documentation], making it easier to familiarize yourself with all the elements and attributes permissible in XML configuration files.
+Mule provides Javadoc-style http://www.mulesoft.org/docs/site/3.0.0/schemadocs/[schema documentation], making it easier to familiarize yourself with all the elements and attributes permissible in XML configuration files.
 
 [cols="2*"]
 |===
 a|
 * xref:mule-configuration/bpm-configuration-reference.adoc[BPM Configuration Reference]
-* xref:mule-configuration/global-settings-configuration-reference.adoc[Global Settings Configuration Reference]
-* xref:endpoints/endpoint-configuration-reference.adoc[Endpoint Configuration Reference]
-* xref:filters/filters-configuration-reference.adoc[Filters Configuration Reference]
-* xref:transformers/transformers-configuration-reference.adoc[Transformers Configuration Reference]
 * xref:components/component-configuration-reference.adoc[Component Configuration Reference]
-
- a|
+* xref:endpoints/endpoint-configuration-reference.adoc[Endpoint Configuration Reference]
 * xref:components/entry-point-resolver-configuration-reference.adoc[Entry Point Resolver Configuration Reference]
 * xref:exceptions/exception-strategy-configuration-reference.adoc[Exception Strategy Configuration Reference]
-* xref:mule-configuration/properties-configuration-reference.adoc[Properties Configuration Reference]
-* xref:mule-configuration/notifications-configuration-reference.adoc[Notifications Configuration Reference]
-* xref:transactions/transactions-configuration-reference.adoc[Transactions Configuration Reference]
+* xref:filters/filters-configuration-reference.adoc[Filters Configuration Reference]
+* xref:mule-configuration/global-settings-configuration-reference.adoc[Global Settings Configuration Reference]
+ a|
 * xref:non-mel-expressions/non-mel-expressions-configuration-reference.adoc[Non-MEL Expressions Configuration Reference]
+* xref:mule-configuration/notifications-configuration-reference.adoc[Notifications Configuration Reference]
+* xref:mule-configuration/properties-configuration-reference.adoc[Properties Configuration Reference]
 * xref:security/security-manager-configuration-reference.adoc[Security Manager Configuration Reference]
-
+* xref:transactions/transactions-configuration-reference.adoc[Transactions Configuration Reference]
+* xref:transformers/transformers-configuration-reference.adoc[Transformers Configuration Reference]
 |===
 
 For configuration reference on transports, see xref:transports/transports-reference.adoc[Transports Reference]. For modules, see xref:modules/modules-reference.adoc[Modules Reference].
+
+For transports and modules contributed by the community, see https://www.mulesoft.com/exchange#!/?types=connector&filters=Community&sortBy=name[Anypoint Exchange Community Connectors].

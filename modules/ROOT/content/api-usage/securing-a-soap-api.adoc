@@ -34,8 +34,7 @@ To the Mule flow that involves an API, add a xref:components/cxf-component-refer
 +
 image::api-usage/cxfsecuritytab.png[CXFsecuritytab]
 
-. Click the
-plus sign icon in the *Add Configuration Element* pane to create a new key-value pair.
+. Click the plus sign icon in the *Add Configuration Element* pane to create a new key-value pair.
 +
 image::api-usage/studio-wssecurity-add.png[Studio-wssecurity-add]
 +
@@ -132,10 +131,12 @@ image::api-usage/studio-wssecurity-token.png[Studio-wssecurity-token]
 . In the *Bean* field associated with the token validator you have selected, use the drop-down menu to select an existing bean that your token validator will reference to apply, replace, or extend the default behavior associated with a specific security token.
 +
 [TIP]
-If you have not yet created any beans, click the
-plus sign button to open a new properties panel in which you can create and configure a new bean. The bean imports the Java class you have built to specify the custom validator's override behavior.
-image:api-usage/studio-wssecurity-custom.png[Studio-wssecurity-custom]
- View Java code for Bean Creation
+If you have not yet created any beans, click the plus sign button to open a new properties panel in which you can create and configure a new bean. The bean imports the Java class you have built to specify the custom validator's override behavior.
++
+image::api-usage/studio-wssecurity-custom.png[Studio-wssecurity-custom]
++
+View Java code for Bean Creation
+
 . Click *OK* to save changes.
 
 [discrete.view]

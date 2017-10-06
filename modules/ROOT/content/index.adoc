@@ -3,7 +3,7 @@ ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
 
-This section offers information about how to use *Mule ESB* and *Anypoint Studio* to integrate systems, orchestrate Web services, or smoothly connect anything to anything. Use the navigation tree at left to access other sections and learn more about Mule features and projects.
+This section offers information about how to use https://www.mulesoft.org/what-mule-esb[Mule ESB] and xref:5@studio::index.adoc[Anypoint Studio] to integrate systems, orchestrate Web services, or smoothly connect anything to anything. Use the navigation tree at left to access other sections and learn more about Mule features and projects.
 
 * xref:install/installing.adoc[Installing]
 * xref:developing.adoc[Developing]
@@ -18,7 +18,7 @@ This section offers information about how to use *Mule ESB* and *Anypoint Studio
 
 * xref:install/installing.adoc[Install and Run Mule ESB]
 * xref:general:getting-started:index.adoc[Anypoint Fundamentals]
-* xref:3.6@mule-management-console::setting-up-mmc.adoc[Set up the Mule Management Console]
+* xref:3.7@mule-management-console::setting-up-mmc.adoc[Set up the Mule Management Console]
 * xref:cloudhub::index.adoc[Run Mule Applications on CloudHub]
 * xref:3.7@connector-devkit::index.adoc[Extend the Mule ESB with the DevKit]
-* https://www.mulesoft.com/webinars/api/mule-101-anypoint-platform-overview[Watch the Mule 101 Webinar to learn the basic Mule concepts]
+* http://www.mulesoft.com/webinars/esb/mule-101-intro-to-mule[Watch the Mule 101 Webinar to learn the basic Mule concepts]

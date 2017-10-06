@@ -13,11 +13,12 @@ Building upon the information presented in xref:concepts/index.adoc[Mule Concept
 * Filters
 * Routers
 * Scopes
-* Exception Strategies
+* Exceptions Strategies
 
-== Next Step
 
-* xref:mule-connectors.adoc[Mule Connectors]
+== NEXT STEP
+
+xref:mule-connectors.adoc[Mule Connectors]
 
 == See Also
 

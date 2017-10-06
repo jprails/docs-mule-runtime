@@ -12,7 +12,7 @@ Rather than using both "API" and "Web service" to refer to the code written to i
 
 == Assumptions
 
-You are reading this document because you want to either publish or consume a Web service or API using Mule. This document assumes you are reasonably well-versed in both REST and SOAP architectural styles for APIs. This document also assumes that you are familiar with Mule ESB and are comfortable building applications with Mule.
+You are reading this document because you want to either publish or consume a Web service or API using Mule. This document assumes you are reasonably well-versed in both REST and SOAP architectural styles for APIs. This document also assumes that you are familiar with Mule ESB and are comfortable building applications with Mule. Read the xref:mule-fundamentals.adoc[Mule Fundamentals] to gain familiarity with Mule.
 
 <<Publishing SOAP APIs>>] <<Consuming SOAP APIs>>]
 
@@ -34,15 +34,15 @@ You can use CXF in a Mule application to expose a SOAP web service using one of 
 
 == Consuming SOAP APIs
 
-Consume any SOAP API using the *Web Service Consumer* . This new Anypoint Connector offers a streamlined set of functionality for consuming Web services within your Mule applications.  Using the information contained in the API's WSDL, this connector enables you to configure a few details in order to establish the connection you need to consume a service from within your Mule application. First, identify the location of the Web service's WSDL file, then ask the Web Service Consumer to configure itself from the WSDL – host, port, address.
+Consume any SOAP API using the *Web Service Consumer* . This new Anypoint Connector offers a streamlined set of functionality for consuming Web services within your Mule applications. Using the information contained in the API's WSDL, this connector enables you to configure a few details in order to establish the connection you need to consume a service from within your Mule application. First, identify the location of the Web service's WSDL file, then ask the Web Service Consumer to configure itself from the WSDL – host, port, address.
 
 === Get Started:
 
-* For more information on this new connector, see xref:3.6@connectors::web-service-consumer.adoc[Web Service Consumer] .
-* For a complete configuration reference, see xref:3.6@connectors::web-service-consumer-reference.adoc[Web Service Consumer Reference].
+* For more information on this new connector, see xref:3.7@connectors::web-service-consumer.adoc[Web Service Consumer] .
+* For a complete configuration reference, see xref:3.7@connectors::web-service-consumer-reference.adoc[Web Service Consumer Reference].
 
 [TIP]
-Consider that perhaps a connector has already been developed for the API you wish to connect to. If so, look for it in the Anypoint Exchange and download it into Studio.
+Consider that perhaps a connector has already been developed for the API you wish to connect to. If so, look for it in Anypoint Exchange and download it into Studio.
 
 == Publishing REST APIs
 
