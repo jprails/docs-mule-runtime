@@ -19,7 +19,6 @@ Use the following links for information on configuring and using the CXF transpo
 * xref:modules/consuming-web-services-with-cxf.adoc[Consuming Web Services]
 * xref:modules/proxying-web-services-with-cxf.adoc[Proxying Web Services]
 * xref:modules/using-http-get-requests.adoc[Using HTTP GET Requests]
-* xref:bookstore-example.adoc[Bookstore Example]
 * xref:modules/cxf-module-configuration-reference.adoc[Configuration Reference]
 * xref:transports/wsdl-connectors.adoc[Using the WSDL Connector]
 

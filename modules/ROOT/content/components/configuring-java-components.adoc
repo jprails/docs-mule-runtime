@@ -3,17 +3,22 @@ ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
 :page-aliases: configuring-java-components.adoc
+:keywords: connectors, anypoint, studio, esb, java, java components, components
 
 Java is the default component type in Mule. Mule provides two https://www.mulesoft.org/docs/site/current3/apidocs/org/mule/api/component/JavaComponent.html[JavaComponent] implementations:
 
 * `DefaultJavaComponent`, which you configure with the `component `element
+
 * `PooledJavaComponent`, which adds pooling functionality and which you configure with the `pooled-component` element.
 
 These two implementations provide the following functionality and configuration options:
 
 * An *ObjectFactory* is used to obtain the Java component implementation.
+
 * *EntryPointResolvers* can be configured to define how Mule flows should invoke the component methods when processing a message.
+
 * A custom *LifecycleAdaptor* can be configured to customize the way in which the component implementation is initialized and disposed.
+
 * *Bindings* can be configured to bind component interface methods to endpoints. These endpoints are then invoked synchronously when the method is called.
 
 When you specify the class directly on the `component` or `pooled-component` element, the `PrototypeObjectFactory` is used by default, and a new instance is created for each invocation, or a new pooled component is created in the case of the `PooledJavaComponent`.
@@ -44,13 +49,11 @@ Example:
 
 All other component configuration elements are configured as children of the `component` or `pooled-component` element.
 
-Note: In Mule 2.0, Java component pooling is used only if the `<pooled-component>` element is used. In previous versions of Mule, pooling was the default.
-
 == Object Factories
 
 Object factories manage both object creation in the case of a Mule instantiated instance or object look-up from another container such as Spring via a single API. The following object factories are included with Mule and can be configured using Mule's core schema.
 
-[cols="10,85"]
+[%autowidth.spread]
 |===
 |<prototype-object class=..."/> |https://www.mulesoft.org/docs/site/current/apidocs/org/mule/object/PrototypeObjectFactory.html[PrototypeObjectFactory]
 |<singleton-object class=..."/> |https://www.mulesoft.org/docs/site/current/apidocs/org/mule/object/SingletonObjectFactory.html[SingletonObjectFactory]
@@ -71,7 +74,7 @@ Example:
 </component>
 ----
 
-For a real-world example of using `<spring-object/>`, see xref:spring-integration/using-spring-beans-as-flow-components.adoc[Using Spring Beans as Flow Components].
+For a real-world example of using `<spring-object/>`, see xref:3.7@spring-integration/using-spring-beans-as-flow-components.adoc[Using Spring Beans as Flow Components].
 
 You can easily implement additional object factories to integrate with other containers or simply to create object instances in a different way.
 
@@ -79,7 +82,7 @@ Note: Object factories replace ContainerContexts in previous versions of Mule.
 
 == Entry Point Resolvers
 
-You can configure entry point resolvers that determine how your component is invoked when a message is received by the flow. See xref:components/developing-components.adoc[Developing Components] for a more detailed description of their functionality.
+You can configure entry point resolvers that determine how your component is invoked when a message is received by the flow. See xref:3.7@components/developing-components.adoc[Developing Components] for a more detailed description of their functionality.
 
 To configure entry point resolvers, you can either configure an entry point resolver _set_ or configure a single entry point resolver independently. When using an entry point resolver _set_, the order in which the resolvers are configured is the order of of precedence they are given in run-time.
 
@@ -115,13 +118,13 @@ Example:
 </component>
 ----
 
-See xref:components/developing-components.adoc[Developing Components] for more information about lifecycles.
+See xref:3.7@components/developing-components.adoc[Developing Components] for more information about lifecycles.
 
 == Bindings
 
 Components can use bindings to call an external service during execution. The bindings used with a Java component bind a Java interface, or single interface method, to an outbound endpoint. The external service to be called should implement the same interface, and the component should encapsulate a reference to that interface, which is initialized during the bootstrap stage by the Mule configuration builder. The reference will be initialized using a reflective proxy class.
 
-Binding can be used on Java components and script components. For more information see xref:components/component-bindings.adoc[Component Bindings].
+Binding can be used on Java components and script components. For more information see xref:3.6@components/component-bindings.adoc[Component Bindings].
 
 == Configuring a Pooled Java Component
 
@@ -136,4 +139,4 @@ You configure the pool using the nested `pooling-profile` element as shown below
 </pooled-component>
 ----
 
-For more information about pooling and reference documentation for pooling configuration options, see xref:administer/tuning-performance.adoc[Tuning Performance].
+For more information about pooling and reference documentation for pooling configuration options, see xref:3.6@administer/tuning-performance.adoc[Tuning Performance].

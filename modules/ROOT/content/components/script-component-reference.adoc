@@ -66,4 +66,4 @@ image::components/scriptpropadv2.png[ScriptPropAdv2]
 
 === Mule ESB Reference
 
-* For more information see the Mule ESB page xref:3.4@modules/scripting-module-reference.adoc[Scripting Module]
+* For more information see the Mule ESB page xref:modules/scripting-module-reference.adoc[Scripting Module]

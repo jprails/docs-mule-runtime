@@ -31,28 +31,28 @@ The following changes have been made to schemas within Mule 3.0.  For details on
 
 == HTTP
 
-* The xref:3.7@transports/deprecated-http-transport-reference.adoc[HTTP transport] defines a new transformer element `body-to-parameter-map-transformer`, which transforms the body of an HTTP message into a map.
+* The xref:http-transport-reference.adoc[HTTP transport] defines a new transformer element `body-to-parameter-map-transformer`, which transforms the body of an HTTP message into a map.
 * HTTP outbound endpoints now have the boolean attribute `follow-redirects`, which applies to HTTP GETs only.
 
 == JMS
 
-* xref:3.7@transports/jms-transport-reference.adoc[JMS] connectors have the new boolean attribute `embeddedMode`, which tells Mule to avoid using certain JMS features.
+* xref:transports/jms-transport-reference.adoc[JMS] connectors have the new boolean attribute `embeddedMode`, which tells Mule to avoid using certain JMS features.
 
 == Management
 
-* In the xref:3.6@administer/jmx-management.adoc[Management module], the element `jmx-server` now takes the boolean attribute `createRmiRegistry`, which specifies whether to create an RMI registry if none exists.
+* In the xref:administer/jmx-management.adoc[Management module], the element `jmx-server` now takes the boolean attribute `createRmiRegistry`, which specifies whether to create an RMI registry if none exists.
 
 == Quartz
 
-* xref:3.6@transports/quartz-transport-reference.adoc[Quartz] endpoints have a new boolean attribute `stateful`, which determines whether the current job is peristent.
+* xref:transports/quartz-transport-reference.adoc[Quartz] endpoints have a new boolean attribute `stateful`, which determines whether the current job is peristent.
 
 == Servlet
 
-* Inbound and global xref:3.6@transports/servlet-transport-reference.adoc[Servlet] endpoints have a new attribute `path`, which specifies the path of the servlet to bind to.
+* Inbound and global xref:transports/servlet-transport-reference.adoc[Servlet] endpoints have a new attribute `path`, which specifies the path of the servlet to bind to.
 
 == TCP
 
-* A custom implementation for the xref:3.6@transports/tcp-transport-reference.adoc[TCP] protocol can now be specified as a reference to a Spring bean.
+* A custom implementation for the xref:transports/tcp-transport-reference.adoc[TCP] protocol can now be specified as a reference to a Spring bean.
 
 == VM
 

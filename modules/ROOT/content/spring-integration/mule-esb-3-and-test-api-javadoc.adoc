@@ -1,4 +1,4 @@
-= Mule ESB 3 Javadoc
+= Mule ESB 3 and Test API Javadoc
 ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
@@ -23,20 +23,8 @@ Mule provides JavaDoc for Mule versions 3.3 through 3.7.
 * http://www.mulesoft.org/docs/site/3.4.0/testapidocs/[Mule 3.4.0 Test API]
 * http://www.mulesoft.org/docs/site/3.3.0/testapidocs/[Mule 3.3.0 Test API]
 
-== View Previous Versions
+== Previous Versions
 
-http://www.mulesoft.org/docs/site/3.2.1/testapidocs/[Mule ESB 3.2.1 Test API]
+For information regarding previous versions, see:
 
-https://www.mulesoft.org/docs/site/3.2.1/apidocs/[Mule ESB 3.2.1]
-
-http://www.mulesource.org/docs/site/3.1.1/testapidocs/[Mule ESB 3.1.1 Test API]
-
-https://www.mulesoft.org/docs/site/3.1.1/apidocs/[Mule ESB 3.1.1]
-
-http://www.mulesource.org/docs/site/3.1.0/testapidocs/[Mule ESB 3.1.0 Test API]
-
-https://www.mulesoft.org/docs/site/3.1.0/apidocs/[Mule ESB 3.1.0]
-
-http://www.mulesoft.org/docs/site/3.0.0/testapidocs/[Mule ESB 3.0.0 Test API]
-
-https://www.mulesoft.org/docs/site/3.0.0/apidocs/[Mule ESB 3.0.0]
+Refer to xref:3.3@spring-integration/mule-esb-3-and-test-api-javadoc.adoc[Mule ESB 3 and Test API Javadocs] for information regarding previous versions.

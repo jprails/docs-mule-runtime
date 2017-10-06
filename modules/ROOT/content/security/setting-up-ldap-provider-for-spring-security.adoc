@@ -6,7 +6,7 @@ endif::[]
 
 This page describes how you can configure a Spring Security LDAP provider, which can be used by Mule 2.2 or later as follows:
 
-* As its security provider via  https://www.mulesoft.org/docs/site/current/apidocs/org/mule/module/spring/security/SpringProviderAdapter.html[SpringProviderAdapter]
+* As its security provider via https://www.mulesoft.org/docs/site/current/apidocs/org/mule/module/spring/security/SpringProviderAdapter.html[SpringProviderAdapter]
 * To perform xref:security/component-authorization-using-spring-security.adoc[component authorization]
 
 For information on configuring an in-memory provider, see xref:security/configuring-security.adoc[Configuring Security].
@@ -61,7 +61,6 @@ You need to set up an LDAP context source that will be used by the spring securi
 
 
   </spring:beans>
-
 ...
 ----
 
@@ -91,6 +90,6 @@ The configuration for component authorization is similar to the one described in
 
 The roles are looked up by the `DefaultLdapAuthoritiesPopulator`, which you configured in the previous section. By default, a role is prefixed with `ROLE_`, and its value is extracted and converted to uppercase from the LDAP attribute defined by the `groupRoleAttribute`.
 
-== Go Further
+== See Also
 
-For information on configuring an in-memory provider, see xref:3.4@security/configuring-security.adoc[Configuring Security].
+For information on configuring an in-memory provider, see xref:security/configuring-security.adoc[Configuring Security].

@@ -4,13 +4,12 @@ include::_attributes.adoc[]
 endif::[]
 :page-aliases: transactions-configuration-reference.adoc
 
-[%header%autowidth.spread]
-|===
-|image:transactions/information.png[] |*Using Transactions in Flows* +
+[NOTE]
+====
+This page provides reference information on the elements you configure for transactions.
 
-This page provides *reference information* on the elements you configure for transactions. +
 For more information on how to configure transactions in flows, see xref:transactions/transaction-management.adoc[Transaction Management].
-|===
+====
 
 == Abstract transaction
 

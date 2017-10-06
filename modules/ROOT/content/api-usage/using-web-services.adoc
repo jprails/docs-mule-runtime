@@ -3,6 +3,7 @@ ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
 :page-aliases: using-web-services.adoc
+:keywords: cxf
 
 Mule is designed to facilitate the use of Web services in the following ways:
 
@@ -11,16 +12,14 @@ Mule is designed to facilitate the use of Web services in the following ways:
 * JAX-WS or Simple services
 * Web services can be proxied or modified without much code
 
-xref:modules/cxf-module-reference.adoc[CXF Module Reference] - Describes how to build and consume web services with CXF.
+xref:3.7@connectors::web-service-consumer.adoc[Web Service Consumer] - Describes how to consume web services.
 
-xref:administer/using-the-mule-client.adoc[Using the Mule Client] - Describes the Mule Client, which can be used as a SOAP client.
+xref:3.6@modules/cxf-module-reference.adoc[CXF Module Reference] - Describes how to build web services with CXF.
 
-xref:api-usage/proxying-web-services.adoc[Proxying Web Services] - Describes how to use Mule as a web service gateway/proxy in various scenarios.
+xref:3.6@administer/using-the-mule-client.adoc[Using the Mule Client] - Describes the Mule Client, which can be used as a SOAP client.
 
-xref:modules/supported-web-service-standards.adoc[Supported Web Service Standards] - Web service standards supported by Mule and CXF.
+xref:3.6@api-usage/proxying-web-services.adoc[Proxying Web Services] - Describes how to use Mule as a web service gateway/proxy in various scenarios.
 
-xref:web-service-wrapper.adoc[Web Service Wrapper] - Describes how to use the `WebServiceWrapperComponent` class to send the result of a web service call to another endpoint.
+xref:3.7@modules/supported-web-service-standards.adoc[Supported Web Service Standards] - Web service standards supported by Mule and CXF.
 
-xref:echo-example.adoc[Echo Example] - A simple example of exposing a Mule flow as a web service using Axis.
-
-xref:api-usage/using-.net-web-services-with-mule.adoc[Using .NET Web Services with Mule] - Tips for using .NET web services with Mule.
+xref:3.6@api-usage/using-.net-web-services-with-mule.adoc[Using .NET Web Services with Mule] - Tips for using .NET web services with Mule.

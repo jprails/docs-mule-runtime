@@ -20,7 +20,7 @@ The scripting engine is already set for the predefined script transformers (Groo
 
 image::transformers/ruby-transformer.png[]
 
-The Script Transformer has the same advanced properties as other transformers. Configuring these optional properties is covered in the xref:3.4@transformers/script-transformer-reference.adoc[Studio Transformers] page.
+The Script Transformer has the same advanced properties as other transformers. Configuring these optional properties is covered in the xref:transformers/script-transformer-reference.adoc[Studio Transformers] page.
 
 image::transformers/script-transformer.png[]
 

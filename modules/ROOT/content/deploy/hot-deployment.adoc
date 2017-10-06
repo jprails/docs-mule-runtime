@@ -3,6 +3,7 @@ ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
 :page-aliases: hot-deployment.adoc
+:keywords: esb, deploy, hot deployment
 
 * <<Outline of a Deployment>>
 * <<How Hot Deployment works>>

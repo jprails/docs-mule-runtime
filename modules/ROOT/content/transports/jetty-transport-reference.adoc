@@ -4,7 +4,7 @@ include::_attributes.adoc[]
 endif::[]
 :page-aliases: jetty-transport-reference.adoc
 
-The Jetty transport provides support for exposing applications over HTTP by embedding a light-weight Jetty server. The xref:3.4@transports/jetty-ssl-transport.adoc[Jetty SSL Transport] works the same way but over SSL. You can only define inbound endpoints with this transport.
+The Jetty transport provides support for exposing applications over HTTP by embedding a light-weight Jetty server. The xref:transports/jetty-ssl-transport.adoc[Jetty SSL Transport] works the same way but over SSL. You can only define inbound endpoints with this transport.
 
 The Javadoc for this transport can be found below:
 
@@ -43,7 +43,7 @@ a|
 
 == Endpoints
 
-Jetty endpoints are configured the same way as xref:3.4@transports/https-transport-reference.adoc[HTTP endpoints]. Note that the Jetty transport can only be used for inbound endpoints.
+Jetty endpoints are configured the same way as xref:transports/https-transport-reference.adoc[HTTP endpoints]. Note that the Jetty transport can only be used for inbound endpoints.
 
 For example:
 

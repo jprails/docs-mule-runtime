@@ -6,9 +6,7 @@ endif::[]
 
 The Axis and xref:3.6@modules/cxf-module-reference.adoc[CXF] transports provide WSDL connectors that can be used for invoking remote web services by obtaining the service WSDL. Mule creates a dynamic proxy for the service and then invokes it.
 
-https://www.mulesoft.org/docs/site/current/apidocs/org/mule/transport/soap/axis/wsdl/package-summary.html[Javadoc for Axis WSDL connector]
-
-https://www.mulesoft.org/docs/site/current/apidocs/org/mule/transport/cxf/wsdl/package-summary.html[Javadoc for CXF WSDL connector]
+https://www.mulesoft.org/docs/site/current/apidocs/org/mule/transport/soap/axis/wsdl/package-summary.html[Javadoc for Axis WSDL connector] https://www.mulesoft.org/docs/site/current/apidocs/org/mule/transport/cxf/wsdl/package-summary.html[Javadoc for CXF WSDL connector]
 
 == Generic WSDL Endpoints
 

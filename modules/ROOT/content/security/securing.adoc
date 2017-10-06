@@ -1,0 +1,8 @@
+= Securing
+ifndef::env-site,env-github[]
+include::_attributes.adoc[]
+endif::[]
+:page-aliases: securing.adoc
+
+* xref:security/anypoint-enterprise-security.adoc[Anypoint Enterprise Security]
+* xref:security/configuring-security.adoc[Configuring Security]
