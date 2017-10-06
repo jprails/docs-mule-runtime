@@ -1,14 +1,13 @@
-= DataWeave XML Reference
+= Transform Message Component XML Reference
 ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
-:page-aliases: dataweave-xml-reference.adoc
 :keywords: studio, anypoint, esb, transform, transformer, format, aggregate, rename, split, filter convert, xml, json, csv, pojo, java object, metadata, dataweave, data weave, datamapper, dwl, dfl, dw, output structure, input structure, map, mapping
 
 Instead of using the Studio UI to include xref:dataweave/index.adoc[DataWeave] language on your Mule projects, you can optionally also create and configure a 'Transform Message' component entirely via XML, either through the XML tab in Studio or via an external editor.
 
 
-Much of the functionality of this component can be managed through the xref:6@studio::transform-message/transform-message-component-concept-studio.adoc[Transform Message Component] in Anypoint Studio. However, you can also implement these settings through XML code. Certain advanced features are currently only configurable via XML.
+Much of the functionality of this component can be managed through Anypoint Studio's UI. However, you can also implement these settings through XML code. Certain advanced features are currently only configurable via XML.
 
 
 [TIP]
@@ -37,7 +36,7 @@ In Studio, as occurs with other Mule components, these dependencies are automati
 
 === Maven Dependency Snippet
 
-If you xref:maven/using-maven-in-mule-esb.adoc[use Maven] on your project, you must also include the following dependencies on your `POM` maven file:
+If you use Maven on your project, you must also include the following dependencies on your `POM` maven file:
 
 [source,xml,linenums]
 ----

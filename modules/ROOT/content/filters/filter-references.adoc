@@ -1,8 +1,0 @@
-= Filter References
-ifndef::env-site,env-github[]
-include::_attributes.adoc[]
-endif::[]
-:page-aliases: filter-references.adoc
-:keywords: anypoint studio, esb, filters, conditional, gates
-
-* xref:filters/idempotent-filter.adoc[Idempotent Filter]

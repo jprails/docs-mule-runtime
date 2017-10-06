@@ -2,17 +2,13 @@
 ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
-:page-aliases: about-the-xml-configuration-file.adoc
 :keywords: configuration, deploy, mule
 
-All Mule applications have an XML file that specify the resources that compose the application. https://www.w3.org/TR/xmlschema-1/#xsi_schemaLocation[Schemas] define the configurable attributes of these resources that are referenced in the XML Configuration file. This is how a Mule application both validates and defines its functional components and their configuration.
-
-[NOTE]
-Read more below about the Spring schemas and Mule namespaces referenced in the XML Configuration file.
+Use Spring XML files with custom Mule namespaces to configure Mule applications.
 
 == XML Schema
 
-XML schemas are used to validate functional components in a Mule application. They are specified in the header.
+In a Mule application, Spring XML schema files are specified in the header.
 
 [source,xml,linenums]
 ----
@@ -27,10 +23,12 @@ XML schemas are used to validate functional components in a Mule application. Th
         http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd">
 ----
 
-Be sure to specify all the necessary schema files. This can be time-consuming when setting up the configuration file by hand, but importing schema files provides the following time-saving benefits:
+Be sure to specify all the necessary schema files. This can be time-consuming when setting up the configuration file, but importing schema files provides the following time-saving benefits:
 
 * Auto-completion and context-specific help in your favorite IDE
+
 * Design-time configuration validation
+
 * Typed properties
 
 == Namespaces
@@ -62,7 +60,7 @@ Typically, you set the Mule core schema as the default namespace for your config
 
 == Spring Bean Profile Definitions
 
-Although your configuration files appear to be Mule-specific, they are really just Spring configuration files with Mule-specific http://static.springsource.org/spring/docs/current/spring-framework-reference/html/[extensions]. This approach allows you to use anything Spring offers within your Mule configuration, such as beans, factory beans, http://blog.springsource.org/2011/02/11/spring-framework-3-1-m1-released/[bean profile definitions], resource loaders, EJBs, JNDI, AOP, and even integration with other software such as  Gigaspaces, JBoss Rules, etc.
+Although your configuration files appear to be Mule-specific, they are really just Spring configuration files with Mule-specific http://static.springsource.org/spring/docs/current/spring-framework-reference/html/[extensions]. This approach allows you to use anything Spring offers within your Mule configuration, such as beans, factory beans, http://blog.springsource.org/2011/02/11/spring-framework-3-1-m1-released/[bean profile definitions], resource loaders, EJBs, JNDI, AOP, and even integration with other software such as jBPM, Gigaspaces, JBoss Rules, etc.
 
 [source,text,linenums]
 ----
@@ -93,8 +91,3 @@ If you have multiple configuration files, you can import them into one configura
   </spring:beans>
 ...
 ----
-
-== See Also
-
-* xref:spring-integration/using-mule-with-spring.adoc[Using Mule with Spring]
-* Learn how Mule creates an application context. See xref:spring-integration/spring-application-contexts.adoc[Spring Application Contexts]

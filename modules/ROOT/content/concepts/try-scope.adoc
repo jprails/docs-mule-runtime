@@ -1,0 +1,34 @@
+= About Try Scope
+ifndef::env-site,env-github[]
+include::_attributes.adoc[]
+endif::[]
+
+The Try scope allows you to handle errors that may occur when attempting to execute its child components. It allows you to set a fine grained configuration to a specific part of your flow with a certain error-handling strategy. It also distinguishes different error types, and can apply different behaviors accordingly.
+
+
+
+
+== Handling Transactions
+
+You configure a Try Scope so that it treats its child operations as an indivisible transaction. A transaction is a series of actions that should never be partially executed, errors should lead to either a rollback or a commit.
+
+The Try scope can be set to treat the components within it as a transaction. It can be configured in the following ways:
+
+* *Ignore* (default)
++
+Actions aren't treated as a transaction, errors cause no rollbacks or commits.
+
+* *Always Begin*
++
+A new transaction is started every time the scope is executed.
+
+* *Begin or Join*
++
+Only relevant in cases where execution order may vary (for example due to asynchronous actions happening outside the flow). If the current processing of the flow has already begun a transaction, join it. Otherwise, begin a new one.
+
+
+== See Also
+
+* xref:reference/try-scope-xml.adoc[Try Scope XML Reference]
+* xref:error-handling.adoc[Error Handling]
+* xref:concepts/scopes.adoc[About Scopes]

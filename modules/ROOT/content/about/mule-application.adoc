@@ -1,0 +1,20 @@
+= About the Mule Application
+ifndef::env-site,env-github[]
+include::_attributes.adoc[]
+endif::[]
+
+Integration developers write Mule applications to tie together various systems. Mule applications are configured to run on Mule runtime to process inbound information, and ingest this information in a pre-defined manner.
+
+An expected request to a running Mule application triggers Mule to encode the event and data in a Mule Event, passing it along a single or multiple threads. +
+Mule transforms and routes the Mule Event in stages, according to the processors configured to interact with the event at the various stages.
+
+The Mule application is defined in an XML document that specifies the necessary dependencies for the Mule application to run.
+
+== See Also
+
+* xref:about/mule-event.adoc[About the Mule Event]
+* xref:about/mule-message.adoc[About the Mule Message]
+* xref:about/components.adoc[About Components]
+* xref:about/flows.adoc[About Flows]
+* xref:about/event-source.adoc[About the Event Source]
+* xref:about/event-processors.adoc[About Event Processors]

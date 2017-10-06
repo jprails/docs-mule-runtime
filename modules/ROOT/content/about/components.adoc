@@ -1,0 +1,18 @@
+= About Components
+ifndef::env-site,env-github[]
+include::_attributes.adoc[]
+endif::[]
+
+Mule uses components to compose  Mule applications and determine their logic to process the Mule event.
+
+The generic categories of components in a Mule application are:
+
+* Flows
+* Event Source
+* Event Processor
+
+== See Also
+
+* xref:about/flows.adoc[About Flows]
+* xref:about/event-source.adoc[About Event Sources]
+* xref:about/event-processors.adoc[About Event Processors]

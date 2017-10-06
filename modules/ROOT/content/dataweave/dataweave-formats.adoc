@@ -2,7 +2,6 @@
 ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
-:page-aliases: dataweave-formats.adoc
 :keywords: studio, anypoint, esb, transform, transformer, format, aggregate, rename, split, filter convert, xml, json, csv, pojo, java object, metadata, dataweave, data weave, datamapper, dwl, dfl, dw, output structure, input structure, map, mapping
 
 DataWeave supports different types of data formats. Each format has an associated reader and a writer, and in some cases custom types are allowed. Each reader and writer defines configuration properties for customization.
@@ -17,15 +16,15 @@ The mapping between Java objects to DataWeave types is quite simple:
 [%header]
 |===
 |Java Type |DataWeave Type
-|`Collections/Array/Iterator/Iterable` | xref:dataweave/dataweave-types.adoc#array[:array]
-|`String/CharSequence/Char/Enum/Class` | xref:dataweave/dataweave-types.adoc#string[:string]
-|`int/Short/Long/BigInteger/Flat/Double/BigDecimal`|xref:dataweave/dataweave-types.adoc#number[:number]
-|`Calendar/XmlGregorainCalendar`|xref:dataweave/dataweave-types.adoc#datetime[:datetime]
-|`TimeZone`|xref:dataweave/dataweave-types.adoc#timezone[:timezone]
-|`sql.Date/util.Date`|xref:dataweave/dataweave-types.adoc#date[:date]
-|`Bean/Map`|xref:dataweave/dataweave-types.adoc#object[:object]
-|`InputStream/Array[Byte]`|xref:dataweave/dataweave-types.adoc#binary[:binary]
-|`java.lang.Boolean`|xref:dataweave/dataweave-types.adoc#boolean[:boolean]
+|`Collections/Array/Iterator/Iterable` | xref:dataweave/dataweave-types.adoc#array[Array]
+|`String/CharSequence/Char/Enum/Class` | xref:dataweave/dataweave-types.adoc#string[String]
+|`int/Short/Long/BigInteger/Flat/Double/BigDecimal`|xref:dataweave/dataweave-types.adoc#number[Number]
+|`Calendar/XmlGregorainCalendar`|xref:dataweave/dataweave-types.adoc#datetime[Datetime]
+|`TimeZone`|xref:dataweave/dataweave-types.adoc#timezone[Timezone]
+|`sql.Date/util.Date`|xref:dataweave/dataweave-types.adoc#date[Date]
+|`Bean/Map`|xref:dataweave/dataweave-types.adoc#object[Object]
+|`InputStream/Array[Byte]`|xref:dataweave/dataweave-types.adoc#binary[Binary]
+|`java.lang.Boolean`|xref:dataweave/dataweave-types.adoc#boolean[Boolean]
 
 |===
 
@@ -45,9 +44,9 @@ If this is not explicitly defined, DataWeave tries to infer from the context or 
 .Transform
 [source,dataweave,linenums]
 ----
-%dw 1.0
-%type user = :object { class: "com.anypoint.df.pojo.User"}
-%output application/xml
+%dw 2.0
+type user = Object { class: "com.anypoint.df.pojo.User"}
+output application/xml
 ---
 {
   name : "Mariano",
@@ -66,13 +65,16 @@ It should always be used with the class property with the java class name of the
 
 === Defining a Metadata Type
 
-In the Transform Message component, you can define a Java type through the following methods:
+In the Transform component, you can define a Java type through the following methods:
 
 * By Providing a sample object
 
 [TIP]
-See xref:6@studio::transform-message/input-output-structure-transformation-studio-task.adoc[To Define Input and Output Structure of a Transformation].
+====
+For Anypoint Studio see xref:6@studio::transform-message/input-output-structure-transformation-studio-task.adoc[To Define Input and Output Structure of a Transformation (Anypoint Studio)].
 
+For Design Center see xref:1.0@design-center::input-output-structure-transformation-design-center-task.adoc[To Define Input and Output Structure of a Transformation (Design Center)].
+====
 == CSV
 
 === Canonical Model
@@ -119,6 +121,7 @@ When defining an input of type CSV, there are a few optional parameters you can 
 |ignoreEmptyLine |bool | true | defines if empty lines are ignored
 |header |bool |true |Indicates if the first line of the output shall contain field names
 |headerLineNumber | number | 0 | the line number where the header is located
+|bodyStartLineNumber | number | 0 | the line number where the actual body starts
 |===
 
 
@@ -129,7 +132,7 @@ When `header=true` you can then access the fields within the input anywhere by n
 When `header=false` you must access the fields by index, referencing first the entry and then the field, Ex: `payload[107][2]`
 ====
 
-These properties can be either set via the XML of your Mule project:
+These properties can be set via the XML of your Mule project:
 
 [source,xml,linenums]
 ----
@@ -147,8 +150,8 @@ These properties can be either set via the XML of your Mule project:
  			</dw:input-payload>
  			<dw:set-payload>
                 <![CDATA[
-                    %dw 1.0
-                    %output application/java
+                    %dw 2.0
+                    output application/java
                     ---
                     // Your transformation script goes here
                 ]]>
@@ -156,11 +159,7 @@ These properties can be either set via the XML of your Mule project:
      </dw:transform-message>
 ----
 
-Or via the UI of the Transform Message component:
-
-image::dataweave/dataweave-formats-580be.png[]
-
-See xref:6@studio::transform-message/input-output-structure-transformation-studio-task.adoc[To Define Input and Output Structure of a Transformation].
+To set this via the Anypoint Studio UI, see xref:6@studio::transform-message/input-output-structure-transformation-studio-task.adoc[To Define Input and Output Structure of a Transformation].
 
 
 
@@ -186,12 +185,12 @@ All of these parameters are optional. A CSV output directive might for example l
 
 [source,dataweave]
 ----
-%output text/csv separator=";", header=false, quoteValues=true
+output text/csv separator=";", header=false, quoteValues=true
 ----
 
 === Defining a Metadata Type
 
-In the Transform Message component, you can define a CSV type through the following methods:
+In the Transform component, you can define a CSV type through the following methods:
 
 * By Providing a sample file
 * Via a graphical editor that allows you to set up each field manually
@@ -200,8 +199,11 @@ In the Transform Message component, you can define a CSV type through the follow
 image::dataweave/dataweave-formats-4a556.png[]
 
 [TIP]
-See xref:6@studio::transform-message/input-output-structure-transformation-studio-task.adoc[To Define Input and Output Structure of a Transformation].
+====
+For Anypoint Studio see xref:6@studio::transform-message/input-output-structure-transformation-studio-task.adoc[To Define Input and Output Structure of a Transformation (Anypoint Studio)].
 
+For Design Center see xref:1.0@design-center::input-output-structure-transformation-design-center-task.adoc[To Define Input and Output Structure of a Transformation (Design Center)].
+====
 
 
 == Excel
@@ -224,7 +226,7 @@ image::dataweave/dataweave-formats-exceltable.png[]
 .DataWeave representation
 [source,dataweave,linenums]
 ----
-%output application/xlsx header=true
+output application/xlsx header=true
 ---
 {
   Sheet1: [
@@ -257,7 +259,7 @@ When defining an input of type excel, there are a few optional parameters you ca
 
 
 
-These properties can be either set via the XML of your Mule project:
+These properties can be set via the XML of your Mule project:
 
 [source,xml,linenums]
 ----
@@ -273,8 +275,8 @@ These properties can be either set via the XML of your Mule project:
  			</dw:input-payload>
  			<dw:set-payload>
                 <![CDATA[
-                    %dw 1.0
-                    %output application/java
+                    %dw 2.0
+                    output application/java
                     ---
                     // Your transformation script goes here
                 ]]>
@@ -282,12 +284,10 @@ These properties can be either set via the XML of your Mule project:
      </dw:transform-message>
 ----
 
-Or via the UI of the Transform Message component:
-
-image::dataweave/dataweave-formats-excell-reader.png[]
 
 
-See xref:6@studio::transform-message/input-output-structure-transformation-studio-task.adoc[To Define Input and Output Structure of a Transformation].
+
+To set this via the Anypoint Studio UI, see xref:6@studio::transform-message/input-output-structure-transformation-studio-task.adoc[To Define Input and Output Structure of a Transformation].
 
 
 
@@ -307,12 +307,12 @@ All of these parameters are optional. An excel output directive might for exampl
 
 [source,dataweave]
 ----
-%output application/xlsx header=true
+output application/xlsx header=true
 ----
 
 === Defining a Metadata Type
 
-In the Transform Message component, you can define a excel type through the following methods:
+In the Transform component, you can define a excel type through the following methods:
 
 * Via a graphical editor that allows you to set up each field manually
 
@@ -322,8 +322,11 @@ image::dataweave/dataweave-formats-excel-metadata.png[]
 
 
 [TIP]
-See xref:6@studio::transform-message/input-output-structure-transformation-studio-task.adoc[To Define Input and Output Structure of a Transformation].
+====
+For Anypoint Studio see xref:6@studio::transform-message/input-output-structure-transformation-studio-task.adoc[To Define Input and Output Structure of a Transformation (Anypoint Studio)].
 
+For Design Center see xref:1.0@design-center::input-output-structure-transformation-design-center-task.adoc[To Define Input and Output Structure of a Transformation (Design Center)].
+====
 
 == XML
 
@@ -371,7 +374,7 @@ When defining an input of type XML, there are a few optional parameters you can 
 
 
 
-These properties can be either set via the XML of your Mule project:
+These properties can be set via the XML of your Mule project:
 
 [source,xml,linenums]
 ----
@@ -385,8 +388,8 @@ These properties can be either set via the XML of your Mule project:
  			</dw:input-payload>
  			<dw:set-payload>
                 <![CDATA[
-                    %dw 1.0
-                    %output application/xml
+                    %dw 2.0
+                    output application/xml
                     ---
                     // Your transformation script goes here
                 ]]>
@@ -394,11 +397,7 @@ These properties can be either set via the XML of your Mule project:
      </dw:transform-message>
 ----
 
-Or via the UI of the Transform Message component:
-
-image::dataweave/dataweave-formats-6e5e4.png[]
-
-See xref:6@studio::transform-message/input-output-structure-transformation-studio-task.adoc[To Define Input and Output Structure of a Transformation].
+To set this via the Anypoint Studio UI, see xref:6@studio::transform-message/input-output-structure-transformation-studio-task.adoc[To Define Input and Output Structure of a Transformation].
 
 
 === Writer Properties
@@ -408,18 +407,17 @@ When defining an output of type XML, there are a few optional parameters you can
 [%header]
 |===
 |Parameter |Type |Default|Description
-|`indent`| boolean | true | Defines if the XML code will be indented for better readability, or if it will be compressed into a single line
-| `inlineCloseOn` | string | `never` | Defines wether an empty XML child element appears as single self-closing tag or with an opening and closing tag. The value `empty` sets it to output self-closing tags.
+|`indent`| boolean | true | defines if the XML code will be indented for better readability, or if it will be compressed into a single line
+| `inlineCloseOn` | string | `never` | defines wether an empty XML child element appears as single self-closing tag or with an opening and closing tag. The value `empty` sets it to output self-closing tags.
 |`encoding`|string | UTF-8 |The character set to be used for the output
 |`bufferSize`| number | 153600 | The size of the buffer writer
 |`inlineCloseOn` | string | | When the writer should use inline close tag. Possible values = `empty`/`none`
 |`skipNullOn`| string | | Possible values = `elements`/`attributes`/`everywhere`. See <<Skip Null On>>
-|`writeDeclaration`| boolean | true | Defines if the XML declaration will be included in the first line
 |===
 
 [source,dataweave]
 ----
-%output application/xml indent=false, skipNullOn="attributes"
+output application/xml indent=false, skipNullOn="attributes"
 ----
 
 The `inlineCloseOn` parameter defines if the output is structured like this (by default):
@@ -461,46 +459,17 @@ When set to:
 
 === Defining a Metadata Type
 
-In the Transform Message component, you can define a XML type through the following methods:
+In the Transform component, you can define a XML type through the following methods:
 
 * By Providing a sample file
 * By pointing to a schema file
 
 [TIP]
-See xref:6@studio::transform-message/input-output-structure-transformation-studio-task.adoc[To Define Input and Output Structure of a Transformation].
+====
+For Anypoint Studio see xref:6@studio::transform-message/input-output-structure-transformation-studio-task.adoc[To Define Input and Output Structure of a Transformation (Anypoint Studio)].
 
-=== Custom Types
-
-==== :cdata
-
-XML defines a custom type named :cdata, it extends from string and is used to identify a CDATA XML block.
-It can be used to tell the writer to wrap the content inside CDATA or to check if the input string arrives inside a CDATA block. `:cdata` inherits from the type `:string`.
-
-.Transform
-[source,dataweave,linenums]
-----
-%dw 1.0
-%output application/xml
----
-{
-  users:
-  {
-    user : "Mariano" as :cdata,
-    age : 31 as :cdata
-  }
-}
-----
-
-.Output
-[source,xml,linenums]
-----
-<?xml version="1.0" encoding="UTF-8"?>
-<users>
-  <user><![CDATA[Mariano]]></user>
-  <age><![CDATA[31]]></age>
-</users>
-----
-
+For Design Center see xref:1.0@design-center::input-output-structure-transformation-design-center-task.adoc[To Define Input and Output Structure of a Transformation (Design Center)].
+====
 
 
 == JSON
@@ -517,8 +486,8 @@ When defining an output of type JSON, there are a few optional parameters you ca
 [%header]
 |===
 |Parameter |Type |Default|Description
-|`indent`| boolean | true | Defines if the JSON code will be indented for better readability, or if it will be compressed into a single line
-|`encoding`| string | UTF-8 |The character set to be used for the output
+|`Indent`| boolean | true | defines if the JSON code will be indented for better readability, or if it will be compressed into a single line
+|`encoding`|string | UTF-8 |The character set to be used for the output
 |`bufferSize`| number | 153600 | The size of the buffer writer
 |`inlineCloseOn` | string | | When the writer should use inline close tag. Possible values = empty/none
 |`skipNullOn`| string | | Possible values = `elements`/`attributes`/`everywhere`. See <<Skip Null On>>
@@ -527,7 +496,7 @@ When defining an output of type JSON, there are a few optional parameters you ca
 
 [source,dataweave]
 ----
-%output application/json indent=false, skipNullOn="arrays"
+output application/json indent=false, skipNullOn="arrays"
 ----
 
 ==== Skip Null On
@@ -542,15 +511,17 @@ When set to:
 
 === Defining a Metadata Type
 
-In the Transform Message component, you can define a JSON type through the following methods:
+In the Transform component, you can define a JSON type through the following methods:
 
 * By Providing a sample file
 * By pointing to a schema file
 
 [TIP]
-See xref:6@studio::transform-message/input-output-structure-transformation-studio-task.adoc[To Define Input and Output Structure of a Transformation].
+====
+For Anypoint Studio see xref:6@studio::transform-message/input-output-structure-transformation-studio-task.adoc[To Define Input and Output Structure of a Transformation (Anypoint Studio)].
 
-
+For Design Center see xref:1.0@design-center::input-output-structure-transformation-design-center-task.adoc[To Define Input and Output Structure of a Transformation (Design Center)].
+====
 
 
 
@@ -572,7 +543,6 @@ When defining an input of type Flat File, there are a few optional parameters yo
 
 * *none*: treat all data as actual values
 * *spaces*: interpret a field consisting of only spaces as a missing value
-* *zeroes*: interpret numeric fields consisting of only '0' characters and character fields consisting of only spaces as missing values
 * *nulls*: interpret a field consisting only of 0 bytes as a missing value
 
 | `recordParsing` | string | strict a| expected separation between lines/records:
@@ -584,7 +554,7 @@ When defining an input of type Flat File, there are a few optional parameters yo
 
 
 
-These properties can be either set via the XML of your Mule project:
+These properties can be set via the XML of your Mule project:
 
 [source,xml,linenums]
 ----
@@ -594,9 +564,7 @@ These properties can be either set via the XML of your Mule project:
 </dw:input-payload>
 ----
 
-Or via the UI of the Transform Message component
-
-See xref:6@studio::transform-message/input-output-structure-transformation-studio-task.adoc[To Define Input and Output Structure of a Transformation].
+To set this via the Anypoint Studio UI, see xref:6@studio::transform-message/input-output-structure-transformation-studio-task.adoc[To Define Input and Output Structure of a Transformation].
 
 [NOTE]
 Schemas with type `Binary` or `Packed` don't allow for line breaks to be detected, so setting `recordParsing` to "lenient"` will only allow long records to be handled, but not short ones. These schemas also currently only work with certain single-byte character encodings (so not with UTF-8 or any multibyte format).
@@ -604,28 +572,27 @@ Schemas with type `Binary` or `Packed` don't allow for line breaks to be detecte
 
 === Writer Properties
 
-When defining an output of type flat file there are a few optional parameters you can add to the output directive to customize how the data is written:
+When defining an output of type flat file (which includes fixed width, EDI and Copybook but not CSV) there are a few optional parameters you can add to the output directive to customize how the data is parsed:
 
 [%header]
 |===
 |Parameter |Type |Default|Description
-|`schemaPath` |string | |Path where the schema file to be used is located
-|`structureIdent` |string | |In case the schema file defines multiple formats, indicates which of them to use
-|`encoding` |string | UTF-8 | Output character encoding
+|schemaPath |string | |Path where the schema file to be used is located
+|structureIdent |string | |In case the schema file defines multiple formats, indicates which of them to use
+
 |`missingValues`| string | spaces a| How to represent optional values missing from the supplied map:
 
 * *spaces*: fill the field with spaces
 * *nulls*: use 0 bytes
 
-|`recordTerminator`| string | standard Java line termination for the system | Termination for every line/record. In Mule runtime versions 3.8.4 and older, this is only used as a separator when there are multiple records. Possible values: `lf, cr, crlf, none`. Values translate directly to character codes (`none` leaves no termination on each record).
-|`trimValues` |boolean |`false` |Trim string values longer than field length by truncating trailing characters
+|`recordTerminator`| string | standard Java line termination for the system | The separation between lines/records. Possible values: `lf, cr, crlf, none`. Values translate directly to character codes (`none` leaves no separation between records)
 
 |===
 
 [source,dataweave,linenums]
 ----
-%dw 1.0
-%output text/plain schemaPath="src/main/resources/test-data/QBReqRsp.esl", structureIdent=“QBResponse"
+%dw 2.0
+output text/plain schemaPath="src/main/resources/test-data/QBReqRsp.esl", structureIdent=“QBResponse"
 ---
 payload
 ----
@@ -638,13 +605,16 @@ See xref:dataweave/dataweave-flat-file-schemas.adoc[DataWeave Flat File or EDI S
 
 === Defining a Metadata Type
 
-In the Transform Message component, you can define a Flat File type through the following methods:
+In the Transform component, you can define a Flat File type through the following methods:
 
 * By pointing to a schema file
 
 [TIP]
-See xref:6@studio::transform-message/input-output-structure-transformation-studio-task.adoc[To Define Input and Output Structure of a Transformation].
+====
+For Anypoint Studio see xref:6@studio::transform-message/input-output-structure-transformation-studio-task.adoc[To Define Input and Output Structure of a Transformation (Anypoint Studio)].
 
+For Design Center see xref:1.0@design-center::input-output-structure-transformation-design-center-task.adoc[To Define Input and Output Structure of a Transformation (Design Center)].
+====
 
 
 
@@ -664,11 +634,11 @@ When defining an input of type Fixed Width, there are a few optional parameters 
 |===
 |Parameter |Type |Default|Description
 |`schemaPath`| string | | Location in your local disk of the schema file used to parse your input. The Schema must have an *.FFD* extension.
+|encoding |string | UTF-8 | MIME type encoding
 |`missingValues`| string | spaces a| How missing values are represented in the input data:
 
 * *none*: treat all data as actual values
 * *spaces*: interpret a field consisting of only spaces as a missing value
-* *zeroes*: interpret numeric fields consisting of only '0' characters and character fields consisting of only spaces as missing values
 * *nulls*: interpret a field consisting only of 0 bytes as a missing value
 
 | `recordParsing` | string | strict a| expected separation between lines/records:
@@ -680,7 +650,7 @@ When defining an input of type Fixed Width, there are a few optional parameters 
 
 
 
-These properties can be either set via the XML of your Mule project:
+These properties can be set via the XML of your Mule project:
 
 [source,xml,linenums]
 ----
@@ -690,32 +660,29 @@ These properties can be either set via the XML of your Mule project:
 </dw:input-payload>
 ----
 
-Or via the UI of the Transform Message component
-
-See xref:6@studio::transform-message/input-output-structure-transformation-studio-task.adoc[To Define Input and Output Structure of a Transformation].
+To set this via the Anypoint Studio UI, see xref:6@studio::transform-message/input-output-structure-transformation-studio-task.adoc[To Define Input and Output Structure of a Transformation].
 
 === Writer Properties
 
-When defining an output of type fixed width there are a few optional parameters you can add to the output directive to customize how the data is written:
+When defining an output of type fixed width there are a few optional parameters you can add to the output directive to customize how the data is parsed:
 
 [%header]
 |===
 |Parameter |Type |Default|Description
-|`schemaPath` |string | |Path where the schema file to be used is located
-|`encoding` |string | UTF-8 | Output character encoding
-|`missingValues`|string | spaces a| How to represent optional values missing from the supplied map:
+|schemaPath |string | |Path where the schema file to be used is located
+|encoding |string | UTF-8 | MIME type encoding
+`missingValues`| string | spaces a| How to represent optional values missing from the supplied map:
 
 * *spaces*: fill the field with spaces
 * *nulls*: use 0 bytes
 
-|`recordTerminator`| string | standard Java line termination for the system | Termination for every line/record. In Mule runtime versions 3.8.4 and older, this is only used as a separator when there are multiple records. Possible values: `lf, cr, crlf, none`. Values translate directly to character codes (`none` leaves no termination on each record).
-|`trimValues` |boolean |`false` |Trim string values longer than field length by truncating trailing characters
+|`recordTerminator`| string | standard Java line termination for the system | The separation between lines/records. Possible values: `lf, cr, crlf, none`. Values translate directly to character codes (`none` leaves no separation between records)
 |===
 
 [source,dataweave,linenums]
 ----
-%dw 1.0
-%output text/plain schemaPath="src/main/resources/test-data/QBReqRsp.esl", encoding="UTF-8"
+%dw 2.0
+output text/plain schemaPath="src/main/resources/test-data/QBReqRsp.esl", encoding="UTF-8"
 ---
 payload
 ----
@@ -729,7 +696,7 @@ See xref:dataweave/dataweave-flat-file-schemas.adoc[DataWeave Flat File or EDI S
 
 === Defining a Metadata Type
 
-In the Transform Message component, you can define a Fixed Width type through the following methods:
+In the Transform component, you can define a Fixed Width type through the following methods:
 
 * By Providing a sample file
 * By pointing to a <<flat file>> schema file
@@ -739,13 +706,20 @@ In the Transform Message component, you can define a Fixed Width type through th
 image::dataweave/dataweave-formats-27b3c.png[]
 
 [TIP]
-See xref:6@studio::transform-message/input-output-structure-transformation-studio-task.adoc[To Define Input and Output Structure of a Transformation].
+====
+For Anypoint Studio see xref:6@studio::transform-message/input-output-structure-transformation-studio-task.adoc[To Define Input and Output Structure of a Transformation (Anypoint Studio)].
 
+For Design Center see xref:1.0@design-center::input-output-structure-transformation-design-center-task.adoc[To Define Input and Output Structure of a Transformation (Design Center)].
+====
 
 
 == Cobol Copybook
 
-Copybook types are technically considered a type of <<Flat File>> format, but when selecting this option the Transform Message component offers you settings that are better tailored to the needs of this format.
+Copybook types are technically considered a type of <<Flat File>> format, but when selecting this option the Transform component offers you settings that are better tailored to the needs of this format.
+
+
+[NOTE]
+This format is currently being supported as an early access feature.
 
 === Reader Properties
 
@@ -756,11 +730,12 @@ When defining an input of type Copybook, there are a few optional parameters you
 |Parameter |Type |Default|Description
 |`schemaPath`| string | | Location in your local disk of the schema file used to parse your input
 |`segmentIdent`|string |  | In case the schema file defines multiple different structures, this field selects which to use
-|`missingValues`| string | nulls | How missing values are represented in the input data:
+|`encoding` |string | UTF-8 | MIME type encoding
+
+|`missingValues`| string | nulls a| How missing values are represented in the input data:
 
 * *none*: treat all data as actual values
 * *spaces*: interpret a field consisting of only spaces as a missing value
-* *zeroes*: interpret numeric fields consisting of only '0' characters and character fields consisting of only spaces as missing values
 * *nulls*: interpret a field consisting only of 0 bytes as a missing value
 
 | `recordParsing` | string | strict a| expected separation between lines/records:
@@ -772,7 +747,7 @@ When defining an input of type Copybook, there are a few optional parameters you
 
 
 
-These properties can be either set via the XML of your Mule project:
+These properties can be set via the XML of your Mule project:
 
 [source,xml,linenums]
 ----
@@ -782,37 +757,34 @@ These properties can be either set via the XML of your Mule project:
 </dw:input-payload>
 ----
 
-Or via the UI of the Transform Message component
-
-See xref:6@studio::transform-message/input-output-structure-transformation-studio-task.adoc[To Define Input and Output Structure of a Transformation].
+To set this via the Anypoint Studio UI, see xref:6@studio::transform-message/input-output-structure-transformation-studio-task.adoc[To Define Input and Output Structure of a Transformation].
 
 [NOTE]
 Schemas with type `Binary` or `Packed` don't allow for line breaks to be detected, so setting `recordParsing` to "lenient"` will only allow long records to be handled, but not short ones. These schemas also currently only work with certain single-byte character encodings (so not with UTF-8 or any multibyte format).
 
 === Writer Properties
 
-When defining an output of type copybook there are a few optional parameters you can add to the output directive to customize how the data is written:
+When defining an output of type copybook there are a few optional parameters you can add to the output directive to customize how the data is parsed:
 
 [%header]
 |===
 |Parameter |Type |Default|Description
-|`schemaPath` |string | |Path where the schema file to be used is located
-|`segmentIdent` |string | |In case the schema file defines multiple formats, indicates which of them to use
-|`encoding` |string | UTF-8 | Output character encoding
+|schemaPath |string | |Path where the schema file to be used is located
+|segmentIdent |string | |In case the schema file defines multiple formats, indicates which of them to use
+|encoding |string | UTF-8 | MIME type encoding
 
-|`missingValues`| string | nulls | How to represent optional values missing from the supplied map:
+|`missingValues`| nulls | spaces a| How to represent optional values missing from the supplied map:
 
 * *spaces*: fill the field with spaces
 * *nulls*: use 0 bytes
 
-|`recordTerminator`| string | standard Java line termination for the system | Termination for every line/record. In Mule runtime versions 3.8.4 and older, this is only used as a separator when there are multiple records. Possible values: `lf, cr, crlf, none`. Values translate directly to character codes (`none` leaves no termination on each record).
-|`trimValues` |boolean |`false` |Trim string values longer than field length by truncating trailing characters
+|`recordTerminator`| string | standard Java line termination for the system | The separation between lines/records. Possible values: `lf, cr, crlf, none`. Values translate directly to character codes (`none` leaves no separation between records)
 |===
 
 [source,dataweave,linenums]
 ----
-%dw 1.0
-%output text/plain schemaPath="src/main/resources/test-data/QBReqRsp.esl", structureIdent=“QBResponse"
+%dw 2.0
+output text/plain schemaPath="src/main/resources/test-data/QBReqRsp.esl", structureIdent=“QBResponse"
 ---
 payload
 ----
@@ -825,7 +797,7 @@ See xref:dataweave/dataweave-flat-file-schemas.adoc[DataWeave Flat File or EDI S
 
 === Defining a Metadata Type
 
-In the Transform Message component, you can define a Fixed Width type through the following methods:
+In the Transform component, you can define a Fixed Width type through the following methods:
 
 * By pointing to a <<flat file>> schema file
 
@@ -833,15 +805,7 @@ In the Transform Message component, you can define a Fixed Width type through th
 [TIP]
 See xref:dataweave/dataweave-flat-file-schemas.adoc[Flat File Schemas] for more detailed instructions on how to write the required schema.
 
-
 == See Also
 
-* xref:dataweave/dataweave-quickstart.adoc[DataWeave quickstart guide]
-* xref:6@studio::transform-message/transform-message-component-concept-studio.adoc[About Transform Message Component]
+
 * xref:dataweave/dataweave-language-introduction.adoc[DataWeave Language Introduction]
-* xref:dataweave/dataweave-operators.adoc[DataWeave Operators]
-* xref:dataweave/dataweave-types.adoc[DataWeave Types]
-* xref:dataweave/dataweave-memory-management.adoc[DataWeave Memory Management]
-* xref:dataweave/dataweave-selectors.adoc[DataWeave Selectors]
-* xref:dataweave/dataweave-examples.adoc[DataWeave Examples]
-* xref:mel/mel-dataweave-functions.adoc[MEL DataWeave Functions]

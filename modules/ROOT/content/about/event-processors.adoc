@@ -1,0 +1,19 @@
+= About Event Processors
+ifndef::env-site,env-github[]
+include::_attributes.adoc[]
+endif::[]
+
+Event Processors are the components used to conduct backend processes for specific business logic around the Mule event.
+
+They are grouped based on the actions they facilitate:
+
+* xref:about/operations.adoc[About Operations]
+* xref:concepts/scopes.adoc[About Scopes]
+* xref:about/routers.adoc[About Routers]
+* xref:about/transformers.adoc[About Transformers]
+* xref:about/modules-and-connectors.adoc[About Modules]
+
+
+== See Also
+
+* xref:about/components.adoc[About Components]

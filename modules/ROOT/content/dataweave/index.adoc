@@ -2,56 +2,147 @@
 ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
-:page-aliases: dataweave.adoc
 :keywords: studio, anypoint, transform, transformer, format, aggregate, rename, split, filter convert, xml, json, csv, pojo, java object, metadata, dataweave, data weave, datawave, datamapper, dwl, dfl, dw, output structure, input structure, map, mapping
 
 == Overview
 
-The xref:dataweave/dataweave-language-introduction.adoc[DataWeave Language] is a simple, powerful tool used to query and transform data inside of Mule. It can be implemented to:
+The xref:dataweave/dataweave-language-introduction.adoc[DataWeave Language] is a powerful, Mule-specific language that you can use to access, evaluate and transform the data in a Mule message. Tightly integrated to the Mule Runtime, Anypoint Studio, and Design Center, and usable from within virtually every message processor in Mule, DataWeave enables you to quickly and elegantly filter, route, or otherwise act upon the different parts of the Mule event object. It can be used lightly as an expression language to simply reference values or invoke methods.
 
-* graphically map fields by dragging one attribute to another, just like you were able to with the now deprecated xref:6@studio::datamapper/datamapper-user-guide-and-reference.adoc[DataMapper], or
-* leverage its powerful object-oriented language that's specially designed to make writing transformations quick, without compromising maintainability.
+DataWeave can also be used as a fully fledged scripting language to construct complex data transformations that include functions and recursion. The language supports a variety of transformations: simple *one-to-one*, *one-to-many* or *many-to-one* mappings from an assortment of data structures, and can complete more elaborate mappings such as grouping, joining, partitioning, pivoting, normalizing, and filtering.
 
-DataWeave supports a variety of transformations: simple *one-to-one*, *one-to-many* or *many-to-one* mappings from an assortment of data structures, and can complete more elaborate mappings including normalization, grouping, joins, partitioning, pivoting and filtering. With DataWeave and Mule Expression Language (MEL), you can take your application's data transformation ability to the next level.
 
-You can also call upon the power of DataWeave language within _other_ components by using xref:mel/mel-dataweave-functions.adoc[Mule Expression Language DataWeave Functions].
+== DataWeave Expression Essentials
 
-The language is tightly integrated with Mule and Anypoint Studio. Use the *Transform Message* component, which allows you to use the language to query and transform data through DataWeave. Any mappings you perform through the graphical interface will be expressed in DataWeave code in real-time.
-
-* Read all about how to leverage the Anypoint Studio UI on xref:6@studio::transform-message/transform-message-component-concept-studio.adoc[About Transform Message Component]
-* Read all about how to implement this same component through XML on xref:dataweave/dataweave-xml-reference.adoc[DataWeave XML Reference]
-
-[NOTE]
-DataWeave supports *DataSense*, which allows you to leverage metadata from connectors, schemas and sample documents in order to design your transformations more easily. DataSense assists you in design time by providing a live stream of content types while you are coding, scaffolding your mappings to help make writing transformations fast and easy.
+It's important to know that DataWeave has not always been the _de facto_ expression language Mule uses. Prior to version 4.0.0, the Mule Expression Language (MEL) was used for most needs, whilst DataWeave was reserved for only transforming data.
 
 [TIP]
 ====
-DataWeave replaces xref:6@studio::datamapper/datamapper-user-guide-and-reference.adoc[DataMapper]. MuleSoft recommends you use DataWeave, if possible, to avoid future obsolescence.
+For the simple use case of extracting a value from the Mule event, DataWeave syntax remains identical to that of MEL, so you might find that some scripts from older versions work in Mule 4 without any changes, even though they're technically being processed via a different language engine.
 
-If you have projects that employ the deprecated DataMapper, a migration tool is now included in Studio, which assists in converting a DataMapper map to DataWeave: Right click on a DataMapper, select *Migrate to DataWeave*, and follow the instructions.
-
-See xref:dataweave/dataweave-migrator.adoc[DataWeave Migrator].
+If you still need to use MEL, you can include it to your projects by adding the compatibility package.
 ====
 
-== Dataweave Reference Material
+DataWeave expressions are written according to the following format: `#[expression]`.
 
-* xref:dataweave/dataweave-quickstart.adoc[DataWeave Quickstart Guide]
-* xref:dataweave/dataweave-language-introduction.adoc[DataWeave Language Introduction]
+DataWeave expressions are deeply influenced by their context. Metadata about input and output data – its format, structure, etc – shapes the behavior of your transformation. Understanding the *Mule event object structure* is therefore critical. If you are not already familiar with the Mule Event object structure, read the xref:concepts/index.adoc[Mule concepts] document.
+
+The language allows you to specify custom properties in a header section. This part of the expression is *optional* because these properties default to whatever fits the context of the data being processed within the application.
+
+////
+If you're already familiar with Java, learning DataWeave is not difficult. That said, it's important to comprehend some Mule-specific details _before_ you learn how to apply DataWeave expressions in your application.
+
+. *Understand the Mule message structure.* Because you use DataWeave to act upon the contents of a Mule event object (payload, attributes and variables), you first need to understand the basic structure of the Mule event. If you are not already familiar with it, read about the xref:concepts/index.adoc[Mule concepts].
+
+. *Understand how to see the contents of the Mule event.* To be able to act upon it, you need to be able to figure out what type of data it contains. Is the payload an array? Are there any variables? What properties exist? The xref:3.8@messages/mule-message.adoc[Mule Message Tutorial] describes the tools you can use to see inside the message, so that you know how to use DataWeave expressions to manipulate the data.
+
++
+////
+
+[TIP]
+Note that as of Mule 4.0.0, the Mule event structure is radically different, making it a lot simpler to reference its parts.
+
+== Using DataWeave
+
+Based on information that's extracted from the Mule event and environment properties at runtime, Mule evaluates expressions to complete different types of tasks:
+
+* *Extract* information:
+** `#[payload]`
+** `#[attributes.propertyName]`
+** `#[myVariableName]`
+** `#[sizeOf(payload.shoppingCart.items)]`
++
+[TIP]
+For a full reference about how to extract different values with DataWeave, see xref:dataweave/cookbook/extract-data.adoc[DataWeave cookbook - Extract Data].
+
+* *Evaluate* conditions:
+** `#[payload.age > 21]`
+** `#[attributes.locale  ==  'en_us']`
++
+The example below evaluates part of the payload to forward requests to different flows.
++
+[source,xml,linenums]
+----
+<choice>
+  <when expression="#[payload.purchaseType == 'book']">
+    <flow-ref name="flow1"/>
+  </when>
+  <when expression="#[payload.purchaseType == 'mp3']">
+   <flow-ref name="flow2"/>
+  </when>
+</choice>
+----
+
+* *Transform* the message.
+** `#[payload: shirtSizeArray ++ "XXL" ]`
+** `#[payload.name: upper(payload.name)]`
++
+The example below cycles through an array of objects, upper cases the values in "size" for each object. DataWeave then filters only objects where the "count" value is greater than 0.
++
+[source,dataweave,linenums]
+----
+%dw 2.0
+output application/json
+---
+(payload map (value, index) -> {
+    size: upper(value.size),
+    count: value.count
+  }
+) filter $.count > 0
+----
+
+== The Transform Component
+
+The *Transform* component allows you to use the language to query and transform data through DataWeave. Any mappings you perform through the graphical interface are also expressed in DataWeave code in real-time and vice-versa.
+////
+* https://docs.mulesoft.com/anypoint-studio/v/7/using-dataweave-in-studio[Graphically map] fields by dragging one attribute to another
+* Implement this component through xref:dataweave/dataweave-xml-reference.adoc[XML]
+////
+== Auto-Complete
+
+If you are configuring a field that supports expressions and need help with syntax, you can access DataWeave suggestions by one of two methods.
+
+* Place your cursor inside the brackets in a field that has `#[]` pre-populated for you, then press Ctrl + Space Bar. If you are using Design Center, you do not need to add your code between the brackets.
+
+* Enter `#[` to open a new DataWeave expression and display suggestions, as shown below.
++
+image::dataweave/auto-complete.png[auto_complete]
++
+[NOTE]
+Note that the autocomplete functionality described here works in the *Visual Editor only*. Although Studio's XML tab does offer some autocomplete options, the suggestions there are limited by Eclipse and are not based on DataSense or DataWeave.
+
+
+== Additional Tips
+
+* DataWeave performs http://en.wikipedia.org/wiki/Type_coercion[type coercion] at runtime.
+* When writing in Studio's XML editor, you cannot use double quotes to express String literals, because DataWeave expressions already appear enclosed in double quotes in configuration files. Instead, you can either: +
+** use single quotes                   `('expression')`
+** escape quotes with &quot;      `(&quot;expression&quot;)`
+** escape quotes with \u0027      `(\u0027expression\u0027)`
++
+If you're coding in Studio's DataWeave visual editor, Studio transforms double quotes into escaped quotes `(&quot;) `in the XML view.
+
+
+== DataWeave Reference Material
+
+////
+* link:/mule-user-guide/v/4.0/dataweave-quickstart[DataWeave Quickstart Guide]
 * xref:dataweave/dataweave-xml-reference.adoc[DataWeave XML Reference]
-* xref:dataweave/dataweave-examples.adoc[DataWeave Examples]
-* xref:dataweave/dataweave-operators.adoc[DataWeave Operators]
+////
+* xref:dataweave/dataweave-language-introduction.adoc[DataWeave Language Introduction]
+* xref:dataweave/cookbook/index.adoc[DataWeave Cookbook]
+* xref:dataweave/dataweave-core-functions.adoc[DataWeave Core Functions]
+* xref:dataweave/dataweave-string-functions.adoc[String Functions]
 * xref:dataweave/dataweave-types.adoc[DataWeave Types]
 * xref:dataweave/dataweave-formats.adoc[DataWeave Formats]
 * xref:dataweave/dataweave-selectors.adoc[DataWeave Selectors]
+
+* xref:dataweave/dataweave-import-task.adoc[To Import DataWeave Modules]
+* xref:dataweave/dataweave-create-module-task.adoc[To Create a DataWeave Module]
+* xref:dataweave/dataweave-encrypt-functions.adoc[Encrypting Functions]
+* xref:dataweave/dataweave-runtime-functions.adoc[Functions to Invoke the Runtime]
+* xref:dataweave/dataweave-system-functions.adoc[Functions to Invoke the System]
+////
 * xref:dataweave/dataweave-memory-management.adoc[DataWeave Memory Management]
-* xref:dataweave/dataweave-migrator.adoc[DataWeave Migrator Tool]
 * xref:dataweave/dataweave-flat-file-schemas.adoc[DataWeave Flat File Schemas]
+////
 * xref:dataweave/dataweave-troubleshooting.adoc[Troubleshooting Dataweave]
-
-== General MuleSoft Resources
-
-
-
-
-
-* https://www.mulesoft.com/support-and-services/mule-esb-support-license-subscription[Mule Support License]

@@ -1,0 +1,12 @@
+= Event Source
+ifndef::env-site,env-github[]
+include::_attributes.adoc[]
+endif::[]
+
+An Event Source is the first event processor in a flow. +
+The Event Source receives a trigger and creates a corresponding Mule Event object to then forward it to the next component in the flow.
+
+== See Also
+
+* xref:about/flows.adoc[About Flows]
+* xref:about/event-processors.adoc[About Event Processors]
