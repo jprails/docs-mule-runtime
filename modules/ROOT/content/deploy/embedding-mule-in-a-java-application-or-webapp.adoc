@@ -11,7 +11,7 @@ This page describes how to start and stop Mule from a Java application or to emb
 
 [TIP]
 ====
-Before running Mule in embedded mode in either a Java application or a Web app, be sure to manually update all the required dependencies for your application. The Mule ESB Embedded   Single .jar contains all Mule classes, but you need to include the dependencies manually.
+Before running Mule in embedded mode in either a Java application or a Web app, be sure to manually update all the required dependencies for your application. The Mule Embedded  Single .jar contains all Mule classes, but you need to include the dependencies manually.
 ====
 
 To start Mule from a Java application, call one of its configuration builders.
@@ -37,7 +37,6 @@ SpringXmlConfigurationBuilder configBuilder =
 
 Call the `start` method to start the server:
 
-[source,text,linenums]
 ----
 muleContext.start();
 ----
@@ -124,9 +123,8 @@ For this you have two alternatives:
 
 . Set the following system property:
 +
-[source,text,linenums]
 ----
 -Djava.util.prefs.PreferencesFactory=com.mulesource.licm.pref.MulePreferencesFactory
 ----
-
++
 . If you still experience errors after all this changes, verify that the path where the license is located doesn't contain any space as this prevents the license verification mechanism from finding it.

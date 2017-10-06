@@ -70,7 +70,7 @@ Mule's choice of processing strategy is almost always optimal for the flow to wh
 
 * *Subflow*: You can call out to a subflow (which always processes synchronously) or a synchronous flow from any flow, regardless of what processing strategy is applied to the triggering flow. The triggering flow waits until this synchronous processing block returns a message before proceeding with processing. See xref:flows/flows-and-subflows.adoc[Flows and Subflows] for more information about subflows and synchronous flows.
 
-* *Non-Blocking*: You can use the new <<Non-Blocking Processing Strategy>> strategy available in Mule 3.7 and newer to take advantage of NIO with the xref:3.7@connectors::http-connector.adoc[HTTP Connector] and avoid having threads blocked while waiting for HTTP responses, which also requires less tuning. *Note*: Not all components are currently supported, unsupported components cause a flow to fall back to synchronous processing.
+* *Non-Blocking*: You can use the new <<Non-Blocking Processing Strategy>> strategy available in Mule 3.7 and newer to take advantage of NIO with the xref:3.8@connectors::http-connector.adoc[HTTP Connector] and avoid having threads blocked while waiting for HTTP responses, which also requires less tuning. *Note*: Not all components are currently supported, unsupported components cause a flow to fall back to synchronous processing.
 
 * *Custom*: You can create a custom flow processing strategy to fit your exact needs. For instance, you might prefer a queued-asynchronous flow that uses an increased number of threads to handle high peak loads.
 
@@ -227,15 +227,13 @@ You can use a named processing strategy, either a custom processing strategy tha
 
 * Declare the processing strategy, as in the following:
 +
-
 [source,xml,linenums]
 ----
 <queued-asynchronous-processing-strategy name="allow500Threads" maxThreads="500"/>
 ----
-
++
 * Refer to it in appropriate flows, for instance:
 +
-
 [source,xml,linenums]
 ----
 <flow name="acceptOrders" processingStrategy="allow500Threads">
@@ -346,16 +344,21 @@ While this processing model clearly applies to multiple scenarios in Mule's curr
 
 Therefore, you should consider using this processing strategy when your flow implementations primarily use HTTP and you want the advantage of not needing to tune listener threads or to minimize resource utilization, as described above,
 
-Before using the non-blocking strategy, ensure you are also familiar with what is currently supported and their limitations as follows:
+Before using the non-blocking strategy, ensure you are also familiar with:
 
-* The only Message Source that supports non-blocking is the xref:3.7@connectors::http-listener-connector.adoc[HTTP Connector Listener].
-* The only Message Processor that supports non-blocking is the xref:3.7@connectors::http-request-connector.adoc[HTTP Connector Request].
-* The only Message Exchange Pattern currently supported is https://www.mulesoft.com/exchange/#!/http-request-response-logger[Request-Response].
-* Only a limited set of components are fully supported for use in non-blocking flows.
+* The <<Supported Non-Blocking Components>>.
+* The <<Unsupported Components,Unsupported Non-Blocking Components>>.
+* The following Non-Blocking strategy limitations:
+** The only Message Source that supports non-blocking is the xref:3.8@connectors::http-listener-connector.adoc[HTTP Connector Listener].
+** The only Message Processor that supports non-blocking is the xref:3.8@connectors::http-request-connector.adoc[HTTP Connector Request].
+** The only Message Exchange Pattern currently supported is https://www.mulesoft.com/exchange/#!/http-request-response-logger[Request-Response].
+** Only a limited set of components are fully supported for use in non-blocking flows.
 
 While you can use unsupported components in a non-blocking flow, they cause the processing model to revert to execute synchronously so as to ensure consistent behavior.  Aside from advanced scenarios, in these cases, it is best to not to use the non-blocking processing strategy.
 
 === Supported Non-Blocking Components
+
+The following components can be included in the flow with "Non-Blocking" strategy, but not all of them can support the non-blocking processing opereations.
 
 * *Connectors:* All connectors are supported in a non-blocking flow, but only the HTTP connector (introduced in Mule 3.6 and newer) performs non-blocking request-response operations and lets you take advantage of the non-blocking processing model.
 * *Scopes:*  +
@@ -363,6 +366,7 @@ While you can use unsupported components in a non-blocking flow, they cause the 
 ** *Async/Wire-Tap*: Supported, but child processors cannot take advantage of non-blocking processing. This is because the One-Way Exchange-Pattern is not yet supported.
 ** *Request-Reply*: Supported, but does not currently take advantage of the non-blocking processing model.
 * *Components*: All components are supported.
+* *JMS Transport*: JMS request-response support in Mule 3.8 and newer.
 * *Transformers*: All transformers including DataWeave.
 * *Filters*: All filters are supported.
 * *Flow Control*: Currently only the APIkit Router and Choice are supported.
@@ -389,4 +393,4 @@ In this example the first HTTP request processor uses non-blocking, but the aggr
 * Review the different kinds of xref:flows/flows-and-subflows.adoc[Flows and Subflows] in Mule.
 * Read more about xref:transactions/reliability-patterns.adoc[Reliability Patterns].
 * Find out how to xref:administer/tuning-performance.adoc[tune performance] by analyzing and configuring threading profiles.
-* Check out the Asynchronous Message Cheat Sheet on our  https://blogs.mulesoft.com/dev/mule-dev/cheat-sheet-asynchronous-message-processing/[MuleSoft Blog].
+* Check out the Asynchronous Message Cheat Sheet on our  https://blogs.mulesoft.com/dev/mule-dev/cheat-sheet-asynchronous-message-processing/[MuleSoft Blog] .

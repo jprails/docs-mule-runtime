@@ -43,16 +43,14 @@ Complex Event Processing (CEP) refers to an application where a stream or cloud 
 
 XML namespace:
 
-[source,text,linenums]
 ----
 xmlns:bpm "http://www.mulesoft.org/schema/mule/bpm"
 ----
 
 XML Schema location:
 
-[source,text,linenums]
 ----
-http://www.mulesoft.org/schema/mule/bpm/3.6/mule-bpm.xsd
+http://www.mulesoft.org/schema/mule/bpm/current/mule-bpm.xsd
 ----
 
 Syntax:
@@ -84,7 +82,7 @@ Import the XML schema for the general BPM module as follows:
 [source,text,linenums]
 ----
 xmlns:bpm="http://www.mulesoft.org/schema/mule/bpm"
-xsi:schemaLocation="http://www.mulesoft.org/schema/mule/bpm  http://www.mulesoft.org/schema/mule/bpm/3.6/mule-bpm.xsd"
+xsi:schemaLocation="http://www.mulesoft.org/schema/mule/bpm  http://www.mulesoft.org/schema/mule/bpm/current/mule-bpm.xsd"
 ----
 
 [NOTE]
@@ -94,7 +92,7 @@ Since they are closely related, the BPM namespace/schema is shared between the D
 
 Declare Drools as the Rules Engine to use with Mule:
 
-[source,xml,linenums]
+[source,xml]
 ----
 <bpm:drools />
 ----
@@ -106,7 +104,7 @@ Just as with xref:modules/bpm-module-reference.adoc[BPM], Rules integration in M
 
 Add Rules to your Mule application, generally (though not necessarily) preceded by an inbound-endpoint:
 
-[source,xml,linenums]
+[source,xml]
 ----
 <bpm:rules rulesDefinition="myRules.drl" />
 ----
@@ -138,7 +136,7 @@ a|[source,xml,linenums]
 ----
 <mule ... xmlns:bpm="http://www.mulesoft.org/schema/mule/bpm"
     xsi:schemaLocation="http://www.mulesoft.org/schema/mule/bpm
-    http://www.mulesoft.org/schema/mule/bpm/3.6/mule-bpm.xsd" ...>
+    http://www.mulesoft.org/schema/mule/bpm/current/mule-bpm.xsd" ...>
 
     <bpm:drools />
 
@@ -160,7 +158,7 @@ a|[source,xml,linenums]
 ----
 <mule ... xmlns:bpm="http://www.mulesoft.org/schema/mule/bpm"
     xsi:schemaLocation="http://www.mulesoft.org/schema/mule/bpm
-    http://www.mulesoft.org/schema/mule/bpm/3.6/mule-bpm.xsd" ...>
+    http://www.mulesoft.org/schema/mule/bpm/current/mule-bpm.xsd" ...>
 
     <spring:bean name="companies" class="org.mule.example.cep.CompanyRegistry" factory-method="getCompanies" /> ❷
 
@@ -195,11 +193,8 @@ A service backed by a rules engine such as Drools.
 |entryPoint |string |no |  |Entry point for event stream (used by CEP).
 |===
 
-.Child Elements of <rules...>
-[%header%autowidth.spread]
-|===
-|Name |Cardinality |Description
-|===
+No Child Elements of <rules...>
+
 
 == XML Schema
 

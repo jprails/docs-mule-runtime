@@ -1,8 +1,8 @@
-= Advanced Usage of Mule ESB
+= Advanced Usage of Mule
 ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
-:keywords: configuration, esb, mule
+:keywords: configuration, mule
 
 This section describes advanced techniques of using Mule.
 
@@ -22,7 +22,7 @@ This section describes advanced techniques of using Mule.
 * xref:administer/tuning-performance.adoc[Tuning Performance]
 * xref:administer/mule-agents.adoc[Mule Agents]
 * xref:flows/flow-processing-strategies.adoc[Flow Processing Strategies]
-* xref:modules/mule-object-stores.adoc[Mule Object Stores]
+* xref:object-store::mule-object-stores.adoc[Mule Object Stores]
 * xref:mule-configuration/configuring-reconnection-strategies.adoc[Configuring Reconnection Strategies]
 * xref:administer/using-the-mule-client.adoc[Using the Mule Client]
 * xref:api-usage/using-web-services.adoc[Using Web Services]

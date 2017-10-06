@@ -51,7 +51,7 @@ You can reference Spring as a component where the scope of the object is defined
 </component>
 ----
 
-== Example: Singleton Scope
+== Example: Singleton
 
 [source,xml,linenums]
 ----
@@ -60,7 +60,7 @@ You can reference Spring as a component where the scope of the object is defined
 </component>
 ----
 
-== Example: Prototype Scope
+== Example: Prototype
 
 [source,xml,linenums]
 ----
@@ -73,7 +73,7 @@ You can reference Spring as a component where the scope of the object is defined
 <component class="com.foo.Bar"/>
 ----
 
-== Example: Pooled Scope
+== Example: Pooled
 
 [source,xml]
 ----

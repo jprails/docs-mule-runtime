@@ -8,7 +8,7 @@ endif::[]
 ====
 As of Mule 3.6 and later, the HTTP endpoint-based connector and transport has been replaced by an operation-based HTTP connector.
 
-The legacy endpoint-based connector will be removed in a future version. See xref:3.7@connectors::http-connector.adoc[HTTP Connector] for more information about the HTTP operation-based connector and how to xref:3.7@connectors::migrating-to-the-new-http-connector.adoc[migrate] your projects to it.
+The legacy endpoint-based connector will be removed in a future version. See xref:3.8@connectors::http-connector.adoc[HTTP Connector] for more information about the HTTP operation-based connector and how to xref:3.8@connectors::migrating-to-the-new-http-connector.adoc[migrate] your projects to it.
 ====
 
 The Secure HTTP transport provides support for exposing applications over HTTP and making HTTP client requests from Mule flows to external services as part of event flows. Mule supports secure inbound, secure outbound, and secure polling HTTP endpoints. These endpoints support all common features of the HTTP spec, such as ETag processing, cookies, and keepalive. Both HTTP 1.0 and 1.1 are supported.
@@ -36,7 +36,7 @@ Once the keystore is in place the following needs to be added to your mule confi
  </https:connector>
 ----
 
-If the keystore was in the <MY MULE APP>/src/main/resources directory then you can just specify the name in the path. Otherwise if the keystore was located in the MULE_HOME/conf directory then you will have to specify "${mule.home}/conf/keystore.jks" as the path.
+If the keystore was in the <MY MULE APP>/src/main/resources directory then you can just specify the name in the path. Otherwise if the keystore was located in the MULE_HOME/conf directory then you will have to specify "$\{mule.home}/conf/keystore.jks" as the path.
 
 == Configuration Reference
 
@@ -84,8 +84,8 @@ For example:
       xmlns:https="http://www.mulesoft.org/schema/mule/https"
     xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
-        http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.0/mule.xsd
-        http://www.mulesoft.org/schema/mule/https http://www.mulesoft.org/schema/mule/https/3.0/mule-https.xsd">
+        http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+        http://www.mulesoft.org/schema/mule/https http://www.mulesoft.org/schema/mule/https/current/mule-https.xsd">
 
     <https:connector name="httpConnector">
         <https:tls-client path="clientKeystore" storePassword="mulepassword"/>

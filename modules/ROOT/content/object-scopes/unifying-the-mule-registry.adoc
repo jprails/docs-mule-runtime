@@ -45,7 +45,7 @@ Also deprecated and no longer used are the *InjectProcessor* and *PreInitProcess
 
 If you replace TransientRegistry with SpringRegistry, then the latter or another component needs to assume responsibility for all the tasks that TransientRegistry performed. One of those tasks is processing the `registry-bootstrap.properties` files.
 
-When Mule starts, it searches the classpath for `registry-bootstrap.properties` files, which contain keys and class names for objects to automatically add to the registry. For example, the new xref:3.7@connectors::http-connector.adoc[HTTP Connector] uses a properties file to register a connection manager. The Batch module uses it to register the batch engine, etc.
+When Mule starts, it searches the classpath for `registry-bootstrap.properties` files, which contain keys and class names for objects to automatically add to the registry. For example, the new xref:3.8@connectors::http-connector.adoc[HTTP Connector] uses a properties file to register a connection manager. The Batch module uses it to register the batch engine, etc.
 
 The SimpleRegistryBootstrap component previously was responsible for creating Instances of those classes and registering them in the TransientRegistry. This was problematic because:
 
@@ -99,6 +99,6 @@ In this way Mule achieves:
 == See Also
 
 * http://blogs.mulesoft.com/sneak-peek-mule-3-7-deepest-internals/[A sneak peek into Mule 3.7’s deepest internals]
-* http://blogs.mulesoft.com/mule-3-6-library-upgrades/[Library upgrades in Mule ESB 3.6]
+* http://blogs.mulesoft.com/mule-3-6-library-upgrades/[Library upgrades in Mule 3.6]
 * http://blogs.mulesoft.com/mule-3-6-xml-xpath-xslt-xquery3/[You’re into XML? Mule now supports XPath, XSLT and XQuery 3.0]
 * xref:3.8@connector-devkit::building-a-batch-enabled-connector.adoc[Mule How-to: Build a Batch Enabled Cloud Connector]

@@ -52,4 +52,4 @@ Configure these parameters to define the attribute keys and their associated val
 == See Also
 
 * Refer to the generic xref:components/script-component-reference.adoc[Script Component Reference] to see how a script works with one-way and request-response connectors.
-* For more information see the Mule ESB page xref:modules/scripting-module-reference.adoc[Scripting Module].
+* For more information see the Mule page xref:modules/scripting-module-reference.adoc[Scripting Module].

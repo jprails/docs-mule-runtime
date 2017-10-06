@@ -5,11 +5,11 @@ endif::[]
 :page-aliases: append-string-transformer-reference.adoc
 :keywords: anypoint, components, elements, transformer, append string,
 
-*Purpose:* Appends a string to a string payload.
+Appends a string to a string payload.
 
 *Minimum Configuration:* The string to append to the message payload.
 
-*Discussion:* The Append String Transformer has the same advanced properties as all other transformers.
+The Append String Transformer has the same advanced properties as all other transformers.
 
 In the *Message* field at the bottom of the transformer properties window, specify the string that the transformer appends to the message payload.
 

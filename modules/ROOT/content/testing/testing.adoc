@@ -4,13 +4,10 @@ include::_attributes.adoc[]
 endif::[]
 :page-aliases: testing.adoc
 
-This section describes how to test your Mule application.
+These topics are entry points for different Mule application testing strategies.
 
-* xref:testing/introduction-to-testing-mule.adoc[Introduction to Testing Mule]
+* xref:testing/testing.adoc[Introduction to Testing]
 * xref:testing/unit-testing.adoc[Unit Testing]
 * xref:testing/functional-testing.adoc[Functional Testing]
 * xref:testing/testing-strategies.adoc[Testing Strategies]
-
-== See Also
-
-* xref:1.1@munit::index.adoc[MUnit v1.1.1]
+* xref:1.2@munit::index.adoc[MUnit 1.2.0]
