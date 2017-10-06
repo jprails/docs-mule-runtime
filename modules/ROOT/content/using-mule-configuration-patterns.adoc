@@ -32,10 +32,10 @@ The following table will help you pick up the configuration pattern that fits yo
 [%header,cols="2*"]
 |===
 |Pattern Name |Usage
-|xref:3.5@simple-service-pattern.adoc[Simple Service] |Exposes JAX-WS annotated components as SOAP web services. Exposes JAX-RS annotated beans as RESTful components. Can also handle JAXB, XML and raw content with simple POJO components.
-|xref:3.5@web-service-proxy-pattern.adoc[Web Service Proxy] |Proxies remote web services. Can perform transformations on the SOAP envelope. Can rewrite or redirect remote WSDLs to local ones.
-|xref:3.5@bridge-pattern.adoc[Bridge] |Establishes a direct conduit between an inbound endpoint and an outbound endpoint. Supports request-response and one-way bridging. Can perform transformations. Supports transactional bridging of inbound to outbound.
-|xref:3.5@validator-pattern.adoc[Validator] |Validates inbound messages against a defined acceptance filter. Returns an ACK or NACK response synchronously and dispatches valid messages asynchronously.
+|xref:simple-service-pattern.adoc[Simple Service] |Exposes JAX-WS annotated components as SOAP web services. Exposes JAX-RS annotated beans as RESTful components. Can also handle JAXB, XML and raw content with simple POJO components.
+|xref:web-service-proxy-pattern.adoc[Web Service Proxy] |Proxies remote web services. Can perform transformations on the SOAP envelope. Can rewrite or redirect remote WSDLs to local ones.
+|xref:bridge-pattern.adoc[Bridge] |Establishes a direct conduit between an inbound endpoint and an outbound endpoint. Supports request-response and one-way bridging. Can perform transformations. Supports transactional bridging of inbound to outbound.
+|xref:validator-pattern.adoc[Validator] |Validates inbound messages against a defined acceptance filter. Returns an ACK or NACK response synchronously and dispatches valid messages asynchronously.
 |xref:http-proxy-pattern.adoc[HTTP Proxy] |Sits between a caller application and a target web resource, propagating HTTP requests and responses. You can use it to access remote web resources in a controlled manner.
 |===
 
@@ -43,5 +43,5 @@ Should none of the existing patterns satisfy your need, turn to xref:3.6@flows/u
 
 == Related Topics
 
-* xref:3.5@pattern-based-configuration.adoc[Pattern-Based Configuration]
+* xref:pattern-based-configuration.adoc[Pattern-Based Configuration]
 * http://forums.mulesoft.org/forum.jspa?forumID=148[Providing feedback or suggesting new Patterns]

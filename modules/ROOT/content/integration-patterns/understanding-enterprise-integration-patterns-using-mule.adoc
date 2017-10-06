@@ -19,8 +19,8 @@ There is a list of patterns that can be mapped directly with Mule objects. Find 
 [%header,cols="2*"]
 |===
 |Pattern |Mapping to a Mule Object
-|File Transfer |xref:transports/file-transport-reference.adoc[File Transport]
-|Shared Database |xref:transports/jdbc-transport-reference.adoc[JDBC Transport]
+|File Transfer |xref:3.6@transports/file-transport-reference.adoc[File Transport]
+|Shared Database |xref:3.6@transports/jdbc-transport-reference.adoc[JDBC Transport]
 |Messaging |Mule is all about Messaging
 |===
 
@@ -31,9 +31,9 @@ There is a list of patterns that can be mapped directly with Mule objects. Find 
 |Pattern |Mapping to a Mule Object
 |Message Channel |Mule provides a message channel that connects the message processors in a flow.
 |Pipes and Filters |A Flow implements a pipe and filter architecture
-|Message Router |xref:routing-message-processors.adoc[Message Routers]
-|Message Translator |xref:transformers/using-transformers.adoc[Message Transformer]
-|Message Endpoint |Inbound & Outbound xref:message-sources.adoc[Endpoints]
+|Message Router |xref:3.6@routers/routers.adoc[Message Routers]
+|Message Translator |xref:3.6@transformers/using-transformers.adoc[Message Transformer]
+|Message Endpoint |Inbound & Outbound xref:3.6@endpoints/endpoint-configuration-reference.adoc[Endpoints]
 |===
 
 === Messaging Channels
@@ -50,12 +50,12 @@ There is a list of patterns that can be mapped directly with Mule objects. Find 
 [%header,cols="2*"]
 |===
 |Pattern |Mapping to a Mule Object
-|Content-Based Router |xref:routing-message-processors.adoc[Choice]
-|Message Filter |xref:using-filters.adoc[Filters]
-|Recipient List |xref:message-sources.adoc[Recipient List]
-|Splitter |xref:routing-message-processors.adoc[Collection Splitter, Message Chunk Splitter & Plain Splitter]
-|Aggregator |xref:routing-message-processors.adoc[Collection Aggregator, Message Chunk Aggregator & Custom Aggregator]
-|Resequencer |xref:routing-message-processors.adoc[Resequencer]
+|Content-Based Router |Choice
+|Message Filter |Filters
+|Recipient List |Recipient List
+|Splitter |Collection Splitter, Message Chunk Splitter & Plain Splitter
+|Aggregator |Collection Aggregator, Message Chunk Aggregator & Custom Aggregator
+|Resequencer |Resequencer
 |===
 
 === Message transformation
@@ -63,7 +63,7 @@ There is a list of patterns that can be mapped directly with Mule objects. Find 
 [%header,cols="2*"]
 |===
 |Pattern |Mapping to a Mule Object
-|Content Enricher |xref:scopes/message-enricher.adoc[Message Enricher]
+|Content Enricher |xref:3.6@scopes/message-enricher.adoc[Message Enricher]
 |===
 
 === Messaging Endpoints
@@ -81,9 +81,9 @@ You can declare endpoints to be transactional as needed.
 [%header,cols="2*"]
 |===
 |Pattern |Mapping to a Mule Object
-|Wire Tap |xref:routing-message-processors.adoc[Wire Tap]
+|Wire Tap |Wire Tap
 |===
 
 == Related Topics
 
-* xref:using-mule-configuration-patterns.adoc[Configuring Mule with Patterns]
+* xref:configuration-patterns.adoc[Configuring Mule with Patterns]

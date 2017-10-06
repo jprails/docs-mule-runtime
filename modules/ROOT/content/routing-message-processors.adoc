@@ -3,8 +3,6 @@ ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
 
-[ <<Quick Reference>> ] [ <<All>> ] [ <<Async>> ] [ <<Choice>> ] [ <<Collection Aggregator>> ] [ <<Collection Splitter>> ] [ <<Custom Aggregator>> ] [ <<Custom Processor>> ] [ <<First Successful>> ] [ <<Idempotent Message Filter>> ] [ <<Idempotent Secure Hash Message Filter>> ] [ <<Message Chunk Aggregator>> ] [ <<Message Chunk Splitter>> ] [ <<Message Filter>> ] [ <<Processor Chain>> ] [ <<Recipient List>> ] [ <<Request Reply>> ] [ <<Resequencer>> ] [ <<Round Robin>> ] [ <<Splitter>> ] [ <<WireTap>> ]
-
 Message Processors are used within flows to control how messages are sent and received within that flow. This is further described in xref:flows/using-flows-for-service-orchestration.adoc[Using Flows for Service Orchestration].
 
 Click a link in the Quick Reference table below for details on a specific message processor.
@@ -14,7 +12,7 @@ Click a link in the Quick Reference table below for details on a specific messag
 [%header,cols="2*"]
 |===
 |Message Processor |Description
-|<<All>> |Broadcast a message to multiple targets
+|<<All>> (Deprecated) |Broadcast a message to multiple targets
 |<<Async>> |Run a chain of message processors in a separate thread
 |<<Choice>> |Send a message to the first matching message processor
 |<<Collection Aggregator>> |Aggregate messages into a message collection
@@ -28,7 +26,7 @@ Click a link in the Quick Reference table below for details on a specific messag
 |<<Message Chunk Splitter>> |Split a message into fixed-size chunks
 |<<Message Filter>> |Filter messages using a filter
 |<<Processor Chain>> |Create a message chain from multiple targets
-|<<Recipient List>> |Send a message to multiple endpoints
+|<<Recipient List>> |Send a message to multiple connectors
 |<<Request Reply>> |Receive a message for asynchronous processing and accept the asynchronous response on a different channel
 |<<Resequencer>> |Reorder a list of messages
 |<<Round Robin>> |Round-robin among a list of message processors (added in 3.0.1)
@@ -39,9 +37,9 @@ Click a link in the Quick Reference table below for details on a specific messag
 
 == All
 
-The All message processor can be used to send the same message to multiple targets.
+*_Deprecated_*
 
-Configuration for this router is as follows:
+The All message processor can be used to send the same message to multiple targets. Configuration for this router is as follows:
 
 [source,xml,linenums]
 ----
@@ -145,7 +143,7 @@ or
 
 [source,xml,linenums]
 ----
-<custom-processor class="com.mycompany.utils.HighSpeedRouter"/>
+<custom-processor class="com.mycompany.utils.HighSpeedRouter"/>]
 ----
 
 == First Successful
@@ -154,11 +152,11 @@ The First Successful message processor iterates through its list of child messag
 
 Success is defined as:
 
-* If the child message processor throws an exception, this is a failure.
+* If the child message processor thows an exception, this is a failure.
 * Otherwise:
 ** If the child message processor returns a message that contains an exception payload, this is a failure.
 ** If the child message processor returns a message that does not contain an exception payload, this is a success.
-** If the child message processor does not return a message (e.g. is a one-way endpoint), this is a success.
+** If the child message processor does not return a message (e.g. is a one-way connector), this is a success.
 
 This message processor was added in Mule 3.0.1.
 
@@ -187,7 +185,7 @@ In the above example a failure expression is being used to more exactly define t
 
 == Idempotent Message Filter
 
-An idempotent filter checks the unique message ID of the incoming message to ensure that only unique messages are received by the flow. The ID can be generated from the message using an expression defined in the `idExpression` attribute. By default, the expression used is `#[message:id]`, which means the underlying endpoint must support unique message IDs for this to work. Otherwise, a `UniqueIdNotSupportedException` is thrown.
+An idempotent filter checks the unique message ID of the incoming message to ensure that only unique messages are received by the flow. The ID can be generated from the message using an expression defined in the `idExpression` attribute. By default, the expression used is `#[message:id]`, which means the underlying connector must support unique message IDs for this to work. Otherwise, a `UniqueIdNotSupportedException` is thrown.
 
 There is a simple idempotent filter implementation provided at
 
@@ -263,7 +261,7 @@ Configuration for the Message Chunk Splitter is as follows:
 
 == Message Filter
 
-The Message Filter is used to control whether a message is processed by using a xref:using-filters.adoc[filter]. In addition to the filter, you can configure whether to throw an exception if the filter does not accept the message and an optional message processor to send unaccepted messages to.
+The Message Filter is used to control whether a message is processed by using a <<Idempotent Secure Hash Message Filter>>. In addition to the filter, you can configure whether to throw an exception if the filter does not accept the message and an optional message processor to send unaccepted messages to.
 
 Configuration for the Message Filter is as follows:
 
@@ -290,14 +288,14 @@ A Processor Chain is a linear chain of message processors which process a messag
 
 == Recipient List
 
-The Recipient List message processor allows you to send a message to multiple endpoints by specifying an expression that, when evaluated, provides the list of endpoints. These messages can optionally be given a correlation ID, as in the <<Collection Splitter>>. An example is
+The Recipient List message processor allows you to send a message to multiple connectors by specifying an expression that, when evaluated, provides the list of connectors. These messages can optionally be given a correlation ID, as in the <<Collection Splitter>>. An example is
 
 [source,xml,linenums]
 ----
 <recipient-list enableCorrelation="ALWAYS" evaluator="header" expression="myRecipients"/>
 ----
 
-which finds the list of endpoints in the message header named `myRecipients`.
+which finds the list of connectors in the message header named `myRecipients`.
 
 == Request Reply
 
@@ -322,9 +320,9 @@ Here is an example that uses the Request Reply message processor:
 </flow>
 ----
 
-The request is received in the main flow and passed to the request-reply router, which implicitly sets the MULE_REPLYTO message property to the URL of its inbound endpoint (vm://reply) and asynchronously dispatches the message to the (one-way) vm://request endpoint, where it is processed by the handle-request-reply flow. The main flow then waits for a reply. The handle-request-reply flow passes the message to the AsynchOrderGenerator component. When this processing is complete, the message is sent to vm://reply (the value of the MULE_REPLYTO property.) The asynchronous reply is received and given to the OrderProcessor component to complete the order processing.
+The request is received in the main flow and passed to the request-reply router, which implicitly sets the MULE_REPLYTO message property to the URL of its inbound connector (vm://reply) and asynchronously dispatches the message to the (one-way) vm://request connector, where it is processed by the handle-request-reply flow. The main flow then waits for a reply. The handle-request-reply flow passes the message to the AsynchOrderGenerator component. When this processing is complete, the message is sent to vm://reply (the value of the MULE_REPLYTO property.) The asynchronous reply is received and given to the OrderProcessor component to complete the order processing.
 
-In more advanced cases, you might not want the automatic forwarding of the second flow's response to the request-reply inbound endpoint. For instance, the second flow might trigger the running of a third flow, which then generates and sends the reply. In these cases, you can remove the MULE_REPLYTO property with a Message Properties Transformer:
+In more advanced cases, you might not want the automatic forwarding of the second flow's response to the request-reply inbound connector. For instance, the second flow might trigger the running of a third flow, which then generates and sends the reply. In these cases, you can remove the MULE_REPLYTO property with a Message Properties Transformer:
 
 [source,xml,linenums]
 ----
@@ -375,7 +373,7 @@ The Splitter is configured as shown below:
 <splitter expression="#[xpath('//acme:Trade')]" doc:name="Splitter"/>
 ----
 
-This uses the specified XPath expression to find a list of nodes in the current message and sends each of them as a separate message.
+This uses the specified XPath expression wrapped inside a MEL expression to find a list of nodes in the current message and sends each of them as a separate message.
 
 == WireTap
 

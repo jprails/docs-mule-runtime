@@ -3,6 +3,7 @@ ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
 :page-aliases: open-mq-integration.adoc
+:keywords: anypoint studio, esb, mq
 
 This page describes how to integrate Mule with the Open MQ JMS broker, the community version of http://docs.sun.com/app/docs/coll/1307.3[Sun Java System Message Queue]. It includes examples for configuring a direct connection and a JNDI connection.
 
@@ -18,8 +19,8 @@ To create a direct connection, simply specify the connection factory and JMS con
       xmlns:jms="http://www.mulesoft.org/schema/mule/jms"
       xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
-        http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.4/mule.xsd
-        http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/3.4/mule-jms.xsd">
+        http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+        http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd">
 
     <spring:bean name="connectionFactory" class="com.sun.messaging.ConnectionFactory"/>
 
@@ -45,8 +46,8 @@ To create a JNDI connection, take the following steps:
       xmlns:jms="http://www.mulesoft.org/schema/mule/jms"
       xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
-        http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.4/mule.xsd
-        http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/3.4/mule-jms.xsd">
+        http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+        http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd">
 
     <jms:connector name="jmsConnector" connectionFactory-ref="openMQ" specification="1.1">
         <spring:property name="jmsSupport" ref="jndiJmsSupport" />

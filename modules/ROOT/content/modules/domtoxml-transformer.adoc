@@ -1,4 +1,4 @@
-= DOM to XML Transformer
+= DOM/XML Transformers
 ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
@@ -9,16 +9,13 @@ Mule contains several transformers that convert between a W3C DOM object and its
 These transformers support the xref:transformers/transformers-configuration-reference.adoc[standard transformer attributes]. In addition, they support the following configuration.
 
 
-[IMPORTANT]
 ====
-xslt: Unexpected program error: java.lang.NullPointerException
-
-xslt: Unexpected program error: java.lang.NullPointerException
-
+xslt: Unexpected program error: java.lang.NullPointerException +
+xslt: Unexpected program error: java.lang.NullPointerException +
 xslt: Unexpected program error: java.lang.NullPointerException
 ====
 
-== Example
+Example
 
 To use the DOM/XML transformers, you add them to your Mule XML configuration as follows:
 

@@ -3,8 +3,9 @@ ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
 :page-aliases: jetty-transport-reference.adoc
+:keywords: mule, esb, studio, jetty, SSL
 
-The Jetty transport provides support for exposing applications over HTTP by embedding a light-weight Jetty server. The xref:transports/jetty-ssl-transport.adoc[Jetty SSL Transport] works the same way but over SSL. You can only define inbound endpoints with this transport.
+The Jetty transport provides support for exposing applications over HTTP by embedding a light-weight Jetty server. The xref:3.6@transports/jetty-ssl-transport.adoc[Jetty SSL Transport] works the same way but over SSL. You can only define inbound endpoints with this transport.
 
 The Javadoc for this transport can be found below:
 
@@ -41,14 +42,31 @@ a|
 |doc:name |string |Only for Studio configurations |Jetty |A descriptive name for the connector. Not required in Mule Standalone configuration.
 |===
 
+== Child Elements of the Connector
+
+[%header,cols="34,33,33"]
+|===
+a|
+*Name*
+
+ a|
+*Cardinality*
+
+ a|
+*Description*
+
+|webapps |0..1 |Allows configuring of a directory which contains WAR files to be served out by Jetty.
+|===
+
 == Endpoints
 
-Jetty endpoints are configured the same way as xref:transports/https-transport-reference.adoc[HTTP endpoints]. Note that the Jetty transport can only be used for inbound endpoints.
+Jetty endpoints are configured the same way as xref:http-transport-reference.adoc[HTTP endpoints]. Note that the Jetty transport can only be used for inbound endpoints.
 
 For example:
 
 [source,xml,linenums]
 ----
+
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns:jetty="http://www.mulesoft.org/schema/mule/jetty" xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
     xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.4.2"
@@ -59,7 +77,7 @@ http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/fil
 http://www.mulesoft.org/schema/mule/jetty http://www.mulesoft.org/schema/mule/jetty/current/mule-jetty.xsd">
     <flow name="somethingFlow1" doc:name="somethingFlow1">
 
-        <jetty:inbound-endpoint exchange-pattern="request-response" host="localhost" port="8081" doc:name="Jetty"/>
+        <jetty:inbound-endpoint exchange-pattern="request-response" address="http://localhost:8081/path" doc:name="Jetty"/>
 
     </flow>
 

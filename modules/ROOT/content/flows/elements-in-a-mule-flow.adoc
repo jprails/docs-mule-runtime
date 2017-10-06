@@ -6,4 +6,4 @@ endif::[]
 
 Building upon the information presented in xref:concepts/index.adoc[Mule Concepts], this section offers more detailed descriptions of the different types of message sources and message processors, and what they do within a Mule flow.
 
-Start with xref:mule-endpoints-and-connectors.adoc[Mule Endpoints and Connectors]. Skip ahead to understand the structure of a xref:mule-message-structure.adoc[Mule message].
+Start with xref:mule-connectors.adoc[Mule Connectors]. Skip ahead to understand the structure of a xref:mule-message-structure.adoc[Mule message].

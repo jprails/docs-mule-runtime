@@ -8,7 +8,7 @@ Annotations now allow flow objects to be created using purely annotations on the
 
 == Assumptions
 
-This page assumes you are familiar with Java annotations (marked with an @). For a brief overview of annotations, see the  http://docs.oracle.com/javase/tutorial/java/annotations/[Java annotations tutorial] .
+This page assumes you are familiar with Java annotations (marked with an @). For a brief overview of annotations, see the  http://docs.oracle.com/javase/tutorial/java/annotations/[Java annotations tutorial].
 
 == Annotations for Flow Components
 
@@ -27,22 +27,22 @@ When using Parameter annotations remember that every parameter needs to be annot
 
 == Annotations Reference
 
-[%header%autowidth.spread]
+[%header,cols="4*"]
 |===
 |Annotation |Description |Type |Module
-|xref:transformers/custom/transformer-annotation.adoc[@ContainsTransformerMethods] |Signals that a class contains transformer methods (Since Mule 3.0.1) |Method |annotations
-|xref:transformers/custom/transformer-annotation.adoc[@Transformer] |Used to create a Mule transformer from a class method |Method |annotations
-|xref:transformers/custom/schedule-annotation.adoc[@Schedule] |Schedules a method for execution using either a simple frequency or cron expression |Method |quartz
+|xref:3.6@transformers/custom/transformer-annotation.adoc[@ContainsTransformerMethods] |Signals that a class contains transformer methods (Since Mule 3.0.1) |Method |annotations
+|xref:3.6@transformers/custom/transformer-annotation.adoc[@Transformer] |Used to create a Mule transformer from a class method |Method |annotations
+|xref:3.6@transformers/custom/schedule-annotation.adoc[@Schedule] |Schedules a method for execution using either a simple frequency or cron expression |Method |quartz
 |@IntegrationBean |A dependency injector annotation used to inject an iBean such as Facebook or Amazon S3 into your component |Field |ibeans
-|@MockIntegrationBean |Similar to the @IntegrationBean annotation, this one can be used in tests to create a mock instance of an ibean we is good for testing the bean without actually making requests to the external service |Field |ibeans
-|xref:transformers/custom/lookup-annotation.adoc[@Lookup] |Dependency injection annotation used to retrieve objects from the registry |Field,Parameter |annotations
-|xref:transformers/custom/payload-annotation.adoc[@Payload] |A parameter injection annotation that can be used on component entry points and transformer methods defined using the @Transformer annotation, this annotation controls how the current message payload is passed into a method by performing automatic transformation of the message payload to match the annotated parameter type |Parameter |annotations
-|xref:transformers/custom/inboundheaders-annotation.adoc[@InboundHeaders] |Used on component entry points and transformer methods, this annotation controls how the current message inbound headers are passed into a method. The annotation supports, Map, List, single headers and wildcards |Parameter |annotations
-|xref:transformers/custom/outboundheaders-annotation.adoc[@OutboundHeaders] |Used on component entry points and transformer methods, this annotation controls how the current message outbound headers are passed into a method. Users can write to this Map to attach headers to the outgoing message |Parameter |annotations
-|xref:transformers/custom/inboundattachments-annotation.adoc[@InboundAttachments] |Used on component entry points and transformer methods, this annotation controls how the current message inbound attachments are passed into a method. The annotation supports, Map, List, single headers and wildcards |Parameter |annotations
-|xref:transformers/custom/outboundattachments-annotation.adoc[@OutboundAttachments] |Used on component entry points and transformer methods, this annotation controls how the current message outbound attachments are passed into a method. Users can write to this Map to attach attachments to the outgoing message |Parameter |annotations
-|xref:transformers/custom/xpath-annotation.adoc[@Xpath] |This annotation can be used to execute an Xpath expression on the message payload with the result being passed into the method. |Parameter |xml
-|xref:transformers/custom/groovy-annotation.adoc[@Groovy] |This annotation can be used to execute an Groovy expression on the message payload with the result being passed into the method. |Parameter |scripting
-|xref:transformers/custom/mule-annotation.adoc[@Mule] |A parameter injection annotation that can be used on component entry points and transformer methods, this annotation can be used to execute a xref:mel/mule-expression-language-mel.adoc[Mule Expression] |Parameter |annotations
-|xref:transformers/custom/function-annotation.adoc[@Function] |A parameter injection annotation expression on the message payload with the result being passed into the method, this annotation exposes a common set of functions used in Mule such as a counter, UUID generator, date and timestamps, etc |Parameter |annotations
+|@MockIntegrationBean |Similar to the @IntegrationBean annotation, this one can be used in tests to create a mock instance of an ibean, which is good for testing the bean without actually making requests to the external service |Field |ibeans
+|xref:3.7@transformers/custom/lookup-annotation.adoc[@Lookup] |Dependency injection annotation used to retrieve objects from the registry |Field,Parameter |annotations
+|xref:3.6@transformers/custom/payload-annotation.adoc[@Payload] |A parameter injection annotation that can be used on component entry points and transformer methods defined using the @Transformer annotation, this annotation controls how the current message payload is passed into a method by performing automatic transformation of the message payload to match the annotated parameter type |Parameter |annotations
+|xref:3.7@transformers/custom/inboundheaders-annotation.adoc[@InboundHeaders] |Used on component entry points and transformer methods, this annotation controls how the current message inbound headers are passed into a method. The annotation supports, Map, List, single headers and wildcards |Parameter |annotations
+|xref:3.6@transformers/custom/outboundheaders-annotation.adoc[@OutboundHeaders] |Used on component entry points and transformer methods, this annotation controls how the current message outbound headers are passed into a method. Users can write to this Map to attach headers to the outgoing message |Parameter |annotations
+|xref:3.7@transformers/custom/inboundattachments-annotation.adoc[@InboundAttachments] |Used on component entry points and transformer methods, this annotation controls how the current message inbound attachments are passed into a method. The annotation supports, Map, List, single headers and wildcards |Parameter |annotations
+|xref:3.6@transformers/custom/outboundattachments-annotation.adoc[@OutboundAttachments] |Used on component entry points and transformer methods, this annotation controls how the current message outbound attachments are passed into a method. Users can write to this Map to attach attachments to the outgoing message |Parameter |annotations
+|xref:3.7@transformers/custom/xpath-annotation.adoc[@Xpath] |This annotation can be used to execute an Xpath expression on the message payload with the result being passed into the method. |Parameter |xml
+|xref:3.7@transformers/custom/groovy-annotation.adoc[@Groovy] |This annotation can be used to execute an Groovy expression on the message payload with the result being passed into the method. |Parameter |scripting
+|xref:3.6@transformers/custom/mule-annotation.adoc[@Mule] |A parameter injection annotation that can be used on component entry points and transformer methods, this annotation can be used to execute a xref:3.7@mel/mule-expression-language-mel.adoc[Mule Expression] |Parameter |annotations
+|xref:3.6@transformers/custom/function-annotation.adoc[@Function] |A parameter injection annotation expression on the message payload with the result being passed into the method, this annotation exposes a common set of functions used in Mule such as a counter, UUID generator, date and timestamps, etc |Parameter |annotations
 |===

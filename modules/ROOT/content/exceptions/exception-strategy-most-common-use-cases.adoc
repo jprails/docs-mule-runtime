@@ -6,20 +6,14 @@ endif::[]
 
 This page illustrates six ways to approach error handling within Mule ESB applications.
 
-* <<Route the Before-Error Message to the Dead Letter Queue>>
-* <<Route the Initial-State Message to the Dead Letter Queue>>
-* <<Route the Message Based on Exception Type>>
-* <<Returning an Error Message>>
-* <<Rollback the Transaction and Send a Notification>>
-* <<Stop Processing When an Exception Occurs>>
-
 The first two examples implement a transactional JMS queue and include a message transformer that appends a string to the original message. When an error occurs, Mule routes the message through the flow’s exception strategy into the JMS http://www.eaipatterns.com/DeadLetterChannel.html[dead letter queue]. These two examples differ principally in the “message state” they send to the dead letter queue.
 
 [NOTE]
 ====
-*About the Examples* +
+*About the Examples*
 
 . The in-line numbers (i.e. `<!-- [1] -->`) that conclude certain lines of code correspond to the numbered notes that appear immediately beneath the code.
+
 . Some of the examples use a `throwException` test component to simulate an error condition in a flow.
 ====
 
@@ -47,7 +41,8 @@ In this first case, the exception strategy recovers the message as it existed _j
 ----
 
 . Mule replaces the current payload with the version of the payload (i.e. the transformed payload with the specified string appended) that emerged from the *Append String Transformer* just before the exception was thrown.
-. Mule sends the transformed version of the message to the JMS dead letter queue. To accomplish this, Mule "joins" the transaction (i.e. resumes the transaction with the version of the message that existed just before the exception was thrown) at the outbound endpoint embedded in the exception strategy. Mule commits the transaction after it routes the message through all the exception strategy message processors.
+
+. Mule sends the transformed version of the message to the JMS dead letter queue. To accomplish this, Mule "joins" the transaction (i.e. resumes the transaction with the version of the message that existed just before the exception was thrown) at the outbound connector embedded in the exception strategy. Mule commits the transaction after it routes the message through all the exception strategy message processors.
 
 == Route the Initial-State Message to the Dead Letter Queue
 
@@ -75,7 +70,9 @@ In this second case, rather than processing the message in its transformed state
 ----
 
 . To preserve the original message, Mule stores the original payload in a `originalMessage` variable.
+
 . At this point, Mule replaces the current message payload with the one saved in the `originalMessage` variable.
+
 . Mule sends the message, in its original state, to the dead letter queue.
 
 == Route the Message Based on Exception Type
@@ -106,7 +103,9 @@ Mule can execute different actions depending on the type of exception that a mes
 ----
 
 . When a message throws a `com.company.BusinessException`, the choice exception strategy routes the message to the `catch-exception-strategy`. The catch exception strategy sends the message to a dead letter queue, then consumes the source.
+
 . When a message throws a `com.company.NonBusinessException` (i.e. unexpected failure), the choice exception strategy routes the message to the `rollback-exception-strategy`. The rollback exception strategy logs the error, then rolls back the JMS transaction to prepare to reprocess the message.
+
 . If a message throws an exception that is neither `BusinessException` nor `NonBusinessException`, Mule's implicitly-applied default exception strategy handles the error.
 
 == Returning an Error Message
@@ -128,12 +127,13 @@ Mule can catch an exception, then create an error message to return to the calle
 </flow>
 ----
 
-. The catch exception strategy replaces the message payload with new content. Mule uses the xref:mel/mule-expression-language-mel.adoc[Mule Expression Language MEL] `exception` variable to include an error number in the message payload. The error number helps the caller understand the exception.
-. The catch exception strategy sets the HTTP status code of the response to `500` to indicate a server error. Mule sends the new message payload to the caller.
+. The catch exception strategy replaces the message payload with new content. Mule uses the xref:mel/mule-expression-language-mel.adoc[Mule Expression Language MEL] exception variable to include an error number in the message payload. The error number helps the caller understand the exception.
+
+. The catch exception strategy sets the HTTP status code of the response to 500 to indicate a server error. Mule sends the new message payload to the caller.
 
 == Rollback the Transaction and Send a Notification
 
-When an error occurs, Mule can rollback transactions, then send failure notifications to a system administrator. In this case, Mule rolls back the transaction, then uses an SMTP endpoint to send a failure notification email.
+When an error occurs, Mule can rollback transactions, then send failure notifications to a system administrator. In this case, Mule rolls back the transaction, then uses an SMTP connector to send a failure notification email.
 
 [source,xml,linenums]
 ----
@@ -153,9 +153,13 @@ When an error occurs, Mule can rollback transactions, then send failure notifica
 ----
 
 . Whenever a message throws an exception, Mule rolls back the transaction.
+
 . Mule sets a new payload on the message which contains both:
-* the failure notification message `'Failed to process message:'`
+
+* the failure notification message `'Failed to process message: '`
+
 * the payload of the message
+
 . Mules sends a failure notification email to `technical-operations@mycompany.com`.
 
 == Stop Processing When an Exception Occurs
@@ -183,4 +187,5 @@ Mule can prevent a flow from accepting any more messages after certain types of 
 ----
 
 . When the exception type is `ConnectionException`, the choice exception strategy routes the message to the first rollback exception strategy. The rollback exception strategy runs a script that stops the flow from processing any more messages.
+
 . For all other exception types, the choice exception strategy routes the message to the second rollback exception strategy, which logs the error.

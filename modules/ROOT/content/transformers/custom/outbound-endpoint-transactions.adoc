@@ -3,6 +3,7 @@ ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
 :page-aliases: outbound-endpoint-transactions.adoc
+:keywords: anypoint studio, esb, connector, endpoint, outbound endpoints, sap
 
 This page lists the outbound endpoint transactions of the https://mulesoft.github.io/sap-transport/[SAP Connector].
 
@@ -90,10 +91,9 @@ All calls are done using synchronous RFC as transport and sharing the same conte
 ----
 
 If the BAPIs that are called change values in SAP tables, then a call to a special BAPI is required: BAPI_TRANSACTION_COMMIT or BAPI_TRANSACTION_ROLLBACK. For this to work, the whole unit of work needs to be in the same Thread and the calls need to be stateful. +
+ The JCo code to implement this is:
 
-The JCo code to implement this is:
-
-[source,text,linenums]
+[source,java,linenums]
 ----
 commitFunction = createJCoFunction("BAPI_TRANSACTION_COMMIT");
 rollbackFunction = createJCoFunction("BAPI_TRANSACTION_ROLLBACK");
@@ -151,7 +151,7 @@ All calls are done using transactional RFC as transport and sharing the same con
 
 The JCo code to invoke BAPIs through tRFC looks like this:
 
-[source,text,linenums]
+[source,java,linenums]
 ----
 String tid = destination.creatTID();
 try
@@ -187,7 +187,7 @@ All calls are done using queued RFC as transport and sharing the same context.
 
 To invoke BAPIs through qRFC, you need to provide a value for the attribute *queueName*. The JCo code to implement this is:
 
-[source,text,linenums]
+[source,java,linenums]
 ----
 String tid = destination.creatTID();
 try

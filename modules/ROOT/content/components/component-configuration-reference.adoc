@@ -3,21 +3,24 @@ ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
 :page-aliases: component-configuration-reference.adoc
+:keywords: anypoint, studio, esb, components
 
-This page provides details on the elements you configure for components. This information is pulled directly from `mule.xsd` and is cached. For more information on components, see xref:components/configuring-components.adoc[Configuring Components].
+This page provides details on the elements you configure for components. This information is pulled directly from `mule.xsd` and is cached. For more information on components, see xref:3.7@components/configuring-components.adoc[Configuring Components].
 
 == Component
 
-A simple POJO (Plain Old Java Object) component that will be invoked by Mule when a message is received. The class or object instance to be used can be specified using a child object factory element, or via the 'class' attribute. If the 'class' attribute is used, an object factory cannot be configured as well. Using the 'class' attribute is equivilant to using the propotype object factory (\\'prototype-object' child element).
+A simple POJO (Plain Old Java Object) component that will be invoked by Mule when a message is received. The class or object instance to be used can be specified using a child object factory element, or via the 'class' attribute. If the 'class' attribute is used, an object factory cannot be configured as well. Using the 'class' attribute is equivilant to using the propotype object factory ('prototype-object' child element).
 
-.Attributes of <component...>
+=== Attributes of <component...>
+
 [%header%autowidth.spread]
 |===
 |Name |Type |Required |Default |Description
-|class |class name |no |  |Specifies a component class. This is a shortcut that is equivalent to providing a \\'prototype-object' element.
+|class |class name |no |  |Specifies a component class. This is a shortcut that is equivalent to providing a 'prototype-object' element.
 |===
 
-.Child Elements of <component...>
+=== Child Elements of <component...>
+
 [%header%autowidth.spread]
 |===
 |Name |Cardinality |Description
@@ -34,14 +37,16 @@ A simple POJO (Plain Old Java Object) component that will be invoked by Mule whe
 
 A pooled POJO (Plain Old Java Object) component that will be invoked by Mule when a message is received. The instance can be specified via a factory or a class.
 
-.Attributes of <pooled-component...>
+=== Attributes of <pooled-component...>
+
 [%header%autowidth.spread]
 |===
 |Name |Type |Required |Default |Description
-|class |class name |no |  |Specifies a component class. This is a shortcut that is equivalent to providing a \'prototype-object' element.
+|class |class name |no |  |Specifies a component class. This is a shortcut that is equivalent to providing a 'prototype-object' element.
 |===
 
-.Child Elements of <pooled-component...>
+=== Child Elements of <pooled-component...>
+
 [%header%autowidth.spread]
 |===
 |Name |Cardinality |Description
@@ -57,7 +62,8 @@ A pooled POJO (Plain Old Java Object) component that will be invoked by Mule whe
 
 == Pooling profile
 
-.Attributes of <pooling-profile...>
+=== Attributes of <pooling-profile...>
+
 [%header%autowidth.spread]
 |===
 |Name |Type |Required |Default |Description
@@ -70,7 +76,8 @@ A pooled POJO (Plain Old Java Object) component that will be invoked by Mule whe
 |minEvictionMillis |string |no |  |Determines the minimum amount of time an object may sit idle in the pool before it is eligible for eviction. When non-positive, no objects will be evicted from the pool due to idle time alone.
 |===
 
-.Child Elements of <pooling-profile...>
+=== Child Elements of <pooling-profile...>
+
 [%header%autowidth.spread]
 |===
 |Name |Cardinality |Description
@@ -80,13 +87,15 @@ A pooled POJO (Plain Old Java Object) component that will be invoked by Mule whe
 
 Logs the message and returns the payload as the result.
 
-.Attributes of <echo-component...>
+=== Attributes of <echo-component...>
+
 [%header%autowidth.spread]
 |===
 |Name |Type |Required |Default |Description
 |===
 
-.Child Elements of <echo-component...>
+=== Child Elements of <echo-component...>
+
 [%header%autowidth.spread]
 |===
 |Name |Cardinality |Description
@@ -98,13 +107,15 @@ Logs the message and returns the payload as the result.
 
 Logs the message content (or content length if it is a large message).
 
-.Attributes of <log-component...>
+=== Attributes of <log-component...>
+
 [%header%autowidth.spread]
 |===
 |Name |Type |Required |Default |Description
 |===
 
-.Child Elements of <log-component...>
+=== Child Elements of <log-component...>
+
 [%header%autowidth.spread]
 |===
 |Name |Cardinality |Description
@@ -116,13 +127,15 @@ Logs the message content (or content length if it is a large message).
 
 Throws an exception if it receives a message.
 
-.Attributes of <null-component...>
+=== Attributes of <null-component...>
+
 [%header%autowidth.spread]
 |===
 |Name |Type |Required |Default |Description
 |===
 
-.Child Elements of <null-component...>
+=== Child Elements of <null-component...>
+
 [%header%autowidth.spread]
 |===
 |Name |Cardinality |Description
@@ -132,7 +145,7 @@ Throws an exception if it receives a message.
 
 == Spring object
 
-.Attributes of <spring-object...>
+=== Attributes of <spring-object...>
 
 [%header%autowidth.spread]
 |===
@@ -140,7 +153,8 @@ Throws an exception if it receives a message.
 |bean |name (no spaces) |no |  |Name of Spring bean to look up.
 |===
 
-.Child Elements of <spring-object...>
+=== Child Elements of <spring-object...>
+
 [%header%autowidth.spread]
 |===
 |Name |Cardinality |Description
@@ -150,14 +164,16 @@ Throws an exception if it receives a message.
 
 == Singleton object
 
-.Attributes of <singleton-object...>
+=== Attributes of <singleton-object...>
+
 [%header%autowidth.spread]
 |===
 |Name |Type |Required |Default |Description
 |class |class name |no |  |Class name
 |===
 
-.Child Elements of <singleton-object...>
+=== Child Elements of <singleton-object...>
+
 [%header%autowidth.spread]
 |===
 |Name |Cardinality |Description
@@ -167,7 +183,7 @@ Throws an exception if it receives a message.
 
 == Prototype object
 
-.Attributes of <prototype-object...>
+=== Attributes of <prototype-object...>
 
 [%header%autowidth.spread]
 |===
@@ -175,7 +191,7 @@ Throws an exception if it receives a message.
 |class |class name |no |  |Class name
 |===
 
-.Child Elements of <prototype-object...>
+=== Child Elements of <prototype-object...>
 
 [%header%autowidth.spread]
 |===
@@ -186,14 +202,16 @@ Throws an exception if it receives a message.
 
 == Custom lifecycle adapter factory
 
-.Attributes of <custom-lifecycle-adapter-factory...>
+=== Attributes of <custom-lifecycle-adapter-factory...>
+
 [%header%autowidth.spread]
 |===
 |Name |Type |Required |Default |Description
 |class |class name |yes |  |An implementation of the LifecycleAdapter interface.
 |===
 
-.Child Elements of <custom-lifecycle-adapter-factory...>
+=== Child Elements of <custom-lifecycle-adapter-factory...>
+
 [%header%autowidth.spread]
 |===
 |Name |Cardinality |Description
@@ -204,7 +222,8 @@ Throws an exception if it receives a message.
 
 A binding associates a Mule endpoint with an injected Java interface. This is like using Spring to inject a bean, but instead of calling a method on the bean, a message is sent to an endpoint.
 
-.Attributes of <binding...>
+=== Attributes of <binding...>
+
 [%header%autowidth.spread]
 |===
 |Name |Type |Required |Default |Description
@@ -212,7 +231,8 @@ A binding associates a Mule endpoint with an injected Java interface. This is li
 |method |  |no |  |The method on the interface that should be used. This can be omitted if the interface has a single method.
 |===
 
-.Child Elements of <binding...>
+=== Child Elements of <binding...>
+
 [%header%autowidth.spread]
 |===
 |Name |Cardinality |Description
@@ -221,8 +241,8 @@ A binding associates a Mule endpoint with an injected Java interface. This is li
 
 == Interceptors
 
-See xref:components/using-interceptors.adoc[Using Interceptors].
+See xref:3.6@components/using-interceptors.adoc[Using Interceptors].
 
 == Entry Point Resolvers
 
-See xref:components/entry-point-resolver-configuration-reference.adoc[Entry Point Resolver Configuration Reference].
+See xref:3.7@components/entry-point-resolver-configuration-reference.adoc[Entry Point Resolver Configuration Reference].

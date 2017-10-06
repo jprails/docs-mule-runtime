@@ -6,17 +6,15 @@ endif::[]
 
 [TIP]
 ====
-*For the Impatient*
+*Quick Tip:* +
 
 *Run Mule on Unix*
-
 [source,text,linenums]
 ----
 $MULE_HOME/bin/mule start|stop
 ----
 
 *Run Mule on Windows*
-
 [source,text,linenums]
 ----
 $MULE_HOME\bin\mule.bat start|stop
@@ -34,6 +32,9 @@ The wrapper is called by a script in `$MULE_HOME/bin`.
 *Unix*: `$MULE_HOME/bin/mule`
 
 *Windows*: `$MULE_HOME\bin\mule.bat`
+
+*Note:* When windows restarts, the Mule service stops the same way as using the `mule stop` command.
+The only situation that this could be different is if Windows kills the process due to a timeout.
 
 The table below lists all the parameters that the script accepts.
 
@@ -99,12 +100,12 @@ Include your parameters as script parameters (if running in background, after th
 
 [source,text,linenums]
 ----
-./mule start -M-Dmule.mmc.bind.port=7783-7883
+./mule start -D-Mmule.mmc.bind.port=7783-7883
 ----
 
 === Passing Parameters to the JVM via the Wrapper Config File
 
-Include your parameters in the configuration file `$MULE_HOME/conf/wrapper.conf`. The distribution includes this file with comments (see fragment below). You can edit this file or add to it as needed.  For more information about the  `wrapper.conf` file, consult the Java Service Wrapper  http://wrapper.tanukisoftware.com/doc/english/properties.html[online documentation] for the file.
+Include your parameters in the configuration file `$MULE_HOME/conf/wrapper.conf`. The distribution includes this file with comments (see fragment below). You can edit this file or add to it as needed.  For more information about the  `wrapper.conf`  file, consult the Java Service Wrapper  http://wrapper.tanukisoftware.com/doc/english/properties.html[online documentation] for the file.
 
 [source,text,linenums]
 ----
@@ -135,6 +136,14 @@ wrapper.license.dev_application=Mule ESB Enterprise Edition
 wrapper.license.features=64bit
 ...
 ----
+
+For example, to set Mule's encoding, you could add wrapper.java.additional.1=-Dmule.encoding=ISO-8859-1 to the Wrapper configuration file, or you could add -D-Mmule.encoding=ISO-8859-1 to the Mule script at the command line. Note that if you add wrapper.java.additional.n entries to the configuration file, you must change each instance of n to a consecutive number, or Java will not parse the properties correctly.
+
+==== Passing Additional Arguments to the Wrapper
+
+To control the behavior of the Wrapper from the commandline use the -W switch when launching Mule.
+
+For example, to set the logfile that the Wrapper's uses, you could add wrapper.logfile=/my/log/file.log to the Wrapper configuration file, or you could add -Wwrapper.logfile=/my/log/file.log to the Mule script at the command line.
 
 == Running Mule As a Unix Daemon
 
@@ -205,15 +214,15 @@ net start|stop mule
 
 The table below lists some parameters common to Mule, which are not documented in the `wrapper.conf` configuration file.
 
-[%header%autowidth.spread]
+[%header,cols="2*"]
 |===
 |Parameter |Description
-|`-M-Dmule.agent.enabled` |*(* _Boolean_ *_)_* Start Mule ESB with or without the Management Console agent, which is enabled by default.
-a|`-M-Dmule.mmc.bind.port` |Specify a port or port range for the Mule ESB agent listener that the Management Console binds to. To specify a port range, use `<port>-<port>`, for example `3000-3010`.
+|`-D-Mmule.agent.enabled` |*(* _Boolean_ *_)_* Start Mule ESB with or without the Management Console agent, which is enabled by default.
+a|`-D-Mmule.mmc.bind.port`|Specify a port or port range for the Mule ESB agent listener that the Management Console binds to. To specify a port range, use `<port>-<port>`, for example `3000-3010`.
 |===
 
 The `$MULE_HOME/conf/wrapper.conf` configuration file includes many more parameters, some of which are by default commented out, but documented in the comments.
 
 == See Also
 
-* *NEXT STEP:* Graduate to the content of the First Week with Mule chapter, starting with xref:flows/index.adoc[Mule Application Architecture].
+* *NEXT STEP:* Graduate to the content of the First Week with Mule chapter, starting with xref:3.6@flows/index.adoc[Mule Application Architecture].

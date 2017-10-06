@@ -4,7 +4,7 @@ include::_attributes.adoc[]
 endif::[]
 :page-aliases: mule-components.adoc
 
-image:components/component.png[] Components are message processors which execute http://en.wikipedia.org/wiki/Business_logic[business logic] on messages.  They enable you to perform specific actions without writing any Mule-specific code. You can drop a component – a POJO, Spring bean, Java bean, or script – into a flow to perform almost any customized task within your Mule application. For example, you can use a component to verify that items on an invoice are in stock in a warehouse, or to update a database with a customer's order history.
+image:components/component.png[]Components are message processors which execute http://en.wikipedia.org/wiki/Business_logic[business logic] on messages. They enable you to perform specific actions without writing any Mule-specific code. You can drop a component – a POJO, Spring bean, Java bean, or script – into a flow to perform almost any customized task within your Mule application. For example, you can use a component to verify that items on an invoice are in stock in a warehouse, or to update a database with a customer's order history.
 
 
 == Scripting Components
@@ -17,12 +17,12 @@ The example below illustrates the use of a Groovy script component. The script u
 
 == Web Service Components
 
-Also included are two components to facilitate *exposing, consuming and proxying Web services.* The SOAP component leverages the CXF framework Mule uses to support SOAP Web services; the REST component works with Jersey to support RESTful Web services; both are bound to HTTP.
+Also included are two components to facilitate *exposing, consuming, and proxying Web services.* The CXF component leverages the CXF framework Mule uses to support SOAP Web services; the REST component works with Jersey to support RESTful Web services; both are bound to HTTP.
 
-image::components/rest-soap.png[rest_soap]
+image::components/rest-cxf.png[]
 
 [TIP]
-*APIkit* offers a new and improved way of building a REST API. Access the APIkit Documentation to learn how to build REST APIs in a few hours or days.
+*APIkit* offers a new and improved way of building a REST API. Access the xref:apikit::index.adoc[APIkit Documentation] to learn how to build REST APIs in a few hours or days.
 
 == HTTP Components
 
@@ -38,15 +38,18 @@ image::components/misc-components.png[misc_components]
 
 * Use a *Logger component* to log activities in the flow as they occur.
 * Use an *Expression component* to evaluate a particular expression upon a message in a flow.
+* Use an *Invoke* component to invoke the method of an object specified with a Mule expression.
 * Use an *Echo component* to return the payload of a message as a call response.
 * Use a *Flow Ref component* to access another flow from within a flow.
+* Use a *Batch Execute* component to kick off processing of a batch job.
 
 == Examples
 
-=== Groovy Script Component
+*Groovy Script Component Example*
 
 [source,xml,linenums]
 ----
+<?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting"
 ...
 xsi:schemaLocation="http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd">
@@ -86,40 +89,12 @@ return ["region":region]</scripting:script>
 </mule>
 ----
 
-=== Web Service Components
-
-[.ex]
-=====
-[discrete.view]
-=== SOAP
+=== REST Component Example
 
 [source,xml,linenums]
 ----
-<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
-    xmlns:doc="http://www.mulesoft.org/schema/mule"
-    xmlns:spring="http://www.springframework.org/schema/beans" xmlns:core="http://www.mulesoft.org/schema/mule/core"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
-http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
-http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
-
-    <flow name="HelloWorldFlow1" doc:name="HelloWorldFlow1">
-        <http:inbound-endpoint exchange-pattern="request-response"
-            host="localhost" port="8081" doc:name="HTTP"
-            doc:description="This endpoint receives an HTTP message." path="example2"/>
-        <set-payload value="#['Welcome to our world.']" doc:name="Set Payload"
-            doc:description="This processor sets the payload of the message to the string 'Hello World'." />
-    </flow>
-
-</mule>
-----
-
-[discrete.view]
-=== REST
-
-[source,xml,linenums]
-----
-<mule xmlns:jersey="http://www.mulesoft.org/schema/mule/jersey" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule" xmlns:spring="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns:jersey="http://www.mulesoft.org/schema/mule/jersey" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
 http://www.mulesoft.org/schema/mule/jersey http://www.mulesoft.org/schema/mule/jersey/current/mule-jersey.xsd">
@@ -133,10 +108,8 @@ http://www.mulesoft.org/schema/mule/jersey http://www.mulesoft.org/schema/mule/j
 </mule>
 ----
 
-[%header%autowidth.spread]
-|===
-^|*example.RestExampleResource*
-a|
+*example.RestExampleResource*
+
 [source,text,linenums]
 ----
 package example;
@@ -160,10 +133,9 @@ public class RestExampleResource {
 
 }
 ----
-|===
-=====
 
-=== HTTP Components
+=== Echo, Logger, and HTTP Components Examples
+
 [.ex]
 =====
 [discrete.view]
@@ -171,7 +143,8 @@ public class RestExampleResource {
 
 [source,xml,linenums]
 ----
-<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule" xmlns:spring="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
 http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd">
@@ -193,10 +166,11 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
 ----
 
 [discrete.view]
-=== HTTP Static Resource Handler
+=== XML Editor or Standalone
 
 [source,xml,linenums]
 ----
+<?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
@@ -208,6 +182,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 
 </mule>
 ----
+
 =====
 
 == See Also

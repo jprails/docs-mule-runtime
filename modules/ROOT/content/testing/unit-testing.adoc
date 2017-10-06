@@ -66,7 +66,7 @@ Following is a description of some of the unit tests in the Mule TCK:
 [source,xml,linenums]
 ----
 <flow name="in-flow">
-        <http:inbound-endpoint host="localhost" port="8081"/>
+        <http:inbound-endpoint host="localhost" port="8081" path="/" />
         <echo-component/>
         <vm:outbound-endpoint path="out" />
     </flow>

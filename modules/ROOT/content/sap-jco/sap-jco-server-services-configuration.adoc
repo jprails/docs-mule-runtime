@@ -3,8 +3,9 @@ ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
 :page-aliases: sap-jco-server-services-configuration.adoc
+:keywords: anypoint studio, esb, connector, endpoint, sap
 
-If you want to receive IDocs or be called as a BAPI, then you will have to modify the Operative System `services` file:
+If you want to receive IDocs or be called as a BAPI and you don't want to use the PORT number as the value for *jcoGwService*, then you will have to modify the Operative System `services` file:
 
 * Unix based systems: `/etc/services`
 * Windows: `C:\WINDOWS\system32\drivers\etc\services`
@@ -27,9 +28,11 @@ For more information, please check your SAP documentation.
 
 == *Complete SAP Services List*
 
-*Services Mappings*
+[%header%autowidth.spread]
+|===
+^|*Services Mappings*
 
-[source,text,linenums]
+a|[source,text,linenums]
 ----
 sapdp00  3200/tcp
 sapdp01  3201/tcp
@@ -232,3 +235,4 @@ sapgw97  3397/tcp
 sapgw98  3398/tcp
 sapgw99  3399/tcp
 ----
+|===

@@ -3,32 +3,31 @@ ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
 :page-aliases: configuring-mule-as-a-windows-service.adoc
-:keywords: anypoint, esb, on premises, on premise, windows
+:keywords: anypoint, on premises, on premise, windows
 
-If you want to install Mule as a Windows NT Service, type
+To install Mule as a Windows NT Service, type:
 
-[source,text,linenums]
 ----
 mule install
 ----
 
-Likewise, to remove Mule from your services, type:
+To remove Mule from your server, type:
 
-[source,text,linenums]
 ----
 mule remove
 ----
 
-Once you have installed Mule as a service, you can invoke the service exactly as you did before, but with an additional parameter:
+After you install Mule as a service, you can start, stop, and restart Mule:
 
-[source,text,linenums]
 ----
 mule [start|stop|restart]
 ----
 
+*Note:* When windows restarts, the Mule service stops the same way as using the `mule stop` command.
+The only situation that this could be different is if Windows kills the process due to a timeout.
+
 You can also use the Windows `net` utility:
 
-[source,text,linenums]
 ----
 net [start|stop] mule
 ----

@@ -8,14 +8,13 @@ Mule 3 introduces an application-level component model to Mule. With this new co
 
 * Running multiple applications side-by-side
 * Clear boundaries for operations on what a Mule application is
-* New or modified applications can be deployed/undeployed with zero downtime
 * Mule can monitor your applications and will reload configuration changes automatically
 * Applications can depend on different library versions, even if they would conflict before
 * Multiple versions of an application can exist side by side
 
 Understanding the new model can be divided into several topics:
 
-* xref:deploy/hot-deployment.adoc[Hot Deployment]
-* xref:deploy/application-deployment.adoc[Application Deployment]
-* xref:deploy/application-format.adoc[Application Format]
-* xref:deployment-descriptor.adoc[Deployment Descriptor]
+* [Hot Deployment]
+* [Application Deployment]
+* [Application Format]
+* [Deployment Descriptor]

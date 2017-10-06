@@ -6,9 +6,10 @@ endif::[]
 
 [NOTE]
 ====
-This page provides reference information on the elements you configure for transactions.
+*Using Transactions in Flows*
 
-For more information on how to configure transactions in flows, see xref:transactions/transaction-management.adoc[Transaction Management].
+This page provides reference information on the elements you can configure for transactions. +
+For more information on how to configure transactions in flows, see xref:3.6@transactions/transaction-management.adoc[Transaction Management].
 ====
 
 == Abstract transaction

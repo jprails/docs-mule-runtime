@@ -6,9 +6,11 @@ endif::[]
 
 This page provides reference information about the elements and attributes you can configure for the xref:3.6@modules/cxf-module-reference.adoc[CXF Module Reference].
 
+*Note*: The *enableMuleSoapHeaders* field listed in the following XSLT-generated sections is not currently implemented and has no effect.
+
 == Configuration
 
-.Attributes of <configuration...>
+=== Attributes of <configuration...>
 
 [%header%autowidth.spread]
 |===
@@ -19,7 +21,8 @@ This page provides reference information about the elements and attributes you c
 |name |string |no |_cxfConfiguration |
 |===
 
-.Child Elements of <configuration...>
+=== Child Elements of <configuration...>
+
 [%header,cols="34,33,33"]
 |===
 |Name |Cardinality |Description
@@ -27,8 +30,9 @@ This page provides reference information about the elements and attributes you c
 
 == Jaxws service
 
-.Attributes of <jaxws-service...>
-[%header%autowidth.spread]
+=== Attributes of <jaxws-service...>
+
+[%header,cols="5*"]
 |===
 |Name |Type |Required |Default |Description
 |bindingId |string |no |  |The binding that should be used for this endpoint. It defaults to the SOAP binding by default.
@@ -44,7 +48,8 @@ This page provides reference information about the elements and attributes you c
 |configuration-ref |string |no |  |The CXF configuration that should be used.
 |===
 
-.Child Elements of <jaxws-service...>
+=== Child Elements of <jaxws-service...>
+
 [%header%autowidth.spread]
 |===
 |Name |Cardinality |Description
@@ -61,8 +66,9 @@ This page provides reference information about the elements and attributes you c
 
 == Jaxws client
 
-.Attributes of <jaxws-client...>
-[%header%autowidth.spread]
+=== Attributes of <jaxws-client...>
+
+[%header,cols="5*"]
 |===
 |Name |Type |Required |Default |Description
 |soapVersion |enumeration |no |  |The soapVersion that is going to be used for this endpoint. The specified version is translated into the corresponding bindingId value. This attribute is useful when there's need to avoid the creation of the endpoint with the default binding. In case the bindingId attribute is set this attribute will override it. If not set and not specified otherwise CXF defaults to SOAP 1.1 binding
@@ -77,7 +83,8 @@ This page provides reference information about the elements and attributes you c
 |port |string |no |  |The WSDL port you want to use to communicate with the service.
 |===
 
-.Child Elements of <jaxws-client...>
+=== Child Elements of <jaxws-client...>
+
 [%header%autowidth.spread]
 |===
 |Name |Cardinality |Description
@@ -95,11 +102,11 @@ This page provides reference information about the elements and attributes you c
 
 Following are the sub-elements you can set on CXF service and client. For further information on CXF interceptors, see the http://cxf.apache.org/docs/interceptors.html[CXF documentation].
 
-[%header%autowidth.spread]
+[%header,cols="2*"]
 |===
 |Name |Description
 |*databinding* |The databinding implementation that should be used. By default, this is JAXB for the JAX-WS frontend and Aegis for the simple frontend. This should be specified in the form of a Spring bean.
-|*features* |Any CXF features you want to apply to the client/server. See the CXF documentation for more information on features.
+|*features* |Any CXF features you want to apply to the client and server. See the CXF documentation for more information on features.
 |*inInterceptors* |Additional incoming interceptors for this service.
 |*inFaultInterceptors* |Additional incoming fault interceptors.
 |*outInterceptors* |Additional outgoing interceptors.

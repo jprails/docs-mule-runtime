@@ -2,21 +2,31 @@
 ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
+:keywords: anypoint, studio, esb, flows, patterns
 
 Because of the emphasis on ease of use, simplicity, and flexibility that guided the creation of Mule 3, a number of choices are open at the outset.
 
 == Choosing Configuration Patterns and Flows
 
-Take a look at xref:using-mule-configuration-patterns.adoc[configuration patterns] and xref:flows/using-flows-for-service-orchestration.adoc[flows].
+Take a look at xref:configuration-patterns.adoc[configuration patterns] and xref:3.6@flows/using-flows-for-service-orchestration.adoc[flows].
 
 Mule 3 includes a number of configuration patterns designed to solve common integration problems with minimal XML. These patterns are similar to Enterprise Integration Patterns which are also widely supported in Mule but tackle bigger use cases, like creating a web service proxy. Take a moment to inspect the list of patterns.
 
-If your project a more complex set of operations, you might want to consider flows, which are introduced in Mule 3
+If your project requires a more complex set of operations, you might want to consider flows, which are introduced in Mule 3.
 
-For more information about patterns, read the xref:mule-configuration/general-configuration-reference.adoc[General Configuration Reference]
+For more information about patterns, read the xref:3.6@mule-configuration/general-configuration-reference.adoc[General Configuration Reference].
 
-[IMPORTANT]
-Unable to render{children}. Page not found: Configuration Reference
+* xref:3.7@mule-configuration/bpm-configuration-reference.adoc[BPM Configuration Reference]
+* xref:3.6@components/component-configuration-reference.adoc[Component Configuration Reference]
+* xref:3.6@endpoints/endpoint-configuration-reference.adoc[Endpoint Configuration Reference]
+** xref:3.6@endpoints/mule-endpoint-uris.adoc[Mule Endpoint URIs]
+* xref:3.7@exceptions/exception-strategy-configuration-reference.adoc[Exception Strategy Configuration Reference]
+* xref:3.6@filters/filters-configuration-reference.adoc[Filters Configuration Reference]
+* xref:3.7@mule-configuration/global-settings-configuration-reference.adoc[Global Settings Configuration Reference]
+* xref:3.6@mule-configuration/notifications-configuration-reference.adoc[Notifications Configuration Reference]
+* xref:3.7@mule-configuration/properties-configuration-reference.adoc[Properties Configuration Reference]
+* xref:3.7@security/security-manager-configuration-reference.adoc[Security Manager Configuration Reference]
+* xref:3.6@transactions/transactions-configuration-reference.adoc[Transactions Configuration Reference]
 
-* xref:flows/using-flows-for-service-orchestration.adoc[Using Flows for Service Orchestration]
-* xref:using-mule-configuration-patterns.adoc[Using Mule Configuration Patterns]
+* xref:3.6@flows/using-flows-for-service-orchestration.adoc[Using Flows for Service Orchestration]
+* xref:configuration-patterns.adoc[Using Mule Configuration Patterns]

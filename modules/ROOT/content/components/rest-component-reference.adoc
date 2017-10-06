@@ -8,7 +8,7 @@ endif::[]
 
 *Minimum Configuration:* Specify the REST component or resource class.
 
-*Discussion:* A REST component publishes a RESTful web service via JAX-RS annotations and using Jersey. In addition to specifying the REST component class, you can also configure an exception mapper and a interceptor.
+A REST component publishes a RESTful web service via JAX-RS annotations and using Jersey. In addition to specifying the REST component class, you can also configure an exception mapper and a interceptor.
 
 Note that REST is a formal HTTP architecture based on resources, links, and a uniform interface. As such, it uses the HTTP protocol.
 
@@ -16,14 +16,16 @@ Mule hosts RESTful web services using Jersey, which is a JAX-RS (JSR-311) implem
 
 Generally, you add a REST component to an connector. If you add the REST component to a request-response connector, such as an HTTP connector, Anypoint Studio generates a REST request-response component, as shown below.
 
-image::components/rest-twoway.png[REST-twoway]
+image::components/rest.png[]
 
-If you add the REST component to a one-way connector, such as a File endpoint, then Mule Studio generates a REST one-way component. See below.
+If you add the REST component to a one-way connector, such as a File connector, then Anypoint Studio generates a REST one-way component.
 
-image::components/rest-oneway.png[REST-oneway]
+Open the REST component's *Properties Editor*. Use the General tab to specify the reference to the REST component or resource and, if you are using exception mapping, the class implementing this mapping.
 
-Double-click the REST icon on the canvas to open the Pattern Properties dialog. Use the General tab to specify the reference to the REST component or resource and, if you are using exception mapping, the class implementing this mapping.
+image::components/rest-general.png[rest_general]
 
-Use the Advanced tab to specify a reference to an interceptor. When you add a new interceptor, use the pull-down menu to specify whether this is a custom interceptor, a logging interceptor, or a timer interceptor.
+== See Also
 
-image::components/rest-props1.png[REST-props1]
+* For an overview on the recommended ways to publish and consume REST services, see xref:3.7@api-usage/publishing-and-consuming-apis-with-mule.adoc[Publishing and Consuming APIs with Mule]
+* If you want to publish a REST API service, read about the xref:api-manager::index.adoc[API Manager] to find out about a whole set of tools that will make this easier.
+* If you intend to porxy an existing REST API, read xref:api-manager::setting-up-an-api-proxy.adoc[Setting Up a Proxy].

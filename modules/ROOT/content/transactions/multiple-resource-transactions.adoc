@@ -3,6 +3,7 @@ ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
 :page-aliases: multiple-resource-transactions.adoc
+:keywords: anypoint studio, esb, jms, vm, transaction grouping, resource grouping
 
 Use a *Multi Resource transaction* to group together a series of operations from multiple JMS or VM resources into a single virtual transaction.
 
@@ -10,7 +11,7 @@ Multiple resource transactions are useful for creating transactional bridges wit
 
 [source,xml,linenums]
 ----
-<mule xmlns:wmq="http://www.mulesoft.org/schema/mule/ee/wmq" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:jms="http://www.mulesoft.org/schema/mule/jms" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+<mule xmlns:wmq="http://www.mulesoft.org/schema/mule/ee/wmq" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:jms="http://www.mulesoft.org/schema/mule/jms" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.5.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
 
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 
@@ -49,8 +50,8 @@ http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/
 </mule>
 ----
 
-In the example above, Mule starts the local JMS transaction when it receives the message on the inbound endpoint. Mule starts the local WMQ transaction when it sends the message out on the outbound endpoint. In this case, because the endpoints are configured as multiple resource transactions, Mule commits the WMQ transaction first, then commits the JMS transaction. Ultimately, Mule either commits both transactions successfully or fails and rolls back both of them as one virtual unit.
+In the example above, Mule starts the local JMS transaction when it receives the message on the inbound connector. Mule starts the local WMQ transaction when it sends the message out on the outbound connector. In this case, because the connectors are configured as multiple resource transactions, Mule commits the WMQ transaction first, then commits the JMS transaction. Ultimately, Mule either commits both transactions successfully or fails and rolls back both of them as one virtual unit.
 
-Note that if you configure an inbound endpoint with a multiple resource transaction, you must also configure any other endpoints as multiple resource transactions and the action set to "ALWAYS_JOIN" to become part of the virtual transaction unit.
+Note that if you configure an inbound connector with a multiple resource transaction, you must also configure any other connectors as multiple resource transactions and the action set to "ALWAYS_JOIN" to become part of the virtual transaction unit.
 
-Refer to xref:transactions/transaction-management.adoc[Transaction Management] for details on how to configure a Multiple Resource transaction.
+Refer to xref:3.6@transactions/transaction-management.adoc[Transaction Management] for details on how to configure a Multiple Resource transaction.

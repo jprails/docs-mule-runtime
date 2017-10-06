@@ -3,8 +3,7 @@ ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
 :page-aliases: filter-ref.adoc
-
-image::filters/filter-48x32.png[Filter-48x32]
+:keywords: anypoint studio, esb, filters, conditional, gates
 
 *Purpose:* References a global filter.
 
@@ -12,6 +11,6 @@ image::filters/filter-48x32.png[Filter-48x32]
 
 *Discussion:* Use a Filter Ref to reference a global filter. You must have already created the global filter element. Enter the global filter name in the Global Filter Ref property.
 
-== Mule ESB Reference
+== See Also
 
-For more information about Custom Filter, see xref:filters/filters-configuration-reference.adoc[here].
+* xref:3.6@filters/filters-configuration-reference.adoc[Filter Configuration Reference]

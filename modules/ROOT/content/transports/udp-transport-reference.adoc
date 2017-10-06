@@ -4,7 +4,7 @@ include::_attributes.adoc[]
 endif::[]
 :page-aliases: udp-transport-reference.adoc
 
-http://en.wikipedia.org/wiki/User_Datagram_Protocol[Universal Datagram Protocol], or UDP, is a stateless protocol for sending or receiving large numbers of messages (datagrams) quickly. The UDP transport in Mule allow sending messages to or receiving messages with Mule using UDP sockets.
+http://en.wikipedia.org/wiki/User_Datagram_Protocol[Universal Datagram Protocol], or UDP, is a stateless protocol for sending or receiving large amounts of messages (datagrams) quickly. The UDP transport in Mule allows sending messages to or receiving messages with Mule using UDP sockets.
 
 == Transport Info
 
@@ -12,40 +12,28 @@ http://en.wikipedia.org/wiki/User_Datagram_Protocol[Universal Datagram Protocol]
 |===
 a|
 Transport
-
- a|
+a|
 Doc
-
- a|
+a|
 Inbound
-
- a|
+a|
 Outbound
-
- a|
+a|
 Request
-
- a|
+a|
 Transactions
-
- a|
+a|
 Streaming
-
- a|
+a|
 Retries
-
- a|
+a|
 MEPs
-
- a|
+a|
 Default MEP
-
- a|
+a|
 Maven Artifact
-
 |UDP |http://www.mulesoft.org/docs/site/current3/apidocs/org/mule/transport/udp/package-summary.html[JavaDoc +
 ] http://www.mulesoft.org/docs/site/current3/schemadocs/namespaces/http_www_mulesoft_org_schema_mule_udp/namespace-overview.html[SchemaDoc] |image:transports/check.png[] |image:transports/check.png[] |image:transports/check.png[] |image:transports/error.png[] |image:transports/check.png[] |image:transports/error.png[] |one-way, request-response |request-response |org.mule.transport:mule-transport-udp
-
 |===
 
 == Namespace and Syntax
@@ -54,52 +42,54 @@ XML namespace:
 
 [source,text,linenums]
 ----
-
+xmlns:udp="http://www.mulesoft.org/schema/mule/udp"
 ----
 
-XML Schema location:
+
+XML schema location:
 
 [source,text,linenums]
 ----
-
+http://www.mulesoft.org/schema/mule/udp  http://www.mulesoft.org/schema/mule/udp/3.6/mule-udp.xsd
 ----
 
 Connector syntax:
 
-[source,text,linenums]
+[source,xml,linenums]
+----
+<udp:connector name="udpConnector" receiveBufferSize="1024" sendBufferSize="1024"
+               timeout="0" keepSendSocketOpen="false" broadcast="false"/>
 ----
 
-----
+Endpoint syntax:
 
-Endpoint syntax: +
- You can define your endpoints 2 different ways:
+You can define your endpoints two different ways:
 
 . Prefixed endpoint:
 +
-[source,text,linenums]
+[source,xml,linenums]
 ----
-
+<udp:inbound-endpoint host="localhost" port="65433"/>
 ----
 
 . Non-prefixed URI:
 +
-[source,text,linenums]
+[source,xml,linenums]
 ----
-
+<inbound-endpoint address="udp://localhost:65433"/>
 ----
-
 
 See the sections below for more information.
 
 == Considerations
 
-UDP is one of the standard communication protocols used on the Internet, and supports communication both across the internet and within a local area network. The Mule UDP module uses native Java socket support, adding no communication overhead to the classes in java.net, while allowing many of the advanced features of UDP programming to be specified in the Mule configuration rather than coded in Java.
+UDP is one of the standard communication protocols used on the Internet, and supports communication both across the Internet and within a local area network. The Mule UDP module uses native Java socket support, adding no communication overhead to the classes in java.net, while allowing many of the advanced features of UDP programming to be specified in the Mule configuration rather than coded in Java.
 
-Use this transport when communicating using low-level UDP datagrams. UDP is designed to maximize speed and scale over reliability, ordering or data integrity. UDP datagrams are not guaranteed to arrive with any particular speed, or at all, and they may arrive in a different order than they are sent in. If any of these guarantees are important to your application, use a different transport, such as xref:transports/tcp-transport-reference.adoc[TCP].
+Use this transport when communicating using low-level UDP datagrams. UDP is designed to maximize speed and scale over reliability, ordering or data integrity. UDP datagrams are not guaranteed to arrive with any particular speed, or at all, and they may arrive in a different order than they are sent in. If any of these guarantees are important to your application, use a different transport, such as xref:3.6@transports/tcp-transport-reference.adoc[TCP].
 
-Note, UDP provides no error checking, so you may want to perform additional validation or error handling in your application, if it is important.
+*Note*: UDP provides no error checking, so you may want to perform additional validation or error handling in your application, if it is important.
 
-As shown in the examples below, use the UDP transport to:
+As shown in the examples below, you can use the UDP transport to:
 
 * Send messages to a UDP socket
 * Read messages from a UDP socket
@@ -113,27 +103,27 @@ The UDP module allows a Mule application both to send and receive UDP datagrams,
 * Whether to close a socket after sending a message.
 * The maximum size of messages that can be received.
 
-Use UDP endpoints to:
+UDP endpoints can be used in one of two ways:
 
-* Receive a UDP datagram and create an inbound UDP endpoint.
-* Send a UDP datagram and create an outbound UDP endpoint.
+* To receive a UDP datagram, create an inbound UDP endpoint.
+* To send a UDP datagram, create an outbound UDP endpoint.
 
 == Usage
 
 To use UDP endpoints:
 
-. Add the MULE UDP namespace to your configuration: +
-* Define the udp prefix using `xmlns:udp="http://www.mulesoft.org/schema/mule/udp`"
-* Define the schema location with http://www.mulesoft.org/schema/mule/udp http://www.mulesoft.org/schema/mule/udp/3.4/mule-udp.xsd
-. Define one or more connectors for UDP endpoints. +
+. Add the MULE UDP namespace to your configuration:
+* Define the udp prefix using ` xmlns:udp="http://www.mulesoft.org/schema/mule/udp"`
+* Define the schema location with http://www.mulesoft.org/schema/mule/udp http://www.mulesoft.org/schema/mule/udp/3.6/mule-udp.xsd
+. Define one or more connectors for UDP endpoints.
 * Create a UDP connector:
 +
-[source,text,linenums]
+[source,xml,linenums]
+----
+<udp:connector name="udpConnector"/>
 ----
 
-----
-
-. Create UDP endpoints.
+. Create UDP endpoints. +
 * Datagrams are received on inbound endpoints. The bytes in the datagram become the message payload.
 * Datagrams are sent to outbound endpoints. The bytes in the message payload become the datagram.
 * Both kinds of endpoints are identified by a host name and a port.
@@ -142,27 +132,32 @@ To use UDP endpoints:
 
 == Example Configurations
 
-*Copy datagrams from one port to another*
+*Copy Datagrams From one Port to Another*
 
-[source,text,linenums]
+[source,xml,linenums]
 ----
+<udp:connector name="connector"/> ❶
 
+<flow name="copy">
+    <udp:inbound-endpoint host="localhost" port="4444" exchange-pattern="one-way"/> ❷
+    <udp:outbound-endpoint host="remote" port="5555" exchange-pattern="one-way" /> ❸
+</flow>
 ----
 
 The connector at ❶ uses all default properties. The inbound endpoint at ❷ receives datagrams and copies them to the outbound endpoint at ❸.
 
 == Configuration Options
 
-UDP Connector attributes
+UDP connector attributes:
 
 [%header,cols="34,33,33"]
 |===
 |Name |Description |Default
-|broadcast |Set to true to allow sending to broadcast ports. |false
-|keepSendSocketOpen |Whether to keep the the socket open after sending a message. |false
-|receiveBufferSize |This is the size of the largest (in bytes) datagram that can be received. |16 Kbytes
-|sendBufferSize |The size of the network send buffer. |16 Kbytes
-|timeout |The timeout for both sending and receiving. |system default
+|*broadcast* |Set to true to allow sending to broadcast ports |false
+|*keepSendSocketOpen* |Whether to keep the the socket open after sending a message |false
+|*receiveBufferSize* |Size of the largest (in bytes) datagram that can be received. |16 Kbytes
+|*sendBufferSize* |Size of the network send buffer |16 Kbytes
+|*timeout* |Timeout used for both sending and receiving |system default
 |===
 
 == Configuration Reference
@@ -198,7 +193,8 @@ The UDP transport enables events to be sent and received as Datagram packets.
 
 === Attributes of <inbound-endpoint...>
 
-[%header,cols="5*"]
+
+[%header%autowidth.spread]
 |===
 |Name |Type |Required |Default |Description
 |host |string |no | |
@@ -216,7 +212,8 @@ The UDP transport enables events to be sent and received as Datagram packets.
 
 === Attributes of <outbound-endpoint...>
 
-[%header,cols="5*"]
+
+[%header%autowidth.spread]
 |===
 |Name |Type |Required |Default |Description
 |host |string |no | |
@@ -234,8 +231,7 @@ The UDP transport enables events to be sent and received as Datagram packets.
 
 === Attributes of <endpoint...>
 
-
-[%header,cols="5*"]
+[%header%autowidth.spread]
 |===
 |Name |Type |Required |Default |Description
 |host |string |no | |
@@ -259,314 +255,149 @@ http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/schema-o
 
 Targeting Components:
 
-4 global elements, 4 <<Complex Type Summary>>, 1 attribute group
+4 global elements, 4 complexTypes, 1 attribute group
 
-=== Schema Summary
 
-http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/schema-overview.html[mule-udp.xsd]
-
-[cols="2*"]
+[%header,cols="2*"]
 |===
-2.+|The UDP transport enables events to be sent and received as Datagram packets.
-a|Target Namespace: a| http://www.mulesoft.org/schema/mule/udp
-a|Defined Components:
-a|4 http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/schema-overview.html#a1[global elements], 4 http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/schema-overview.html#a2[complexTypes], 1 http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/schema-overview.html#a3[attribute group]
-a|Default Namespace-Qualified Form:
-a|Local Elements: qualified; Local Attributes: unqualified
-a|Schema Location:
-a|http://www.mulesoft.org/schema/mule/udp/3.3/mule-udp.xsd; see http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/schema-overview.html#xml_source[XML source]
-a|Imports Schemas (3): a|http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-schemadoc_xsd/schema-overview.html[mule-schemadoc.xsd], http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule_xsd/schema-overview.html[mule.xsd], http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/xml_xsd/schema-overview.html[xml.xsd]
-a|Imported by Schemas (2): a|_mule-all-included.xsd, http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-multicast_xsd/schema-overview.html[mule-multicast.xsd]
-|===
+2.+|Schema Summary |http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/schema-overview.html[mule-udp.xsd]  a|The UDP transport enables events to be sent and received as Datagram packets.
 
-=== All Element Summary
+**** Target Namespace:
++
+http://www.mulesoft.org/docs/site/3.3.0/schemadocs/namespaces/http_www_mulesoft_org_schema_mule_udp/namespace-overview.html[http://www.mulesoft.org/schema/mule/udp]
 
-http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/elements/connector.html[connector]
+**** Defined Components:
++
+4 http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/schema-overview.html#a1[global elements], 4 http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/schema-overview.html#a2[complexTypes], 1 http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/schema-overview.html#a3[attribute group]
 
-[cols="2*"]
-|===
-a|
-Type:
+**** Default Namespace-Qualified Form:
++
+Local Elements: qualified; Local Attributes: unqualified
 
- a|
-http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/complexTypes/udpConnectorType.html[udpConnectorType]
+**** Schema Location:
++
+http://www.mulesoft.org/schema/mule/udp/3.3/mule-udp.xsd; see http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/schema-overview.html#xml_source[XML source]
 
-a|
-Content:
+**** Imports Schemas (3):
++
+http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-schemadoc_xsd/schema-overview.html[mule-schemadoc.xsd], http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule_xsd/schema-overview.html[mule.xsd], http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/xml_xsd/schema-overview.html[xml.xsd]
 
- a|
-complex, 9 attributes, attr. http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule_xsd/complexTypes/annotatedType.html#a5[wildcard], 6 elements
-
-a|
-Subst.Gr:
-
- a|
-may substitute for element http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule_xsd/elements/abstract-connector.html[mule:abstract-connector]
-
-a|
-Defined:
-
- a|
-globally in http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/schema-overview.html[mule-udp.xsd]; see http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/elements/connector.html#xml_source[XML source]
-
-a|
-Used:
-
- a|
-never
-
+**** Imported by Schemas (2):
++
+_mule-all-included.xsd, http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-multicast_xsd/schema-overview.html[mule-multicast.xsd]
 |===
 
-http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/elements/endpoint.html[endpoint]
-
-[cols="2*"]
+[%header,cols="2*"]
 |===
-a|
-Type:
+|All Element Summary |
+a|http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/elements/connector.html[connector]
 
- a|
-http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/complexTypes/globalEndpointType.html[globalEndpointType]
+a|Type: http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/complexTypes/udpConnectorType.html[udpConnectorType]
 
-a|
-Content:
+Content: complex, 9 attributes, attr. http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/complexTypes/annotatedType.html#a5[wildcard], 6 elements
 
- a|
-complex, 13 attributes, attr. http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule_xsd/complexTypes/annotatedType.html#a5[wildcard], 16 elements
+Subst.Gr: may substitute for element http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/elements/abstract-global-endpoint.html[mule:abstract-connector]
 
-a|
-Subst.Gr:
+Defined: globally in http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/schema-overview.html[mule-udp.xsd]; see http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/elements/connector.html#xml_source[XML source]
 
- a|
-may substitute for element http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule_xsd/elements/abstract-global-endpoint.html[mule:abstract-global-endpoint]
+Used:never
 
-a|
-Defined:
+|
+http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/complexTypes/globalEndpointType.html[endpoint]
 
- a|
-globally in http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/schema-overview.html[mule-udp.xsd]; see http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/elements/endpoint.html#xml_source[XML source]
+a|Type: http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/complexTypes/globalEndpointType.html[globalEndpointType]
 
-a|
-Used:
+Content: complex, 13 attributes, attr. http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/complexTypes/annotatedType.html#a5[wildcard], 16 elements
 
- a|
-never
+Subst.Gr: may substitute for element http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/elements/abstract-global-endpoint.html[mule:abstract-global-endpoint]
 
-|===
+Defined: globally in http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/schema-overview.html[mule-udp.xsd]; see http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/elements/connector.html#xml_source[XML source]
 
-http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/elements/inbound-endpoint.html[inbound-endpoint]
+Used: never
 
-[cols="2*"]
-|===
-a|
-Type:
+|http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/elements/inbound-endpoint.html[inbound-endpoint]
 
- a|
+a|Type:
 http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/complexTypes/inboundEndpointType.html[inboundEndpointType]
 
-a|
-Content:
+Content: complex, 13 attributes, attr. http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/complexTypes/annotatedType.html#a5[wildcard], 16 elements
 
- a|
-complex, 13 attributes, attr. http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule_xsd/complexTypes/annotatedType.html#a5[wildcard], 16 elements
+Subst.Gr: may substitute for element http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/elements/abstract-global-endpoint.html[mule:abstract-global-connector]
 
-a|
-Subst.Gr:
+Defined: globally in http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/schema-overview.html[mule-udp.xsd]; see http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/elements/connector.html#xml_source[XML source]
 
- a|
-may substitute for element http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule_xsd/elements/abstract-inbound-endpoint.html[mule:abstract-inbound-endpoint]
+Used: never
 
-a|
-Defined:
+a|http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/elements/outbound-endpoint.html[outbound-endpoint]
 
- a|
-globally in http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/schema-overview.html[mule-udp.xsd]; see http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/elements/inbound-endpoint.html#xml_source[XML source]
+a|Type: http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/complexTypes/outboundEndpointType.html[outboundEndpointType]
 
-a|
-Used:
+Content: complex, 13 attributes, attr. http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule_xsd/complexTypes/annotatedType.html#a5[wildcard], 16 elements
 
- a|
-never
+Subst.Gr: may substitute for element http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule_xsd/elements/abstract-outbound-endpoint.html[mule:abstract-outbound-endpoint]
 
+Defined: globally in http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/schema-overview.html[mule-udp.xsd]; see http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/elements/endpoint.html#xml_source[XML source]
+
+Used: never
 |===
 
-http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/elements/outbound-endpoint.html[outbound-endpoint]
 
-[cols="2*"]
+[%header,cols="2*"]
 |===
-a|
-Type:
+|Complex Type Summary |
+a|http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/complexTypes/globalEndpointType.html[globalEndpointType]
 
- a|
+a|Content: complex, 13 attributes, attr. http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule_xsd/complexTypes/annotatedType.html#a5[wildcard], 16 elements
+
+Defined: globally in http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/schema-overview.html[mule-udp.xsd]; see http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/elements/inbound-endpoint.html#xml_source[XML source]
+
+Used: at 1 http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/complexTypes/globalEndpointType.html#a3[location]
+
+a|http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/complexTypes/inboundEndpointType.html[inboundEndpointType]
+
+a|Content: complex, 13 attributes, attr. http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule_xsd/complexTypes/annotatedType.html#a5[wildcard], 16 elements
+
+Defined: globally in http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/schema-overview.html[mule-udp.xsd]; see http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/elements/inbound-endpoint.html#xml_source[XML source]
+
+Used: at 1 http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/complexTypes/globalEndpointType.html#a3[location]
+
+a|
 http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/complexTypes/outboundEndpointType.html[outboundEndpointType]
 
-a|
-Content:
+a|Content: complex, 13 attributes, attr. http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule_xsd/complexTypes/annotatedType.html#a5[wildcard], 16 elements
 
- a|
-complex, 13 attributes, attr. http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule_xsd/complexTypes/annotatedType.html#a5[wildcard], 16 elements
+Defined: globally in http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/schema-overview.html[mule-udp.xsd]; see http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/elements/inbound-endpoint.html#xml_source[XML source]
 
-a|
-Subst.Gr:
+Used: at 1 http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/complexTypes/globalEndpointType.html#a3[location]
 
- a|
-may substitute for element http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule_xsd/elements/abstract-outbound-endpoint.html[mule:abstract-outbound-endpoint]
+a|http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/complexTypes/udpConnectorType.html[udpConnectorType]
 
-a|
-Defined:
+a|Content: complex, 9 attributes, attr. http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule_xsd/complexTypes/annotatedType.html#a5[wildcard], 6 elements
 
- a|
-globally in http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/schema-overview.html[mule-udp.xsd]; see http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/elements/outbound-endpoint.html#xml_source[XML source]
+Defined: globally in http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/schema-overview.html[mule-udp.xsd]; see http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/elements/inbound-endpoint.html#xml_source[XML source]
 
-a|
-Used:
+Includes: definition of 5 http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule_xsd/complexTypes/udpConnectorType.html#a6[attributes]
 
- a|
-never
-
+Used: at 2 http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/complexTypes/globalEndpointType.html#a3[location]
 |===
 
-=== Complex Type Summary
 
-http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/complexTypes/globalEndpointType.html[globalEndpointType]
-
-[cols="2*"]
+[%header,cols="2*"]
 |===
-a|
-Content:
-
- a|
-complex, 13 attributes, attr. http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule_xsd/complexTypes/annotatedType.html#a5[wildcard], 16 elements
-
-a|
-Defined:
-
- a|
-globally in http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/schema-overview.html[mule-udp.xsd]; see http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/complexTypes/globalEndpointType.html#xml_source[XML source]
-
-a|
-Used:
-
- a|
-at 1 http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/complexTypes/globalEndpointType.html#a3[location]
-
-|===
-
-http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/complexTypes/inboundEndpointType.html[inboundEndpointType]
-
-[cols="2*"]
-|===
-a|
-Content:
-
- a|
-complex, 13 attributes, attr. http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule_xsd/complexTypes/annotatedType.html#a5[wildcard], 16 elements
-
-a|
-Defined:
-
- a|
-globally in http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/schema-overview.html[mule-udp.xsd]; see http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/complexTypes/inboundEndpointType.html#xml_source[XML source]
-
-a|
-Used:
-
- a|
-at 1 http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/complexTypes/inboundEndpointType.html#a3[location]
-
-|===
-
-http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/complexTypes/outboundEndpointType.html[outboundEndpointType]
-
-[cols="2*"]
-|===
-a|
-Content:
-
- a|
-complex, 13 attributes, attr. http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule_xsd/complexTypes/annotatedType.html#a5[wildcard], 16 elements
-
-a|
-Defined:
-
- a|
-globally in http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/schema-overview.html[mule-udp.xsd]; see http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/complexTypes/outboundEndpointType.html#xml_source[XML source]
-
-a|
-Used:
-
- a|
-at 1 http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/complexTypes/outboundEndpointType.html#a3[location]
-
-|===
-
-http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/complexTypes/udpConnectorType.html[udpConnectorType]
-
-[cols="2*"]
-|===
-a|
-Content:
-
- a|
-complex, 9 http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/complexTypes/udpConnectorType.html#a11[attributes], attr. http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule_xsd/complexTypes/annotatedType.html#a5[wildcard], 6 elements
-
-a|
-Defined:
-
- a|
-globally in http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/schema-overview.html[mule-udp.xsd]; see http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/complexTypes/udpConnectorType.html#xml_source[XML source]
-
-a|
-Includes:
-
- a|
-definitions of 5 http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/complexTypes/udpConnectorType.html#a6[attributes]
-
-a|
-Used:
-
- a|
-at 2 http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/complexTypes/udpConnectorType.html#a3[locations]
-
-|===
-
-=== Attribute Group Summary
-
+|Attribute Group Summary |
+|
 http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/attributeGroups/addressAttributes.html[addressAttributes]
 
-[cols="2*"]
-|===
-a|
-Content:
+a|Content: 2 http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/schema-overview.html[attributes]
 
- a|
-2 http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/attributeGroups/addressAttributes.html#a6[attributes]
+Defined: globally in http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/schema-overview.html[mule-udp.xsd]; see http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/elements/inbound-endpoint.html#xml_source[XML source]
 
-a|
-Defined:
+Includes: definition of 2 http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule_xsd/complexTypes/udpConnectorType.html#a6[attributes]
 
- a|
-globally in http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/schema-overview.html[mule-udp.xsd]; see http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/attributeGroups/addressAttributes.html#xml_source[XML source]
-
-a|
-Includes:
-
- a|
-definitions of 2 http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/attributeGroups/addressAttributes.html#a4[attributes]
-
-a|
-Used:
-
- a|
-at 3 http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/attributeGroups/addressAttributes.html#a2[locations]
-
+Used: at 3 http://www.mulesoft.org/docs/site/3.3.0/schemadocs/schemas/mule-udp_xsd/complexTypes/globalEndpointType.html#a3[location]
 |===
 
-'''''
-
-[%autowidth.spread]
-|===
-|XML schema documentation generated with http://www.filigris.com/products/docflex_xml/#docflex-xml-re[DocFlex/XML RE] 1.8.5 using http://www.filigris.com/products/docflex_xml/xsddoc/[DocFlex/XML XSDDoc] 2.5.0 template set. All content model diagrams generated by http://www.altova.com/xmlspy[Altova XMLSpy] via http://www.filigris.com/products/docflex_xml/integrations/xmlspy/[DocFlex/XML XMLSpy Integration].
-|===
+XML schema documentation generated with http://www.filigris.com/products/docflex_xml/#docflex-xml-re[DocFlex/XML RE] 1.8.5 using http://www.filigris.com/products/docflex_xml/xsddoc/[DocFlex/XML XSDDoc] 2.5.0 template set. All content model diagrams generated by http://www.altova.com/xmlspy[Altova XMLSpy] via http://www.filigris.com/products/docflex_xml/integrations/xmlspy/[DocFlex/XML XMLSpy Integration].
 
 == Javadoc API Reference
 
@@ -583,9 +414,10 @@ The UDP Module can be included with the following dependency:
 <dependency>
   <groupId>org.mule.transports</groupId>
   <artifactId>mule-transport-udp</artifactId>
-  <version>3.4.1</version>
+  <version>3.6.0</version>
 </dependency>
 ----
+
 
 == Notes
 

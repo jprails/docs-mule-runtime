@@ -3,12 +3,13 @@ ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
 :page-aliases: jmx-management.adoc
+:keywords: mule, esb, studio, jmx
 
 http://java.sun.com/jmx[Java Management Extensions (JMX)] is a simple and standard way to manage applications, devices, services, and other resources. JMX is dynamic, so you can use it to monitor and manage resources as they are created, installed, and implemented. You can also use JMX to monitor and manage the Java Virtual Machine (JVM).
 
 Each resource is instrumented by one or more Managed Beans, or MBeans. All MBeans are registered in an MBean Server. The JMX server agent consists of an Mbean Server and a set of services for handling Mbeans.
 
-There are several xref:administer/mule-agents.adoc[agents] provided with Mule ESB for JMX support. The easiest way to configure JMX is to use the default JMX support agent.
+There are several xref:3.7@administer/mule-agents.adoc[agents] provided with Mule ESB for JMX support. The easiest way to configure JMX is to use the default JMX support agent.
 
 == Using the Default JMX Support Agent
 
@@ -23,9 +24,27 @@ You can configure several JMX agents simultaneously using the `<jmx-default-conf
 
 This element includes the following properties:
 
-====
-xslt: Unexpected program error: java.lang.NullPointerException
-====
+== Jmx Default Config
+
+=== Attributes of <jmx-default-config...>
+
+[%header,cols="5*"]
+|===
+|Name |Type |Required |Default |Description
+|registerMx4jAdapter |boolean |no |  |Whether to enable the MX4J adaptor.
+|registerLog4j |boolean |no |  |Whether to enable the Log4j agent.
+|host |string |no |  |The host to bind to. Normally, override this only for multi-NIC servers (default is localhost).
+|port |port number |no |  |The port on which the RMI registry will run. This is also used for remote JMX management. Default is 1099.
+|jmxAuthenticator-ref |string |no |  |A reference to a custom jmxAuthenticator.
+|===
+
+=== Child Elements of <jmx-default-config...>
+
+[%header,cols="34,33,33"]
+|===
+|Name |Cardinality |Description
+|credentials |0..1 |A map of username/password properties for remote JMX access. The configuration option delegates to the JmxAgent.
+|===
 
 For example:
 
@@ -52,14 +71,14 @@ http://www.mulesoft.org/schema/mule/management/current/mule-management.xsd">
 </mule>
 ----
 
-**Note:** you only need to specify the port if you don't want to use the default of 1099.
+*Note:* you only need to specify the port if you don't want to use the default of 1099.
 
 The default agent does a lot of useful plumbing for JMX but at the expense of defaulting many parameters. If you need to customize some subsystems, you could either:
 
 * Subclass
-
++
 https://www.mulesoft.org/docs/site/current/apidocs/org/mule/module/management/agent/DefaultJmxSupportAgent.html[DefaultJmxSupportAgent]
-
++
 and override the corresponding `createXXX()` factory methods.
 
 * Disassemble the services provided by this support agent into separate agents and configure them individually.
@@ -70,9 +89,28 @@ The JMX agent enables the configuration of a local or remote JMX connection to M
 
 You configure the JMX agent using the `<jmx-server>` element. You can set the following properties on the agent.
 
-====
-xslt: Unexpected program error: java.lang.NullPointerException
-====
+== Jmx Server
+
+=== Attributes of <jmx-server...>
+
+[%header,cols="5*"]
+|===
+|Name |Type |Required |Default |Description
+|server-ref |string |no |  |The mBean server to use.
+|locateServer |boolean |no |true |Whether the agent should try locating an MBeanServer instance before creating one.
+|createServer |boolean |no |false |Whether the agent should create an MBean server if one couldn't be found or locateServer was set to false.
+|createRmiRegistry |boolean |no |true |Whether the agent should try locating an RmiRegistry instance before creating one. Unless there is a RmiRegistry explicitly created on the port defined by the connector-server URI, this must be set to true which is the default
+|enableStatistics |boolean |no |true |Whether statistics reporting is enabled for the Mule instance.
+|===
+
+=== Child Elements of <jmx-server...>
+
+[%header,cols="34,33,33"]
+|===
+|Name |Cardinality |Description
+|connector-server |0..1 |Configures the remote JMX connector server by specifying the URL and whether to rebind.
+|credentials |0..1 |A map of username/password entries used to authenticate remote JMX access. If not specified, remote access is not restricted.
+|===
 
 For example:
 
@@ -101,8 +139,7 @@ Note that the JMX domain for the Mule server is taken from the Mule server ID. T
 
 You can configure the Mule JMX subsystem for remote management with third-party tools like https://en.wikipedia.org/wiki/MC4J[MC4J]. Mule provides an RMI registry agent, which binds to an existing RMI registry or creates a new one on a defined URI.
 
-You configure the RMI registry agent using the `<rmi-server>` element. This element has two attributes: `serverUri`, which you set to the URI of the RMI server (the +
-default is rmi://localhost:1099), and `createRegistry`, which you set to true if you want to create a new registry instead of binding to an existing one.
+You configure the RMI registry agent using the `<rmi-server>` element. This element has two attributes: `serverUri`, which you set to the URI of the RMI server (the default is rmi://localhost:1099), and `createRegistry`, which you set to true if you want to create a new registry instead of binding to an existing one.
 
 For example:
 
@@ -151,7 +188,7 @@ The http://logging.apache.org/log4j/index.html[log4j] agent exposes the configur
 
 For example:
 
-[source,xml,linenums]
+[source,xml]
 ----
 <management:jmx-log4j/>
 ----
@@ -190,9 +227,22 @@ For example:
 
 http://mx4j.sourceforge.net/[MX4J] is an open source implementation of the JMX technology. The MX4J agent for Mule configures an MX4J HTTP adapter to provide JMX management, statistics, and configuration viewing of a Mule instance. You configure the MX4J agent using the `<jmx-mx4j-adaptor>` element.
 
-====
-xslt: Unexpected program error: java.lang.NullPointerException
-====
+== Jmx Mx4j Adaptor
+
+=== Attributes of <jmx-mx4j-adaptor...>
+
+[%header,cols="5*"]
+|===
+|Name |Type |Required |Default |Description
+|jmxAdaptorUrl |string |no |  a|
+The URL of the JMX web console. The default is http://localhost:9999
+|login |string |no |  |The login name for accessing the JMX web console.
+|password |string |no |  |The password for accessing the JMX web console.
+|authenticationMethod |none/basic/digest |no |basic |The type of authentication to perform when the login and password are set: basic (the default), digest, or none.
+|cacheXsl |string |no |true |Indicates whether to cache the transformation objects, which speeds-up the process. It is usually set to true, but you can set it to false for easier testing.
+|xslFilePath |string |no |  |Specifies the path of the XSL files used to customize the adaptor's stylesheet. If you specify a directory, it assumes that XSL files are located in the directory. If you specify a .jar or .zip file, it assumes that the files are located inside. Specifying a file system is especially useful for testing.
+|pathInJar |string |no |  |If the xslFilePath is a JAR file, specifies the directory in the JAR where the XSL files are located.
+|===
 
 For example:
 
@@ -212,7 +262,7 @@ For security's sake, the management console is accessible from the localhost onl
 
 You can protect the JMX web console with a user name and password. If the `login` property has been specified, the authentication scheme is applied.
 
-In addition to protecting the console, you can protect the in-transit data using SSL. If the `socketFactoryProperties` element contains at least one property, the agent switches to HTTPS connections. If this element is omitted from the configuration, the agent will always use HTTP, even if you specify https:// in the `jmxAdaptorUrl` property.
+In addition to protecting the console, you can protect the in-transit data using SSL. If the `socketFactoryProperties` element contains at least one property, the agent switches to HTTPS connections. If this element is omitted from the configuration, the agent always uses HTTP, even if you specify https:// in the `jmxAdaptorUrl` property.
 
 === Viewing Statistics
 

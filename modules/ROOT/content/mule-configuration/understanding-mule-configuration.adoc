@@ -4,22 +4,19 @@ include::_attributes.adoc[]
 endif::[]
 :page-aliases: understanding-mule-configuration.adoc
 
-[ <<About XML Configuration>> ] [ <<Schema References>> ] [ <<Default Values>> ] [ <<Enumerated Values>> ] [ <<Advantages of a Strongly Typed Language>> ] [ <<About Spring Configuration>> ] [ <<Spring Beans>> ] [ <<Spring Properties>> ] [ <<Property Placeholders>> ] [ <<About Mule Configuration>> ] [ <<Global Elements>> ] [ <<Flows>> ] [ <<Configuration Patterns>> ] [ <<Custom Elements>> ] [ <<System-level Configuration>> ] [ <<Managers>> ] [ <<Agents>> ]
-
 == About XML Configuration
 
 Mule uses an XML configuration to define each application, by fully describing the constructs required to run the application. A basic Mule application can use a very simple configuration, for instance:
 
 [source,xml,linenums]
 ----
-<?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns="http://www.mulesoft.org/schema/mule/core"
       xmlns:stdio="http://www.mulesoft.org/schema/mule/stdio"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 
       xsi:schemaLocation="
-        http://www.mulesoft.org/schema/mule/stdio http://www.mulesoft.org/schema/mule/stdio/3.1/mule-stdio.xsd
-        http://www.mulesoft.org/schema/mule/core  http://www.mulesoft.org/schema/mule/core/3.1/mule.xsd">
+        http://www.mulesoft.org/schema/mule/stdio http://www.mulesoft.org/schema/mule/stdio/3.6/mule-stdio.xsd
+        http://www.mulesoft.org/schema/mule/core  http://www.mulesoft.org/schema/mule/core/3.6/mule.xsd">
 
 
     <stdio:connector name="stdio" promptMessage="Yes? " messageDelayTime="1000"/>
@@ -53,13 +50,12 @@ The configuration both defines the schema's namespace URI as an XML namespace an
 <mule xmlns="http://www.mulesoft.org/schema/mule/core" ❶
       xmlns:stdio="http://www.mulesoft.org/schema/mule/stdio" ❷
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-
       xsi:schemaLocation="
-        http://www.mulesoft.org/schema/mule/stdio http://www.mulesoft.org/schema/mule/stdio/3.1/mule-stdio.xsd ❸
-        http://www.mulesoft.org/schema/mule/core  http://www.mulesoft.org/schema/mule/core/3.1/mule.xsd" ❹>
+        http://www.mulesoft.org/schema/mule/stdio http://www.mulesoft.org/schema/mule/stdio/3.6/mule-stdio.xsd ❸
+        http://www.mulesoft.org/schema/mule/core  http://www.mulesoft.org/schema/mule/core/3.6/mule.xsd" ❹>
 ----
 
-❶ Shows the core mule schema's namespace being defined as the default namespace for the configuration. This is the best default namespace, because so many of the configuration's elements are part of the core namespace. +
+❶ Shows the core Mule schema's namespace being defined as the default namespace for the configuration. This is the best default namespace, because so many of the configuration's elements are part of the core namespace. +
 ❷ Shows the namespace for Mule's stdio transport, which allows communication using standard I/O, being given the "stdio" prefix. The convention for a Mule module or transport's schema is to use its name for the prefix. +
 The xsi:schemaLocation attribute associates schemas' namespaces with their locations. ❸ gives the location for the stdio schema and ❹ for the core schema.
 
@@ -205,7 +201,7 @@ web.rsc.password=s3cr3t
 web.rsc.host=www.acme.com
 ----
 
-Note the the location given for the file is a location in the classpath. Another alternative would be a URL, for instance `file:///etc/mule/conf/my-mule-app-override.properties`. As shown above, it is also possible to specify a list of properties files, comma-separated.
+Note the the location given for the file is a location in the classpath. Another alternative would be a URL, for instance ` file:///etc/mule/conf/my-mule-app-override.properties `. As shown above, it is also possible to specify a list of properties files, comma-separated.
 
 == About Mule Configuration
 
@@ -231,7 +227,7 @@ Here are some examples of connectors:
                 pollingFrequency="1000" moveToDirectory="/tmp/test-data/out" />
 ----
 
-❶ The vm connector specifies that all of its endpoints will use persistent queues. ❷ The file connector specifies that each of its endpoints will be polled once a second, and also the directory that files will be moved to once they are processed.
+❶ The vm connector specifies that all of its endpoints use persistent queues. ❷ The file connector specifies that each of its endpoints will be polled once a second, and also the directory that files will be moved to once they are processed.
 
 Note that properties may be specified either by attributes or by child elements. You can determine how to specify connector properties by checking the reference for that connector's transport.
 
@@ -242,8 +238,6 @@ The relationship between an endpoint and its connector is actually quite flexibl
 * If an endpoint does not name a connector, and there is no connector for its transport, Mule creates a default connector for all endpoints of that transport to use.
 * It is an error if an endpoint does not name a connector, and there is more than one connector for its transport.
 
-For transport-specific information about connector and endpoint configuration, see Available Transports.
-
 ==== Endpoints
 
 A Mule endpoint is an object that messages can be read from (inbound) or written to (outbound), and that specifies properties that define how that will be done. Endpoints can be specified two different ways:
@@ -251,30 +245,23 @@ A Mule endpoint is an object that messages can be read from (inbound) or written
 * An endpoint specified as a global element is called a global endpoint. An inbound or outbound endpoint, specified in a flow, can refer to a global endpoint using the `ref` attribute.
 * An inbound or outbound endpoint, specified in a flow can be configured without referring to a global endpoint.
 
-A global endpoint specifies a set of properties, including its location. Inbound and outbound endpoints that reference the global endpoint inherit its properties. Here are some examples of global endpoints:
+A global endpoint specifies a set of properties, including its location. Inbound and outbound endpoints that reference the global endpoint inherit its properties. Example:
 
 [source,xml,linenums]
 ----
 <vm:endpoint name="in" address="vm://in" connector-ref="persistentConnector" /> ❶
-<http:endpoint name="in" host="localhost" port="8080" path = "services/orders" /> ❷
-<endpoint name="inFiles" address="file://c:/Orders" /> ❸
+
+<endpoint name="inFiles" address="file://c:/Orders" /> ❷
 ----
 
-The vm endpoint in ❶ specifies its location and refers to the connector shown above. It uses the generic `address` attribute to specify its location. The http endpoint at ❷ uses the default http connector. Because it is explicitly configured as an http endpoint, it can use the http-specific attributes `host`, `port`, and `path` to specify its location. The file endpoint at ❸ specifies the directory it will read from (or write to), and will use the default file connector. Because it is configured as a generic endpoint, it must specify its location via `address`.
+The vm endpoint in ❶ specifies its location and refers to the connector shown above. It uses the generic `address` attribute to specify its location. The file endpoint at ❷ specifies the directory it reads from (or writes to), and uses the default file connector. Because it is configured as a generic endpoint, it must specify its location via `address`.
 
 Note that every endpoint uses a specific transport, but that this can be specified in two different ways:
 
-* If the element has a prefix, it uses the transport associated with that prefix. (❶, ❷)
-* If not, the prefix is determined from the element's address attribute. (❸)
+* If the element has a prefix, it uses the transport associated with that prefix. (❶)
+* If not, the prefix is determined from the element's address attribute. (❷)
 
-The prefix style is preferred, particularly when the location will be complex. Compare
-
-[source,xml,linenums]
-----
-<http:endpoint name="in" host="localhost" port="8080" path = "services/orders" user="${user.name}" password ="${user.password}"/>
-----
-
-and
+The prefix style is preferred, particularly when the location is complex.
 
 [source,xml,linenums]
 ----
@@ -283,9 +270,9 @@ and
 
 One of the most important attributes of an endpoint is its message exchange pattern (MEP, for short), that is, whether messages go only one way or if requests return responses. This can be specified at several levels:
 
-* some transports only support one MEP. For instance, imap is one way, because no response can be sent when it reads an e-mail message. servlet, on the other hand. is always request-response.
-* every transport has a default MEP. jms is one-way by default, since JMS message are not usually correlated with responses. http defaults to request-response, since the HTTP protocol does naturally have a response for every request.
-* endpoints can define MEPs, though only the MRPs that are legal for their transport are allowed
+* Some transports only support one MEP. For instance, imap is one way, because no response can be sent when it reads an e-mail message. servlet, on the other hand. is always request-response.
+* Every transport has a default MEP. JMS is one-way by default, since JMS message are not usually correlated with responses. HTTP defaults to request-response, since the HTTP protocol has a response for every request.
+* Endpoints can define MEPs, though only the MRPs that are legal for their transport are allowed
 
 ==== Transformers
 
@@ -308,7 +295,7 @@ The transformer at ❶ converts the current message to JSON, specifying special 
 
 Like endpoints, transformers can be configured as global elements and referred to where they are used, or configured at their point of use.
 
-For more about Mule transformers, see xref:transformers/using-transformers.adoc[Using Transformers].
+For more about Mule transformers, see xref:3.6@transformers/using-transformers.adoc[Using Transformers].
 
 ==== Filters
 
@@ -355,51 +342,11 @@ Other special filters are `and-filter`, `or-filter`, and `not-filter`, which all
 
 This processes a message only if it's either priority 1 or a priority 2 message from a country other than Canada.
 
-Filters once again can be configured as global elements and referred to where they are used, or configured at their point of use.  For more about Mule filters see xref:using-filters.adoc[Using Filters]
+Filters once again can be configured as global elements and referred to where they are used, or configured at their point of use.  For more about Mule filters see Using Filters
 
 ==== Expressions
 
-[WARNING]
-The following description of expressions refers to the pre-Mule 3.3 expression evaluators. For a current reference to using expressions in Mule, see xref:mel/mule-expression-language-mel.adoc[Mule Expression Language MEL].
-
-Mule has a powerful expression facility that allows information for many different parts of the system to be used to affect message processing. Because many different parts of Mule can evaluate expressions, specifying an expression requires two things:
-
-* The `evaluator`, which evaluates the expression. Mule supplies a long list of evaluators, or you can add your own.
-* The `expression` proper, which is what's evaluated. The syntax of an expression is evaluator-specific.
-
-There are two ways of specifying expressions depending on where the expression is being used. Typically, expression-based elements such as the expression transformer, expression filter, and expression-based routers such as the expression message splitter, will have specific attributes for expression, evaluator, and custom-evaluator. For example:
-
-[source,xml,linenums]
-----
-<expression-filter evaluator="header" expression="my-header!=null"/>
-----
-
-When substituting expressions into string values, you use the syntax #[evaluator:expression], for instance:
-
-[source,xml,linenums]
-----
-<message-properties-transformer>
-    <add-message-property name="GUID" value="#[string:#[xpath:/msg/header/ID]-#[xpath:/msg/body/@ref]]"/>
-</message-properties-transformer>
-----
-
-This nests expression calls: first the xpath evaluator is used twice to extract data from the current message, then the string evaluator is used to construct a string from them and a literal hyphen.
-
-Expressions and property placeholders may seem similar, but they're actually quite different. Property placeholders are substituted at configuration time, and can be used to construct information that needs to be static. Expressions are substituted at run-time, so anything that uses them is dynamic. Consider the following:
-
-[source,xml,linenums]
-----
-<vm:inbound-endpoint path="${vm.path}"/> ❶
-<vm:inbound-endpoint path="#[header:vm.path]"/> <!-- illegal! --> ❷
-<vm:outbound-endpoint path="${vm.path}"/> ❸
-<vm:outbound-endpoint path="#[header:vm.path]"/> ❹
-----
-
-❶ is fine – it determines the endpoint's location at configuration time (the property vm.path must be set, of course). +
-❷ is illegal. The address of an inbound endpoint must be set at configuration time, and the ex +
-pression cannot be evaluated before the configuration is built. +
-❸ is precisely like ❶. +
-❹ is something new – a dynamic endpoint. The location to which that endpoint will send a message is determined when that message is processed, and might be different each time. A message that doesn't define the property vm.path will cause an error, of course.
+For a current reference to using expressions in Mule, see xref:3.7@mel/mule-expression-language-mel.adoc[Mule Expression Language MEL].
 
 ==== Names and References
 
@@ -445,8 +392,9 @@ The flow is the basic unit of processing in Mule. A flow begins with an inbound 
 
 [source,xml,linenums]
 ----
+
 <flow name="acceptAndProcessOrder">
-  <http:inbound-endpoint ref="in"/> ❶
+  <http:inbound-endpoint host="localhost" port="8081" path="/" />❶
   <byte-array-to-string-transformer/> ❷
   <jdbc:outbound-endpoint ref="getOrdersById" exchange-pattern="request-response"/> ❸
   <mxml:object-to-xml-transformer/> ❹
@@ -476,9 +424,9 @@ The flow is the basic unit of processing in Mule. A flow begins with an inbound 
 </flow>
 ----
 
-This flow, as you would expect from its name, accepts and processes orders. Note as we go through it, how the flow's configuration maps exactly to the logic it describes:
+This flow accepts and processes orders. How the flow's configuration maps to its logic:
 
-❶ A message is read from an HTTP endpoint. +
+❶ A message is read from an HTTP inbound endpoint. +
 ❷ The message is transformed to a string. +
 ❸ This string is used as a key to look up the list of orders in a database. +
 ❹ The order is now converted to XML. +
@@ -504,18 +452,18 @@ Each step in this flow is described in more detail below, organized by construct
 
 Previously, we looked at declarations of global endpoints. Here we see endpoints in flows, where they are used to receive (inbound) and send (outbound) messages. Inbound endpoints appear only at the beginning of the flow, where they supply the message to be processed. Outbound endpoints can appear anywhere afterward. The path of a message through a flow depends upon the MEPs of its endpoints:
 
-* If the inbound endpoint is request-response, the flow will, at its completion, return the current message to its caller.
-* If the inbound endpoint is one-way, the flow will, at its completion, simply exit
-* When the flow comes to a request-response outbound endpoint, it will send the current message to that endpoint, wait for a response, and make that response the current message
-* When the flow comes to a one-way outbound endpoint, it will send the current message to that endpoint and continue to process the current message
+* If the inbound endpoint is request-response, the flow, at its completion, returns the current message to its caller.
+* If the inbound endpoint is one-way, the flow, at its completion, simply exits.
+* When the flow comes to a request-response outbound endpoint, it sends the current message to that endpoint, waits for a response, and makes that response the current message.
+* When the flow comes to a one-way outbound endpoint, it sends the current message to that endpoint and continues to process the current message.
 
-❶ This receives a message over an HTTP connection. The message payload is set to an array of the bytes received, while all HTTP headers become inbound message properties. Because this endpoint is request-response (the default for http), at the end of the flow, the current message will be returned to the caller.
+❶ This receives a message over an HTTP connection. The message payload is set to an array of the bytes received, while all HTTP headers become inbound message properties. Because this operation is request-response (the default for HTTP), at the end of the flow, the current message returns to the caller.
 
-❸ This calls a JDBC query, using the current message as a parameter, and replaces the current message with the query's result. Because this endpoint is request-response, the result of the query will become the current message.
+❸ This calls a JDBC query, using the current message as a parameter, and replaces the current message with the query's result. Because this endpoint is request-response, the result of the query becomes the current message.
 
-❶❹ The confirmation for a completed order, which was returned from the sub-flow, is e-mailed. Note that we use the email-address that had previously been saved in a message property. Because this endpoint is one-way (the only MEP for email transports), the current message will not change.
+❶❹ The confirmation for a completed order, which was returned from the sub-flow, is e-mailed. Note that we use the email-address that had previously been saved in a message property. Because this endpoint is one-way (the only MEP for email transports), the current message does not change.
 
-❶❽ Any orders that were not processed correctly are put on a JMS queue for manual examination. Because this endpoint is one-way (the default for jms), the current message will not change.
+❶❽ Any orders that were not processed correctly are put on a JMS queue for manual examination. Because this endpoint is one-way (the default for JMS), the current message does not change.
 
 Thus the message sent back to the caller will be the confirmation message, in case of success, or the same string sent to the JMS error queue in case of failure.
 
@@ -524,21 +472,21 @@ Thus the message sent back to the caller will be the confirmation message, in ca
 As described above, transformers change the current message. There are a few examples here. Note that they are defined where used. They could also have been defined globally and referred to where used.
 
 ❷ The message, which is a byte array, is converted to a string, allowing it to be the key in a database look-up. +
- ❹ The order read from the database is converted to an XML document. +
- ❶❶ The email address is stored in a message property. Note that, unlike most transformers, the message-properties-transformer does not affect the message's payload, only its properties. +
- ❶❼ The message that caused the exception is converted to a string. Note that since the same strategy is handling all exceptions, we don't know exactly what sort of object the message is at this point. It might be a byte array, a string, or an XML document. Converting all of these to stings allows its receiver to know what to expect.
+❹ The order read from the database is converted to an XML document. +
+❶❶ The email address is stored in a message property. Note that, unlike most transformers, the message-properties-transformer does not affect the message's payload, only its properties. +
+❶❼ The message that caused the exception is converted to a string. Note that since the same strategy is handling all exceptions, we don't know exactly what sort of object the message is at this point. It might be a byte array, a string, or an XML document. Converting all of these to strings allows its receiver to know what to expect.
 
 ==== Message Enrichment
 
-Message enrichment is done using the `enricher` element. Unlike message transformation, which alters the current message's payload, enrichment adds additional properties to the message. This allows the flow to build up a collection of information for later processing.  For more about enriching messages see xref:scopes/message-enricher.adoc[Message Enricher].
+Message enrichment is done using the `enricher` element. Unlike message transformation, which alters the current message's payload, enrichment adds additional properties to the message. This allows the flow to build up a collection of information for later processing.  For more about enriching messages see xref:3.6@scopes/message-enricher.adoc[Message Enricher].
 
-❽ The enricher calls a connector to retrieve information that will be stored as a message property. Because the connector is called within an enricher, its return value is processed by the enricher rather than becoming the message.
+❽ The enricher calls a connector to retrieve information that it stores as a message property. Because the connector is called within an enricher, its return value is processed by the enricher rather than becoming the message.
 
 ==== Logger
 
-The `logger` element allows debugging information to be written from the flow.  For more about the logger see xref:components/logger-component-reference.adoc[Logger Component Reference]
+The `logger` element allows debugging information to be written from the flow.  For more about the logger see xref:3.6@components/logger-component-reference.adoc[Logger Component Reference]
 
-❻ Each order fetched from the database is output, but only if DEBUG mode is enabled. This means that the flow will ordinarily be silent, but debugging can easily be enabled when required.
+❻ Each order fetched from the database is output, but only if DEBUG mode is enabled. This means that the flow is silent, but debugging can easily be enabled when required.
 
 ==== Filters
 
@@ -548,7 +496,7 @@ Filters determine whether a message is processed or not.
 
 ==== Routers
 
-A router changes the flow of the message. Among other possibilities, it might choose among different message processors, split one message into many, join many messages into one.  For more about routers, see xref:routing-message-processors.adoc[Routing Message Processors].
+A router changes the flow of the message. Among other possibilities, it might choose among different message processors, split one message into many, join many messages into one.  For more about routers, see xref:3.6@routers/routers.adoc[Routing Message Processors].
 
 ❼ Split the document retrieved from the database into multiple orders, at the XML element `order`. The result is zero or more orders, each of which is processed by the rest of the flow. That is, for each HTTP message received, the flow is processed once up through the splitter. The rest of the flow might be processed zero, one, or more times, depending on how many orders the document contains.
 
@@ -579,37 +527,37 @@ A component is a message processor written in Java, groovy, or some other langua
 </component>
 ----
 
-❶ causes the two methods `preProcessXMLOrder` and `preProcessTextOrder` to become candidates. Mule chooses between them by doing reflection, using the type of the message. +
- ❷ calls the method whose name is in the message property `methodToCall`. +
- ❸ call the `generate` method, even though it takes no arguments
+❶ Causes the two methods `preProcessXMLOrder` and `preProcessTextOrder` to become candidates. Mule chooses between them by doing reflection, using the type of the message. +
+ ❷ Calls the method whose name is in the message property `methodToCall`. +
+ ❸ Calls the `generate` method, even though it takes no arguments.
 
-Entry point resolvers are for advanced use. Almost all of the time, Mule will find the right method to call without needing any special guidance.
+Entry point resolvers are for advanced use. Almost all of the time, Mule finds the right method to call without needing special guidance.
 
-❶❷ This is a Java component, specified by its class name, which is called with the current message. In this case, it preprocesses the message.  For more about entry point resolvers, see xref:components/entry-point-resolver-configuration-reference.adoc[Entry Point Resolver Configuration Reference].
+❶❷ This is a Java component, specified by its class name, which is called with the current message. In this case, it preprocesses the message.  For more about entry point resolvers, see xref:3.7@components/entry-point-resolver-configuration-reference.adoc[Entry Point Resolver Configuration Reference].
 
 ==== Anypoint Connectors
 
 An Anypoint connector calls a cloud service.
 
-❾ calls authorize.net to authorize a credit card purchase, passing it information from the message.  For more about connectors, see xref:3.4@connectors::index.adoc[Anypoint Connectors].
+❾ Calls authorize.net to authorize a credit card purchase, passing it information from the message.  For more about connectors, see xref:3.7@connectors::index.adoc[Anypoint Connectors].
 
 ==== Processor Chain
 
 A processor chain is a list of message processors, which will be executed in order. It allows you to use more than one processor where a configuration otherwise allows only one, exactly like putting a list of Java statements between curly braces.
 
-❶❻ is used to perform two steps as part of the exception strategy. It first transforms and then mails the current message.
+❶❻ Performs two steps as part of the exception strategy. It first transforms and then mails the current message.
 
 ==== Sub-flow
 
 A sub-flow is a flow that can be called from another flow. It represents a reusable processing step. Calling it is much like calling a Java method – the sub-flow is passed the current message, and when it returns the calling flow resumes processing with the message that the sub-flow returns.
 
-❶❸ calls a flow to process an order that has already been pre-processed and returns a confirmation message..
+❶❸ Calls a flow to process an order that has already been pre-processed and returns a confirmation message.
 
 ==== Exception Strategies
 
 An exception strategy is called whenever an exception occurs in its scope, much like an exception handler in Java. It can define what to do with any pending transactions and whether the exception is fatal for the flow, as well as logic for handling the exception.
 
-❶❺ writes the message that caused the exception to a JMS queue, where it can be examined.  For more about exception strategies, see xref:error-handling.adoc[Error Handling].
+❶❺ Writes the message that caused the exception to a JMS queue, where it can be examined.  For more about exception strategies, see xref:3.7@error-handling.adoc[Error Handling].
 
 === Configuration Patterns
 
@@ -626,10 +574,10 @@ As of mule 3.1.1, all are in the pattern namespace as shown. In earlier Mule 3 r
 
 For flexibility, all of the patterns allow endpoints to be specified in a variety of ways:
 
-* local endpoints can be declared as sub-elements, as in flow
-* references to global elements can be declared as sub-elements, as in flow
-* references to global elements can be declared as values of the attributes `inboundEndpoint-ref` and `outboundEndpoint-ref`
-* the endpoint's address can be given as the value of the attributes `inboundAddress` and `outboundAddress`
+* Local endpoints can be declared as sub-elements, as in flow
+* References to global elements can be declared as sub-elements, as in flow
+* References to global elements can be declared as values of the attributes `inboundEndpoint-ref` and `outboundEndpoint-ref`
+* The endpoint's address can be given as the value of the attributes `inboundAddress` and `outboundAddress`
 
 All configuration patterns can specify exception strategies, just as flows can.
 
@@ -637,11 +585,11 @@ All configuration patterns can specify exception strategies, just as flows can.
 
 The allows you to configure, in addition to the inbound and outbound endpoints
 
-* a list of transformers to be applied to requests
-* a list of transformers to be applied to responses
-* whether to process messages in a transaction.
+* A list of transformers to be applied to requests
+* A list of transformers to be applied to responses
+* Whether to process messages in a transaction.
 
-Here are some examples:
+Examples:
 
 [source,xml,linenums]
 ----
@@ -657,16 +605,16 @@ Here are some examples:
         outboundAddress="vm://echo-service.in" />
 ----
 
-❶ copies messages from a JMS queue to a JMS topic, using a transaction. ❷ reads byte arrays from an inbound vm endpoint, transforms them to strings, and writes them to an outbound vm endpoint. The responses are strings, which are transformed to byte arrays, and then written to the outbound endpoint.
+❶ Copies messages from a JMS queue to a JMS topic, using a transaction. ❷ reads byte arrays from an inbound vm endpoint, transforms them to strings, and writes them to an outbound vm endpoint. The responses are strings, which are transformed to byte arrays, and then written to the outbound endpoint.
 
 ==== Simple Service
 
 This allows you to configure, in addition to the inbound endpoint
 
-* a list of transformers to be applied to requests
-* a list of transformers to be applied to responses
-* a component
-* a component type, which allows you to use Jersey and CXF components.
+* A list of transformers to be applied to requests
+* A list of transformers to be applied to responses
+* A component
+* A component type, which allows you to use Jersey and CXF components.
 
 Here are some examples:
 
@@ -676,25 +624,24 @@ Here are some examples:
                 endpoint-ref="echo-service-channel"
                 component-class="com.mycompany.EchoComponent" />
 
-
 <pattern:simple-service name="weather-forecaster-ws" ❷
                 address="http://localhost:6099/weather-forecast"
                 component-class="com.myompany.WeatherForecaster"
                 type="jax-ws" />
 ----
 
-❶ Is a simple service that echos requests. ❷ is a simple web service that uses a CXF component. Note how littl4e configuration is required to create them.
+❶ Is a simple service that echos requests. ❷ is a simple web service that uses a CXF component. Note how little configuration is required to create them.
 
 ==== Validator
 
 This allows you to configure, in addition to the inbound and outbound endpoints
 
-* a list of transformers to be applied to requests
-* a list of transformers to be applied to responses
-* a filter to perform the validation
-* expressions to create responses to indicate that the validation succeeded or failed
+* A list of transformers to be applied to requests
+* A list of transformers to be applied to responses
+* A filter to perform the validation
+* Expressions to create responses to indicate that the validation succeeded or failed
 
-Here is an example:
+Example:
 
 [source,xml,linenums]
 ----
@@ -707,7 +654,7 @@ Here is an example:
 </pattern:validator>
 ----
 
-❶ validates that the payload is of the correct type before calling the order service, using the filter at ❷.
+❶ Validates that the payload is of the correct type before calling the order service, using the filter at ❷.
 
 ==== Web service proxy
 
@@ -715,11 +662,11 @@ This creates a proxy for a web service. It modifies the advertised WSDL to conta
 
 This allows you to configure, in addition to the inbound and outbound endpoints:
 
-* a list of transformers to be applied to requests
-* a list of transformers to be applied to responses
-* the location of the service's WSDL, either as a URL or as a file name.
+* A list of transformers to be applied to requests
+* A list of transformers to be applied to responses
+* The location of the service's WSDL, either as a URL or as a file name.
 
-Here is an example:
+Example:
 
 [source,xml,linenums]
 ----
@@ -731,7 +678,7 @@ Here is an example:
 
 This creates a proxy for the weather forecasting service located on server1.
 
-For more about configuration patterns, see xref:using-mule-configuration-patterns.adoc[Using Mule Configuration Patterns] .
+For more about configuration patterns, see xref:configuration-patterns.adoc[Using Mule Configuration Patterns].
 
 === Custom Elements
 
@@ -796,7 +743,7 @@ Mule uses JTA to manage XA transactions; thus, to use XA transactions, a JTA tra
 * *`jndi-transaction-manager` to look up a transaction manager in JNDI
 * *`custom-transaction-manager` for a custom lookup of the transaction manager
 
-The starred transaction managers allow you to configure a JNDI environment before performing the lookup.  For more about transaction managers, see xref:transactions/transaction-management.adoc[Transaction Management].
+The starred transaction managers allow you to configure a JNDI environment before performing the lookup.  For more about transaction managers, see xref:3.6@transactions/transaction-management.adoc[Transaction Management].
 
 ==== Security Manager
 
@@ -825,7 +772,7 @@ This strategy can then be referenced by other components in the system such as f
 </flow>
 ----
 
-For more about Mule security, see xref:security/configuring-security.adoc[Configuring Security].
+For more about Mule security, see xref:3.7@security/configuring-security.adoc[Configuring Security].
 
 ==== Notifications Manager
 
@@ -848,13 +795,13 @@ Mule can generate notifications whenever a message is sent, received, or process
 ----
 
 Assume that `ComponentMessageNotificationLogger` implements the `ComponentMessageNotificationListener` interface and `EndpointMessageNotificationLogger` implements `EndpointMessageNotificationListener`. +
-❶ and ❷ create the listener beans. ❸ appears to register both beans for both component and endpoint notifications. But since `ComponentMessageNotificationLogger` only implements the interface for component notification, those are all it will receive (and likewise for `EndpointMessageNotificationLogger`.
+ ❶ and ❷ create the listener beans. ❸ appears to register both beans for both component and endpoint notifications. But since `ComponentMessageNotificationLogger` only implements the interface for component notification, those are all it will receive (and likewise for `EndpointMessageNotificationLogger`.
 
-For more about notifications, see xref:mule-configuration/notifications-configuration-reference.adoc[Notifications Configuration Reference].
+For more about notifications, see xref:3.6@mule-configuration/notifications-configuration-reference.adoc[Notifications Configuration Reference].
 
 === Agents
 
-Mule allows you to define Agents to extend the functionality of Mule. Mule will manage the agents' lifecycle (initialize them and start them on startup, and stop them and dispose of them on sutdown). These agents can do virtually anything; the only requirement is that they implement `org.mule.api.agent.Agent`, which allows Mule to manage them.  For more about Mule agents, see xref:administer/mule-agents.adoc[Mule Agents].
+Mule allows you to define Agents to extend the functionality of Mule. Mule will manage the agents' lifecycle (initialize them and start them on startup, and stop them and dispose of them on sutdown). These agents can do virtually anything; the only requirement is that they implement `org.mule.api.agent.Agent`, which allows Mule to manage them.  For more about Mule agents, see xref:3.7@administer/mule-agents.adoc[Mule Agents].
 
 ==== Custom Agents
 

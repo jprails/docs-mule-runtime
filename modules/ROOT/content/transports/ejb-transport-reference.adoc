@@ -3,8 +3,9 @@ ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
 :page-aliases: ejb-transport-reference.adoc
+:keywords: connectors, ejb, transports, java beans
 
-The EJB transport allows EJB session beans to be invoked as part of an event flow. Components can be given an EJB outbound endpoint, which invokes the remote object and optionally returns a result.
+The Enterprise Java Beans (EJB) transport allows EJB session beans to be invoked as part of an event flow. Components can be given an EJB outbound endpoint, which invokes the remote object and optionally returns a result.
 
 https://www.mulesoft.org/docs/site/current/apidocs/org/mule/transport/ejb/package-summary.html[Javadoc for EJB Transport]
 
@@ -12,9 +13,8 @@ https://www.mulesoft.org/docs/site/current/apidocs/org/mule/transport/ejb/packag
 
 The Mule EJB Connector provides connectivity for EJB beans.
 
-=== Attributes of <connector...>
-
-[%header,cols="5*"]
+.Attributes of <connector...>
+[%header%autowidth.spread]
 |===
 |Name |Type |Required |Default |Description
 |pollingFrequency |long |no |  |Period (ms) between polling connections.
@@ -24,9 +24,8 @@ The Mule EJB Connector provides connectivity for EJB beans.
 |serverCodebase |string |no |  |The target method.
 |===
 
-=== Child Elements of <connector...>
-
-[%header,cols="34,33,33"]
+.Child Elements of <connector...>
+[%header%autowidth.spread]
 |===
 |Name |Cardinality |Description
 |===
@@ -44,30 +43,32 @@ To use the EJB transport, you must define the EJB namespace and schema location 
 
 [source,xml,linenums]
 ----
-<?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns="http://www.mulesoft.org/schema/mule/core"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:spring="http://www.springframework.org/schema/beans"
        xmlns:ejb="http://www.mulesoft.org/schema/mule/ejb"
        xsi:schemaLocation="
                http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
-               http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.5/mule.xsd
-               http://www.mulesoft.org/schema/mule/ejb http://www.mulesoft.org/schema/mule/ejb/3.5/mule-ejb.xsd">
+               http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.6/mule.xsd
+               http://www.mulesoft.org/schema/mule/ejb http://www.mulesoft.org/schema/mule/ejb/3.6/mule-ejb.xsd">
 ...
 ----
 
-EJB endpoints are configured the same way as xref:transports/rmi-transport-reference.adoc[RMI endpoints].
+*Note*: In this code example, `spring-beans-current.xsd` is a placeholder. To locate the correct version, see http://www.springframework.org/schema/beans/.
 
-*Note*: Only outbound endpoints can use the EJB transport.
+EJB endpoints are configured the same way as xref:3.6@transports/rmi-transport-reference.adoc[RMI endpoints].
 
-Provide the following information for an endpoint:
+*Note*: Only outbound endpoints can use the EJB transport. For a given endpoint, you must provide the following information:
 
 * Registry host
+
 * Registry port
+
 * Remote home name
+
 * Remote method name
 
-These values are used to establish the dispatcher connection. For example:
+Use these values to establish the dispatcher connection, for example:
 
 [source,xml,linenums]
 ----
@@ -81,7 +82,7 @@ Alternatively, you can use a URI-based configuration:
 <outbound-endpoint address="ejb://localhost:1099/SomeService?method=remoteMethod"/>
 ----
 
-If the method can take one or more input arguments, configure their types as a comma-separated list using the `methodArgumentTypes` attribute. Multiple arguments are passed in as an array of objects as the payload of the Mule message.
+If the method takes one or more input arguments, configure their types as a comma-separated list using the `methodArgumentTypes` attribute. Multiple arguments are passed in as an array of objects as the payload of the Mule message.
 
 == Transformers
 

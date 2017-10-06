@@ -9,9 +9,10 @@ This page describes how to start and stop Mule from a Java application or to emb
 == Starting Mule from a Java Application
 
 [NOTE]
-Before running Mule in embedded mode in either a Java application or a Web app, be sure to manually update all the required dependencies for your application. The Mule ESB Embedded Single .jar contains all Mule classes, but the dependencies must be included manually.
+Before running Mule in embedded mode in either a Java application or a Web app, be sure to manually update all the required dependencies for your application. The Mule ESB Embedded   Single .jar contains all Mule classes, but you need to include the dependencies manually.
 
-To start Mule from any Java application, you can call one of its configuration builders. To use Mule XML configuration:
+
+To start Mule from any Java application, you can call one of its configuration builders.To use Mule XML configuration:
 
 [source,text,linenums]
 ----
@@ -20,7 +21,7 @@ SpringXmlConfigurationBuilder configBuilder = new SpringXmlConfigurationBuilder(
 muleContext = muleContextFactory.createMuleContext(configBuilder);
 ----
 
-Make sure you store a reference to the MuleContext, as you will need it to stop Mule.
+Make sure you store a reference to the MuleContext, as you need it to stop Mule.
 
 If you have multiple configuration files, you can provide a comma-separated list or an array of configuration files:
 
@@ -53,15 +54,15 @@ muleContext.dispose();
 ====
 *Mule Standalone vs. Application Server* +
 
-Listed below are some of the advantages of running Mule standalone vs running it as a web application deployed in an application server (Tomcat, WebSphere, JBoss, etc.)
+Listed below are some of the advantages of running Mule standalone vs running it as a web application deployed in an application server (Tomcat, WebSphere, JBoss, etc.) +
 
 * *Wrapper control*: Mule Standalone makes use of a Java Service Wrapper which controls the JVM from your operating system and starts Mule. The wrapper can handle system signals and provides better interaction between the JVM and the underlying operating system.
 * *Smaller memory footprint*: Mule standalone loads only the required resources for an application; an application server adds its own resources.
-* *Anypoint DataMapper support*: DataMapper runs on Mule Enterprise Standalone runtime; other application servers do not support DataMapper.
+* *Anypoint DataMapper support*: DataMapper is supported only on a Mule Enterprise Standalone runtime; other application servers do not support DataMapper.
 * *Deployment and Application Management*: Through the Mule Management Console, you have full control of the applications running on Mule Standalone, allowing you to deploy/undeploy applications and restart/stop the server. Other application servers do not support this visibility.
 ====
 
-To embed Mule inside a webapp, you provide one or more configuration file locations as context params and include a context listener to initialize the Mule Server. If you are using Mule XML configuration, use the following -
+To embed Mule inside a webapp, you provide one or more configuration file locations as context params and include a context listener to initialize the Mule Server. If you are using Mule XML configuration, use the following:
 
 [source,xml,linenums]
 ----
@@ -75,11 +76,11 @@ To embed Mule inside a webapp, you provide one or more configuration file locati
 </listener>
 ----
 
-The configuration parameter can be a classpath location or file location. You can also specify multiple configuration files on the classpath or on the file system.
+The configuration parameter can be a classpath location or file location. You can also specify multiple configuration files on the classpath or in the file system.
 
 == Interacting with Mule from Your Code
 
-To interact with the Mule server from your application, JSP, or servlet, you can use the xref:administer/using-the-mule-client.adoc[Mule Client].
+To interact with the Mule server from your application, JSP, or servlet, you can use the xref:3.6@administer/using-the-mule-client.adoc[Mule Client].
 
 [source,text,linenums]
 ----

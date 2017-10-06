@@ -3,10 +3,10 @@ ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
 
-* <<Options>>
-* <<Classloadling in Mule>>
-
 Mule's deployment descriptor is a properties file (`mule-deploy.properties`) that controls how a Mule application should be deployed. A typical application, however, would rarely need to use many of the configuration properties available in the file, relying instead on defaults.
+
+[WARNING]
+If you're deploying multiple applications through a xref:shared-resources/domain-project-shared-resources.adoc[Shared Resources] structure, then you shouldn't set anything in the properties files, as there might potentially be conflicts between the various apps that share a domain. Instead, you can set environment variables over the scope of the deployed app, its domain and other apps under that domain. In Studio you can create these variables through the *Environment tab* of the *Run Configurations menu*, reachable via the dropdown menu next to the Play button.
 
 Mule checks if there is a deployment descriptor file in the application root and uses it if available (it's optional).
 
@@ -28,6 +28,16 @@ Two things to note:
 
 * Classloader domains can feature different versions of the same library for different sets of applications.
 * Unless otherwise instructed, the default domain is used. You can specify a custom domain using the `domain` property in the application deployment descriptor.
+
+Below is an example of the contents of a simple deployment configuration file:
+
+[source,text,linenums]
+----
+redeployment.enabled=true
+encoding=UTF-8
+domain=default
+config.resources=sfdc-outbound-messaging-example.xml
+----
 
 == Options
 

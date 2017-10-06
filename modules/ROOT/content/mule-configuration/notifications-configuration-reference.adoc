@@ -3,8 +3,9 @@ ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
 :page-aliases: notifications-configuration-reference.adoc
+:keywords: anypoint studio, esb, notifications, error messages, responses, exceptions, monitor
 
-This page provides details on the elements you configure for notifications. Some of this information is pulled directly from `mule.xsd` and is cached. If the information appears to be out of date, refresh the page. For more information on notifications, see xref:mule-server-notifications.adoc[Mule Server Notifications].
+This page provides details on the elements you configure for notifications. If the information appears to be out of date, refresh the page. For more information on notifications, see xref:3.7@mule-server-notifications.adoc[Mule Server Notifications].
 
 == Notifications
 

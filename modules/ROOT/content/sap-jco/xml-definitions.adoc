@@ -3,13 +3,14 @@ ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
 :page-aliases: xml-definitions.adoc
+:keywords: anypoint studio, esb, sap, connectors jco, bapi
 
-All SAP objects (BAPIs and IDocs) can be represented as XML documents for ease of use. IDocs are already XML documents by nature and its schema can be obtained with SAP transaction *WE60*.
+All SAP objects (BAPIs and IDocs) can be represented as XML documents for ease of use. IDocs are already XML documents by nature and its schema can be obtained with SAP transaction **WE60**.
 
-For BAPIs (functions) the SAP Connector offers two different proprietary formats (Version 1 and 2), being version 2 the best option to use with xref:6@studio::datamapper/datamapper-user-guide-and-reference.adoc[Anypoint DataMapper].
+For BAPIs (functions) the SAP Connector offers two different proprietary formats (Version 1 and 2), being version 2 the best option to use with xref:5@studio::datamapper/datamapper-user-guide-and-reference.adoc[Anypoint DataMapper].
 
 [NOTE]
-XML version 2 is available from SAP Connector version *2.1.0*.
+XML version 2 is available from SAP Connector version **2.1.0**.
 
 == JCo Function
 
@@ -52,7 +53,7 @@ Each of the main records (import, export and changing) support *fields*, *struct
 * *Table Row*: Contains fields, structures and/or inner tables
 * *Field*: Is the element that contains an actual value
 
-Fields, which are the only attribute that holds values, allow since version **1.4.1** and **2.1.0** a special attribute name *trim* which holds a boolean value indicating whether the value of the field should be trimmed (remove leading and trailing space characters) or not. The default behavior is to trim the value (trim="true").
+Fields, which are the only attribute that holds values, allow since version *1.4.1* and *2.1.0* a special attribute name *trim* which holds a boolean value indicating whether the value of the field should be trimmed (remove leading and trailing space characters) or not. The default behavior is to trim the value (trim="true").
 
 [source,xml,linenums]
 ----
@@ -89,7 +90,7 @@ The exception element is also used when an ABAP exception needs to be returned t
 There are two constructors for the ABAP exception and the XML varies depending on which one you want to call:
 
 * _new AbapException(String key, String message)_
-
++
 [source,xml,linenums]
 ----
 <jco>
@@ -101,7 +102,7 @@ There are two constructors for the ABAP exception and the XML varies depending o
 ----
 
 * _new AbapException(String key, String messageClass, char messageType, String messageNumber, String[] messageParameters)_
-
++
 [source,xml,linenums]
 ----
 <jco>
@@ -119,7 +120,6 @@ There are two constructors for the ABAP exception and the XML varies depending o
 [TIP]
 ====
 You can use the SAP outbound endpoint with type *function-metadata* to retrieve the XML template for a given function module (BAPI):
-
 [source,xml,linenums]
 ----
 <mule ...>
@@ -130,8 +130,8 @@ You can use the SAP outbound endpoint with type *function-metadata* to retrieve 
    </flow>
 </mule>
 ----
-
 With _functionName_ holding a Mule Expression returning the name of the function module.
+
 ====
 
 === XML Version 1
@@ -204,76 +204,6 @@ Each element (field, structure, table) is represented by an XML tag that holds a
 </jco>
 ----
 
-=== XML Version 2 (since version 2.1.0)
-
-This XML version was added to provide a better option for the xref:5@studio::datamapper/datamapper-user-guide-and-reference.adoc[Anypoint DataMapper] tool. It has the same general structure than the XML version 1, but the name of the XML element is the actual name of the field, structure or table and the type is provided as an attribute.
-
-*Example of JCo Function represented in XML version 2*
-
-This is the same as the previous example but represented with XML version 2.
-
-[source,xml,linenums]
-----
-<?xml version="1.0" encoding="UTF-8"?>
-<jco type="BAPI_PO_CREATE1" version="1.0">
-  <import>
-    <POHEADER type="structure">
-      <COMP_CODE type="field">2100</field>
-      <DOC_TYPE type="field">NB</field>
-      <VENDOR type="field">0000002101</field>
-      <PURCH_ORG type="field">2100</field>
-      <PUR_GROUP type="field">002</field>
-    </POHEADER>
-    <POHEADERX type="structure">
-      <DOC_TYPE type="field">X</field>
-      <VENDOR type="field">X</field>
-      <PURCH_ORG type="field">X</field>
-      <PUR_GROUP type="field">X</field>
-      <COMP_CODE type="field">X</field>
-    </POHEADERX>
-  </import>
-  <tables>
-    <POITEM type="table">
-      <row id="0">
-        <NET_PRICE type="field">20</field>
-        <PLANT type="field">2100</field>
-        <MATERIAL type="field">SBSTO01</field>
-        <PO_ITEM type="field">00010</field>
-        <QUANTITY type="field">10.000</field>
-      </row>
-    </POITEM>
-    <POITEMX type="table">
-      <row id="0">
-        <PO_ITEMX type="field">X</field>
-        <MATERIAL type="field">X</field>
-        <QUANTITY type="field">X</field>
-        <PLANT type="field">X</field>
-        <PO_ITEM type="field">00010</field>
-        <NET_PRICE type="field">X</field>
-      </row>
-    </POITEMX>
-    <POSCHEDULE type="table">
-      <row id="0">
-        <QUANTITY type="field">10.000</field>
-        <DELIVERY_DATE type="field">27.06.2011</field>
-        <SCHED_LINE type="field">0001</field>
-        <PO_ITEM type="field">00010</field>
-      </row>
-    </POSCHEDULE>
-    <POSCHEDULEX type="table">
-      <row id="0">
-        <PO_ITEM type="field">00010</field>
-        <QUANTITY type="field">X</field>
-        <DELIVERY_DATE type="field">X</field>
-        <SCHED_LINEX type="field">X</field>
-        <PO_ITEMX type="field">X</field>
-        <SCHED_LINE type="field">0001</field>
-      </row>
-    </POSCHEDULEX>
-  </tables>
-</jco>
-----
-
 *JCo Function Response (RETURN structure / table)*
 
 [source,xml,linenums]
@@ -312,12 +242,80 @@ This is the same as the previous example but represented with XML version 2.
 * *W*: Warning
 * *I*: Information
 
-[TIP]
+[WARNING]
 ====
-*Important*
-
 If `evaluateFunctionResponse` is set to *true*, then the SAP outbound endpoint will throw an exception when the return type is *A*, *E*, or exceptions are present.
 ====
+
+=== XML Version 2 (since version 2.1.0)
+
+This XML version was added to provide a better option for the xref:5@studio::datamapper/datamapper-user-guide-and-reference.adoc[Anypoint DataMapper] tool. It has the same general structure than the XML version 1, but the name of the XML element is the actual name of the field, structure or table and the type is provided as an attribute.
+
+*Example of JCo Function represented in XML version 2*
+
+This is the same as the previous example but represented with XML version 2.
+
+[source,xml,linenums]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<jco type="BAPI_PO_CREATE1" version="1.0">
+  <import>
+    <POHEADER type="structure">
+      <COMP_CODE type="field">2100</COMP_CODE>
+      <DOC_TYPE type="field">NB</DOC_TYPE>
+      <VENDOR type="field">0000002101</VENDOR>
+      <PURCH_ORG type="field">2100</PURCH_ORG>
+      <PUR_GROUP type="field">002</PUR_GROUP>
+    </POHEADER>
+    <POHEADERX type="structure">
+      <DOC_TYPE type="field">X</DOC_TYPE>
+      <VENDOR type="field">X</VENDOR>
+      <PURCH_ORG type="field">X</PURCH>
+      <PUR_GROUP type="field">X</PUR_GROUP>
+      <COMP_CODE type="field">X</COMP_CODE>
+    </POHEADERX>
+  </import>
+  <tables>
+    <POITEM type="table">
+      <row id="0">
+        <NET_PRICE type="field">20</NET_PRICE>
+        <PLANT type="field">2100</PLANT>
+        <MATERIAL type="field">SBSTO01</MATERIAL>
+        <PO_ITEM type="field">00010</PO_ITEM>
+        <QUANTITY type="field">10.000</QUANTITY>
+      </row>
+    </POITEM>
+    <POITEMX type="table">
+      <row id="0">
+        <PO_ITEMX type="field">X</PO_ITEMX>
+        <MATERIAL type="field">X</MATERIAL>
+        <QUANTITY type="field">X</QUANTITY>
+        <PLANT type="field">X</PLANT>
+        <PO_ITEM type="field">00010</PO_ITEM>
+        <NET_PRICE type="field">X</NET_PRICE>
+      </row>
+    </POITEMX>
+    <POSCHEDULE type="table">
+      <row id="0">
+        <QUANTITY type="field">10.000</QUANTITY>
+        <DELIVERY_DATE type="field">27.06.2011</DELIVERY_DATE>
+        <SCHED_LINE type="field">0001</SCHED_LINE>
+        <PO_ITEM type="field">00010</PO_ITEM>
+      </row>
+    </POSCHEDULE>
+    <POSCHEDULEX type="table">
+      <row id="0">
+        <PO_ITEM type="field">00010</PO_ITEM>
+        <QUANTITY type="field">X</QUANTITY>
+        <DELIVERY_DATE type="field">X</DELIVERY_DATE>
+        <SCHED_LINEX type="field">X</SCHED_LINEX>
+        <PO_ITEMX type="field">X</PO_ITEMX>
+        <SCHED_LINE type="field">0001</SCHED_LINE>
+      </row>
+    </POSCHEDULEX>
+  </tables>
+</jco>
+----
 
 == IDoc Document / Document List
 

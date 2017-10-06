@@ -1,14 +1,22 @@
-= XQuery Support
+= XQuery Transformer
 ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
 :page-aliases: xquery-transformer.adoc
 
-The XQuery Module gives users the ability to perform XQuery transformations on XML messages in Mule. This works in a very similar way to the xref:modules/xslt-transformer.adoc[XSLT Transformer] shipped with Mule.
+The XQuery Module gives users the ability to perform XQuery transformations on XML messages in Mule. This works in a very similar way to the xref:3.6@modules/xslt-transformer.adoc[XSLT Transformer] shipped with Mule.
+
+== Supported XQuery Versions
+
+Mule 3.6.0 and later versions include http://www.w3.org/TR/xquery-30/[XQuery 3.0] support for the XQuery transformer. The transformer's behavior and syntax remain unaltered from previous versions, and you can declare the version to use in the XQuery script itself (see below).
+
+If you convert to Mule 3.6 and later, more information on XML can be found in xref:3.8@modules/xpath.adoc[XPath3] guide.
+
+For examples on using the XQuery transformer, including the use of features and improvements in version 3.0, see xref:3.7@modules/xquery-support.adoc[XQuery Support].
 
 == Configuration
 
-To use the XQuery transformer you need to add it to your Mule Xml configuration.
+To use the XQuery transformer you need to add it to your Mule XML configuration.
 
 [source,xml,linenums]
 ----
@@ -26,27 +34,64 @@ To use the XQuery transformer you need to add it to your Mule Xml configuration.
             ]]>
         </mxml:xquery-text>
 
-        <mxml:context-property key="title" value="#[mule.message:header('ListingTitle')]"/>
-        <mxml:context-property key="rating" value="#[mule.message:header('ListingRating')]"/>
+        <mxml:context-property key="title" value="#[header:ListingTitle]"/>
+        <mxml:context-property key="rating" value="#[header:ListingRating]"/>
 
     </mxml:xquery-transformer>
 ----
 
 Here we are configuring a transformer using in-line XQuery expressions.
 
-We also define two `<context-property>` elements.
+We also define two `<context-property>` elements:
 
 [source,xml,linenums]
 ----
-<mxml:context-property key="title" value="#[mule.message:header('ListingTitle')]"/>
-<mxml:context-property key="rating" value="#[mule.message:header('ListingRating')]"/>
+<mxml:context-property key="title" value="#[header:ListingTitle]"/>
+<mxml:context-property key="rating" value="#[header:ListingRating]"/>
 ----
 
-These properties are pulled from the current message and made available in the XQuery context so that they can be referenced in your XQuery statements. These can be object references or you can use xref:mel/mule-expression-language-mel.adoc[Mule Expressions] to get information from the current message.
+These properties are pulled from the current message and made available in the XQuery context so that they can be referenced in your XQuery statements. These can be object references or you can use xref:3.7@mel/mule-expression-language-mel.adoc[Mule Expressions] to get information from the current message.
+
+== Declaring the XQuery Version
+
+If the XQuery version is not declared, the transformer defaults to version 1.0. Version 3.0 is backwards-compatible and per the spec, all queries in 1.0 are valid in 3.0 and must return the same result.
+
+To select the XQuery version to use, you can include it in the XQuery script, as shown below:
+
+[source,xml,linenums]
+----
+...
+<mxml:xquery‐text>
+<![CDATA[
+  xquery version "3.0";
+...
+----
 
 == Configuration Options
 
-xslt: Unexpected program error: java.lang.NullPointerException
+Xquery transformerAn Xml transformer uses XQuery to transform the message payload. Transformation objects are pooled for better performance. You can set transformation context properties on the transformer and can pull these properties from the message using Expression Evaluators.
+
+=== Attributes of <xquery-transformer...>
+
+[%header,cols="5*"]
+|===
+|Name |Type |Required |Default |Description
+|outputEncoding |string |no |  |The encoding to use for the resulting XML/Text.
+|acceptExternalEntities |boolean |no |false |Whether to accept XML documents with references to external files. Default value is false. Setting this value to true will make your application vulnerable to XXE attacks. Use with extreme care.
+|maxIdleTransformers |integer |no |  |Transformers are pooled for better throughput, since performing and XQuery transformation can be expensive. This attribute controls how many instances will remain idle in the transformer pool.
+|maxActiveTransformers |integer |no |  |The total number of XQuery transformers that will get pooled at any given time.
+|xquery-file |string |no |  |The full path to the XQuery template file to use when performing the transformation. This can be a path on the local file system or on the classpath. This attribute is not required if the <xquery-text> element has been set.
+|configuration-ref |string |no |  |A reference to a Saxon configuration object to configure the transformer (configured as a Spring bean). If not set, the default Saxon configuration is used.
+|===
+
+=== Child Elements of <xquery-transformer...>
+
+[%header,cols="34,33,33"]
+|===
+|Name |Cardinality |Description
+|context-property |0..* |A property that willbe made available to the XQuery transform context. Expression Evaluators can be used to grab these properties from the message at runtime.
+|xquery-text |0..1 |The inline XQuery script definition. This is not required if the <xquery-file> attribute is set.
+|===
 
 == Example
 
@@ -92,16 +137,16 @@ The full configuration for this examples looks like this:
 
 [source,xml,linenums]
 ----
-<mule xmlns="http://www.mulesource.org/schema/mule/core"
-      xmlns:mxml="http://www.mulesource.org/schema/mule/xml"
-      xmlns:vm="http://www.mulesource.org/schema/mule/vm"
-      xmlns:stdio="http://www.mulesource.org/schema/mule/stdio"
+<mule xmlns="http://www.mulesoft.org/schema/mule/core"
+      xmlns:mxml="http://www.mulesoft.org/schema/mule/xml"
+      xmlns:vm="http://www.mulesoft.org/schema/mule/vm"
+      xmlns:stdio="http://www.mulesoft.org/schema/mule/stdio"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="
-      http://www.mulesource.org/schema/mule/stdio http://www.mulesource.org/schema/mule/stdio/3.0/mule-stdio.xsd
-      http://www.mulesource.org/schema/mule/vm http://www.mulesource.org/schema/mule/vm/3.0/mule-vm.xsd
-      http://www.mulesource.org/schema/mule/xml http://www.mulesource.org/schema/mule/xml/3.0/mule-xml.xsd
-       http://www.mulesource.org/schema/mule/core http://www.mulesource.org/schema/mule/core/3.0/mule.xsd">
+      http://www.mulesoft.org/schema/mule/stdio http://www.mulesoft.org/schema/mule/stdio/3.6/mule-stdio.xsd
+      http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/3.6/mule-vm.xsd
+      http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/3.6/mule-xml.xsd
+       http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.6/mule.xsd">
 
     <mxml:xquery-transformer name="xquery">
         <mxml:xquery-text>
@@ -117,12 +162,12 @@ The full configuration for this examples looks like this:
             ]]>
         </mxml:xquery-text>
 
-        <mxml:context-property key="title" value="#[mule.message:header('ListingTitle')]"/>
-        <mxml:context-property key="rating" value="#[mule.message:header('ListingRating')]"/>
+        <mxml:context-property key="title" value="#[header:ListingTitle]"/>
+        <mxml:context-property key="rating" value="#[header:ListingRating]"/>
 
     </mxml:xquery-transformer>
 
-<flow name="testingFlow1" doc:name="testingFlow1">
+    <flow name="testingFlow1" doc:name="testingFlow1">
         <vm:inbound-endpoint exchange-pattern="one-way" path="test.in" transformer-refs="xquery"/>
         <echo-component/>
         <all>
@@ -134,7 +179,6 @@ The full configuration for this examples looks like this:
             </processor-chain>
         </all>
     </flow>
-
 </mule>
 ----
 
@@ -164,9 +208,9 @@ public class XQueryFunctionalTestCase extends FunctionalTestCase
         String resultData = IOUtils.getResourceAsString("cd-catalog-result-with-params.xml", getClass());
 
         //Create a new Mule Client
-        MuleClient client = new MuleClient();
+        MuleClient client = new MuleClient(muleContext);
 
-        //These are the message roperties that will get passed into the XQuery context
+        //These are the message properties that pass into the XQuery context
         Map props = new HashMap();
         props.put("ListTitle", "MyList");
         props.put("ListRating", new Integer(6));

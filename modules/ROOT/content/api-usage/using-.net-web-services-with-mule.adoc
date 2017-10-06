@@ -3,7 +3,7 @@ ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
 :page-aliases: using-.net-web-services-with-mule.adoc
-:keywords: anypoint studio, studio, mule esb, dot net, .net, microsoft, visual basic
+:keywords: anypoint studio, studio, mule, dot net, .net, microsoft, visual basic
 
 Following are tips for using Mule to communicate with .NET web services.
 
@@ -27,7 +27,7 @@ on the web service component. Any call made to the web service would have to pas
 
 Another alternative would be to use HTTPS where certificates are used for authentication.
 
-For more information see xref:3.7@security/configuring-security.adoc[Configuring Security].
+For more information see xref:security/configuring-security.adoc[Configuring Security].
 
 === Using Authentication Tokens in SOAP Headers
 
@@ -37,7 +37,7 @@ You can send authentication tokens through SOAP headers as long as there is an a
 
 If you are using CXF, you can configure a client and service to use WS-Security. For details, see xref:modules/enabling-ws-security.adoc[Enabling WS-Security].
 
-== Passing Authentication Information to a Web Service
+=== Passing Authentication Information to a Web Service
 
 There are three methods for passing authentication information to a web service configured on Mule:
 

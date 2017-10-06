@@ -3,6 +3,7 @@ ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
 :page-aliases: hornetq-integration.adoc
+:keywords: anypoint studio, esb, hornetq, jboss, spring
 
 To integrate with http://jboss.org/hornetq[HornetQ] you have to configure a connection factory in Spring and reference it when creating the JMS connector. The configuration differs depending if you want to connect to a stand-alone instance of HortneQ or one that is set up as a cluster.
 
@@ -15,8 +16,8 @@ To integrate with http://jboss.org/hornetq[HornetQ] you have to configure a conn
       xmlns:spring="http://www.springframework.org/schema/beans"
       xmlns:jms="http://www.mulesoft.org/schema/mule/jms"
       xsi:schemaLocation="
-          http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.4/mule.xsd
-          http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/3.4/mule-jms.xsd
+          http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+          http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd
           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd">
 
     <spring:bean name="connectionFactory" class="org.hornetq.jms.client.HornetQConnectionFactory">
@@ -46,8 +47,8 @@ To integrate with http://jboss.org/hornetq[HornetQ] you have to configure a conn
       xmlns:spring="http://www.springframework.org/schema/beans"
       xmlns:jms="http://www.mulesoft.org/schema/mule/jms"
       xsi:schemaLocation="
-          http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.4/mule.xsd
-          http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/3.4/mule-jms.xsd
+          http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+          http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd
           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd">
 
     <spring:bean name="connectionFactory" class="org.hornetq.jms.client.HornetQConnectionFactory">

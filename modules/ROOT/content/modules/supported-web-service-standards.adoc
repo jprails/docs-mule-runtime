@@ -3,8 +3,9 @@ ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
 :page-aliases: supported-web-service-standards.adoc
+:keywords: cxf
 
-The CXF transport supports a variety of web service standards.
+The CXF module supports a variety of web service standards.
 
 * SOAP 1.1 and 1.2
 * WSDL 1.1

@@ -3,10 +3,11 @@ ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
 :page-aliases: ftp-transport-reference.adoc
+:keywords: anypoint studio, esb, connectors, files transfer, ftp, sftp, endpoints
 
-The FTP transport allows integration of the File Transfer Protocol into Mule. Mule can poll a remote FTP server directory, retrieve files and process them as Mule messsages. Messages can also be uploaded as files to a directory on a remote FTP server.
+The FTP transport allows integration of the File Transfer Protocol into Mule. Mule can poll a remote FTP server directory, retrieve files. and process them as Mule messages. Messages can also be uploaded as files to a directory on a remote FTP server.
 
-Mule also supports the SFTP protocol for secure file transfer. As of Mule 3, the xref:transports/sftp-transport-reference.adoc[SFTP Transport] is included in the Mule distribution.
+Mule also supports the SFTP protocol for secure file transfer. The xref:3.7@transports/sftp-transport-reference.adoc[SFTP Transport] is included in the Mule distribution.
 
 == Transport Info
 
@@ -45,15 +46,12 @@ Default MEP
  a|
 Maven Artifact
 
-|FTP
-|https://www.mulesoft.org/docs/site/current3/apidocs/org/mule/transport/ftp/package-summary.html[JavaDoc]
-http://www.mulesoft.org/docs/site/current3/schemadocs/namespaces/http_www_mulesoft_org_schema_mule_ftp/namespace-overview.html[SchemaDoc] |image:transports/check.png[] |image:transports/check.png[] |image:transports/check.png[] |image:transports/error.png[] |image:transports/check.png[] |image:transports/check.png[] |one-way |one-way |org.mule.transport:mule-transport-ftp
+|FTP |https://www.mulesoft.org/docs/site/current3/apidocs/org/mule/transport/ftp/package-summary.html[JavaDoc] http://www.mulesoft.org/docs/site/current3/schemadocs/namespaces/http_www_mulesoft_org_schema_mule_ftp/namespace-overview.html[SchemaDoc] |image:transports/check.png[] |image:transports/check.png[] |image:transports/check.png[] |image:transports/error.png[] |image:transports/check.png[] |image:transports/check.png[] |one-way |one-way |org.mule.transport:mule-transport-ftp
+
 |===
 
-[TIP]
-====
-*Legend*
-
+** Legend
++
 *Transport* - The name/protocol of the transport +
 *Docs* - Links to the JavaDoc and SchemaDoc for the transport +
 *Inbound* - Whether the transport can receive inbound events and can be used for an inbound endpoint +
@@ -65,43 +63,43 @@ http://www.mulesoft.org/docs/site/current3/schemadocs/namespaces/http_www_muleso
 *MEPs* - Message Exchange Patterns supported by this transport +
 *Default MEP* - The default MEP for endpoints that use this transport that do not explicitly configure a MEP +
 *Maven Artifact* - The group name a artifact name for this transport in http://maven.apache.org/[Maven]
-====
 
 == Namespace and Syntax
 
-Namespace (Community)
+Namespace (Community):
 
 [source,text,linenums]
 ----
 http://www.mulesoft.org/schema/mule/ftp
 ----
 
-XML schema location (Community)
+XML schema location (Community):
 
 [source,text,linenums]
 ----
-http://www.mulesoft.org/schema/mule/ftp/3.4/mule-ftp.xsd
+http://www.mulesoft.org/schema/mule/ftp
 ----
+Namespace (Enterprise)
 
-Namespace (Enterprise)  +
-*Enterprise*
+_*Enterprise*_
 
 [source,text,linenums]
 ----
 http://www.mulesoft.org/schema/mule/ee/ftp
 ----
 
-XML schema location (Enterprise)  +
-*Enterprise*
+XML schema location (Enterprise)
+
+_*Enterprise*_
 
 [source,text,linenums]
 ----
-http://www.mulesoft.org/schema/mule/ee/ftp/3.4/mule-ftp-ee.xsd
+http://www.mulesoft.org/schema/mule/ee/ftp
 ----
 
 Syntax:
 
-Straight URI example `ftp://theUser:secret@theHost:port/path`
+Straight URI example ` ftp://theUser:secret@theHost:port/path `
 
 XML version `<ftp:endpoint host="theHost" port="22" path="/path" user="theUser" password="secret"/>`
 
@@ -119,19 +117,19 @@ Connector and endpoint syntax `<ftp:connector name="ftpConnector" passive="true"
 * Upload and store files on an FTP server
 * Rename output files based on Mule expressions
 * Streaming for transferring large files
-* Support for xref:mule-configuration/configuring-reconnection-strategies.adoc[reconnection strategies]
+* Support for xref:3.6@mule-configuration/configuring-reconnection-strategies.adoc[reconnection strategies]
 
 Mule Enterprise includes several additional features that allow to to filter files to be processed by file age and moving and renaming files on the source FTP server after processing.
 
 == Usage
 
-Each endpoint carries all the information for the FTP connection, i.e. host, port, path, username and password at least. Additional properties (like binary or passive) can be specified on the connector and overridden at the endpoint level.
+Each endpoint carries all the information for the FTP connection, such as, host, port, path, username and password at least. Additional properties (like binary or passive) can be specified on the connector and overridden at the endpoint level.
 
-The FTP transport periodically polls the FTP server. Upon each poll request, a new connection to the FTP server is opened, the specified user is logged in and all files are listed under the specified path. This means that if the FTP server goes down, no special provisions need to be made - the current poll attempt fails but polling does not stop.
+The FTP transport periodically polls the FTP server. Upon each poll request, a new connection to the FTP server is opened, the specified user is logged in and all files are listed under the specified path. This means that if the FTP server goes down no special provisions need to be made - the current poll attempt fails but polling doesn't stop.
 
-If xref:mule-configuration/configuring-reconnection-strategies.adoc[reconnection strategies] are configured, the FTP connection can be re-established automatically by Mule based on the policy you have configured.
+If xref:3.6@mule-configuration/configuring-reconnection-strategies.adoc[reconnection strategies] are configured, the FTP connection can be re-established automatically by Mule based on the policy you have configured.
 
-The FTP transport does not support transactions as the File Transfer Protocol itself is not transactional. Instead you should design compensating transactions into your architecture using xref:error-handling.adoc[exception strategies] in Mule.
+The FTP transport does not support transactions as the File Transfer Protocol itself is not transactional. Instead you should design compensating transactions into your architecture using xref:3.7@error-handling.adoc[exception strategies] in Mule.
 
 == Example Configurations
 
@@ -146,9 +144,9 @@ This example shows a simple flow that picks up all available files on the FTP se
        xmlns:ftp="http://www.mulesoft.org/schema/mule/ftp"
        xmlns:file="http://www.mulesoft.org/schema/mule/file"
     xsi:schemaLocation="
-       http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.4/mule.xsd
-       http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/3.4/mule-file.xsd
-       http://www.mulesoft.org/schema/mule/ftp http://www.mulesoft.org/schema/mule/ftp/3.4/mule-ftp.xsd">
+       http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.6/mule.xsd
+       http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/3.6/mule-file.xsd
+       http://www.mulesoft.org/schema/mule/ftp http://www.mulesoft.org/schema/mule/ftp/3.6/mule-ftp.xsd">
 
     <flow name="ftp2file">
         <ftp:inbound-endpoint host="localhost" port="21" path="/" user="theUser" password="secret"/>
@@ -168,9 +166,9 @@ This example shows how to pick only certain files on the FTP server. You do this
        xmlns:ftp="http://www.mulesoft.org/schema/mule/ftp"
        xmlns:file="http://www.mulesoft.org/schema/mule/file"
     xsi:schemaLocation="
-       http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.4/mule.xsd
-       http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/3.4/mule-file.xsd
-       http://www.mulesoft.org/schema/mule/ftp http://www.mulesoft.org/schema/mule/ftp/3.4/mule-ftp.xsd">
+       http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.6/mule.xsd
+       http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/3.6/mule-file.xsd
+       http://www.mulesoft.org/schema/mule/ftp http://www.mulesoft.org/schema/mule/ftp/3.6/mule-ftp.xsd">
 
     <flow name="fileFilter">
         <ftp:inbound-endpoint host="localhost" port="21" path="/" user="theUser" password="secret"/>
@@ -191,8 +189,8 @@ This example uses a `simple-service` to route files retrieved from the FTP serve
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:ftp="http://www.mulesoft.org/schema/mule/ftp"
     xsi:schemaLocation="
-       http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.4/mule.xsd
-       http://www.mulesoft.org/schema/mule/ftp http://www.mulesoft.org/schema/mule/ftp/3.4/mule-ftp.xsd">
+       http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.6/mule.xsd
+       http://www.mulesoft.org/schema/mule/ftp http://www.mulesoft.org/schema/mule/ftp/3.6/mule-ftp.xsd">
 
     <simple-service name="ftpProcessor"
                 address="ftp://theUser:secret@host:21/"
@@ -213,14 +211,11 @@ In this case, enable streaming on the connector:
 <ftp:connector name="ftpConnector" streaming="true">
 ----
 
-Instead of reading the file's content into memory Mule now sends an http://download.oracle.com/javase/6/docs/api/java/io/InputStream.html[InputStream] as the payload of the `MuleMessage`. The name of the file that this input stream represents is stored as the _originalFilename_ property on the message. If streaming is used on inbound endpoints it is the responsability of the user to close the input stream. If streaming is used on outbound endpoints Mule closes the stream automatically.
+Instead of reading the file's content into memory, Mule sends an http://download.oracle.com/javase/6/docs/api/java/io/InputStream.html[InputStream] as the payload of the `MuleMessage` . The name of the file that this input stream represents is stored as the _originalFilename_ property on the message. If streaming is used on inbound endpoints it is the responsibility of the user to close the input stream. If streaming is used on outbound endpoints Mule closes the stream automatically.
 
-== Configuration Reference
 
-=== Element Listing
 
 == FTP Transport
-
 The FTP transport provides connectivity to FTP servers to allow files to be read and written as messages in Mule.
 
 == Connector
@@ -245,7 +240,7 @@ The FTP connector is used to configure the default behavior for FTP endpoints th
 [%header,cols="34,33,33"]
 |===
 |Name |Cardinality |Description
-|file:abstract-filenameParser |0..1 |The filenameParser is used when writing files to an FTP server. The parser will convert the outputPattern attribute to a string using the parser and the current message. To add a parser to your configuration, you import the "file" namespace into your XML configuration. For more information about filenameParsers, see the xref:transports/file-transport-reference.adoc[File Transport Reference].
+|file:abstract-filenameParser |0..1 |The filenameParser is used when writing files to an FTP server. The parser will convert the outputPattern attribute to a string using the parser and the current message. To add a parser to your configuration, you import the "file" namespace into your XML configuration. For more information about filenameParsers, see the xref:3.6@transports/file-transport-reference.adoc[File Transport Reference].
 |===
 
 == Inbound endpoint
@@ -323,15 +318,15 @@ The FTP connector is used to configure the default behavior for FTP endpoints th
 
 === Mule Enterprise Connector Attributes
 
-_Enterprise_
+_*Enterprise*_
 
 The following additional attributes are available on the FTP connector in Mule Enterprise only:
 
 [cols="2*"]
 |===
-|moveToDirectory |The directory path where the file should be written after it has been read. If this property is not set, the file is deleted.
-|moveToPattern |The pattern to use when moving a read file to a new location as specified by the moveToDirectory property. This property can use the patterns supported by the filenameParser configured for this connector.
-|fileAge |Do not process the file unless it's older than the specified age in milliseconds.
+|*moveToDirectory* |The directory path where the file should be written after it has been read. If this property is not set, the file is deleted.
+|*moveToPattern* |The pattern to use when moving a read file to a new location as specified by the moveToDirectory property. This property can use the patterns supported by the filenameParser configured for this connector.
+|*fileAge* |Do not process the file unless it's older than the specified age in milliseconds.
 |===
 
 == Schema
@@ -353,18 +348,18 @@ Community
 <dependency>
   <groupId>org.mule.transports</groupId>
   <artifactId>mule-transport-ftp</artifactId>
-  <version>3.4.1</version>
+  <version>3.6.0</version>
 </dependency>
 ----
 
-_Enterprise_
+_*Enterprise*_
 
 [source,xml,linenums]
 ----
 <dependency>
   <groupId>com.mulesoft.muleesb.transports</groupId>
   <artifactId>mule-transport-ftp-ee</artifactId>
-  <version>3.4.1</version>
+  <version>3.6.0</version>
 </dependency>
 ----
 
@@ -387,13 +382,13 @@ Use the fully qualified class name of your `FtpConnectionFactory` subclass.
 
 The filenameParser is used when writing files to the FTP server. The parser converts the output pattern configured on an endpoint to the name of the file that is written using the parser and the current message.
 
-The filename parser used in the FTP transport should be sufficient in 99% of the cases. It is an instance of:
+The filename parser used in the FTP transport should be sufficient in 99% of the cases. The parser is an instance of:
 
 https://www.mulesoft.org/docs/site/current/apidocs/org/mule/transport/file/ExpressionFilenameParser.html[ExpressionFilenameParser]
 
-This lets you use xref:non-mel-expressions/non-mel-expressions-configuration-reference.adoc[arbitrary expressions] to compose the filename that is used when storing files on the FTP server.
+Which allows to use xref:3.6@non-mel-expressions/non-mel-expressions-configuration-reference.adoc[arbitrary expressions] to compose the filename that is used when storing files on the FTP server.
 
-It is possible to configure a custom filename parser as a child element of the connector declaration:
+You can configure a custom filename parser as a child element of the connector declaration:
 
 [source,xml,linenums]
 ----
@@ -402,10 +397,12 @@ It is possible to configure a custom filename parser as a child element of the c
 </ftp:connector>
 ----
 
-*Note*: The class you configure here must implement this interface:
+*Note*: The class you configure here must implement the
 
 https://www.mulesoft.org/docs/site/current/apidocs/org/mule/transport/file/FilenameParser.html[FilenameParser]
 
+interface.
+
 == Best Practices
 
-Put your login credentials in a properties file, not hard-coded in the configuration. This also allows you to use different settings between development, test and production systems.
+Put your login credentials in a properties file, not hard-coded in the configuration. This also allows you to use different settings between development, test, and production systems.

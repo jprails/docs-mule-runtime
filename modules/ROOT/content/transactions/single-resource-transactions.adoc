@@ -3,10 +3,11 @@ ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
 :page-aliases: single-resource-transactions.adoc
+:keywords: anypoint studio, esb
 
-Use a *Single Resource transaction* (also known as a simple transaction or local transaction) to send or receive messages using only one single resource: JMS, VM or JDBC.
+Use a *Single Resource transaction* (also known as a simple transaction or local transaction) to send or receive messages using only one single resource: JMS, VM, or JDBC.
 
-The example below illustrates a flow which includes a single resource transaction applied to inbound and outbound JMS endpoints.
+The example below illustrates a flow which includes a single resource transaction applied to inbound and outbound JMS connectors.
 
 [source,xml,linenums]
 ----
@@ -21,6 +22,6 @@ The example below illustrates a flow which includes a single resource transactio
     </flow>
 ----
 
-The configuration above defines a JMS endpoint that receives on a "test.In" queue and another JMS endpoint that sends on a "test.Out" queue. The action attribute dictates how Mule initiates a transaction. Within this flow, Mule starts a new transaction will be created for every message it receives (inbound endpoint), and always joins a transaction in progress for every message it sends (outbound endpoint).  Mule commits only those messages which successfully pass through the complete flow; if at any point in the flow a message throws an exception, Mule rolls back the transaction.
+The configuration above defines a JMS connector that receives on a "test.in" queue and another JMS connector that sends on a "test.out" queue. The action attribute dictates how Mule initiates a transaction. Within this flow, Mule starts a new transaction for every message it receives (inbound connector), and always joins a transaction in progress for every message it sends (outbound connector).  Mule commits only those messages which successfully pass through the complete flow; if at any point in the flow a message throws an exception, Mule rolls back the transaction.
 
-Refer to xref:3.5@transactions/transaction-management.adoc[Transaction Management] for details on how to configure a Single Resource transaction.
+Refer to xref:3.6@transactions/transaction-management.adoc[Transaction Management] for details on how to configure a Single Resource transaction.

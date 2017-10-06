@@ -8,23 +8,22 @@ This page provides quick tips for using xref:mel/mule-expression-language-mel.ad
 
 == Assumptions
 
-This document assumes you are familiar with xref:mel/mule-expression-language-mel.adoc[Mule Expression Language (MEL)], and that you are using Mule 3.4.0 or later.
+This document assumes you are familiar with xref:mel/mule-expression-language-mel.adoc[Mule Expression Language (MEL)].
 
 == Variables, Integers, and Strings
 
-* As a shortcut, Mule accepts an expression such as `&#x0023;[payload]`, rather than `&#x0023;[message.payload]`because it knows to automatically evaluate the expression for the message context object. This shortcut only applies with the `payload` field.
-+
+* As a shortcut, Mule accepts an expression such as `#[payload]`, rather than `#[message.payload]` because it knows to automatically evaluate the expression for the message context object. This shortcut only applies with the `payload` field.
 
-* Mule assumes that any unquoted string contained in a Mule Expression is a flow variable. To set the value of flow variable 'foo' to 'bar',  the expression `&#x0023;[foo == bar]` actually evaluates as:
+* Mule assumes that any unquoted string contained in a Mule Expression is a flow variable. To set the value of flow variable to \'foo' to \'bar', the expression `#[foo == bar]` actually evaluates as:
 +
 ----
-$[flowVars['foo'] == flowVars['bar']]
+#[flowVars.foo == flowVars.bar]
 ----
 
 * To access the flow variable, use one of the following expressions:
 +
 ----
-#[flowVars['foo']]
+#[flowVars.foo]
 ----
 +
 ----
@@ -45,89 +44,70 @@ $[flowVars['foo'] == flowVars['bar']]
 
 == Tests
 
-* Return true if the `lastname` query string parameter from an HTTP inbound endpoint is not null:
+* Return `true` if the `lastname` query string parameter from an HTTP inbound endpoint is not null:
 +
 ----
-#[message.inboundProperties['http.query.params']['lastname'] != null]
+#[message.inboundProperties.'http.query.params'.lastname != null]
 ----
 
 * Return the number of elements in `http.method`:
 +
 ----
-#[message.inboundProperties['http.query.params'].size()]
+#[message.inboundProperties.'http.query.params'.size()]
 ----
 
-* Return `true` if the number of elements in the map `http.query.params` is greater than 50:
+* return `true` if the number of elements in the map `http.query.params` is greater than 50:
 +
 ----
-#[message.inboundProperties['http.query.params'].size() > 50]
+#[message.inboundProperties.'http.query.params'.size() > 50]
 ----
 
-* *Testing for Emptiness*: The special literal `empty` tests the emptiness of a value. It returns an empty value depending on context. `empty` evaluates to: +
+* *Testing for Emptiness*: The special literal `empty` tests the emptiness of a value. It returns an empty value depending on context `empty` evaluates to:
++
 ** null
 ** boolean false
 ** empty strings or strings containing only white space
 ** zero
 ** empty collections
-+
-The expression `&#x0023;[foo == empty]` evaluates to true if the value if `foo` satisfies any of the requirements for emptiness.
-+
-* *Testing for NullPayload*: Return true if message payload is null:
-+
 
-----
-#[message.payload == null]
-----
+The expression `#[foo == empty]` evaluates to true if the value of `foo` satisfies any of the requirements for emptiness.
 
-== MEL and DataMapper
 
-In versions prior to Mule 3.4.0, when mapping a null value to a map output, DataMapper neither creates the keys nor copies the values. This leads to exceptions when you try to access the resulting map using the non-existent keys.
-
-* To access a possible null value, use one of the following equivalent MEL expressions:
+* Testing for NullPayload: Return true if message payload is null:
 +
 ----
-#[map-payload:someNullableElement?]
+#[payload == null]
 ----
-+
-----
-#[message.payload.?someNullableElement]
-----
-
-* Setting Null from Within DataMapper: In DataMapper, you can also use the `isnull()` function to preserve the key in the map and convert the null value to a non-null value, as shown in the code below.
-+
-----
-(isnull($in.0.someNullableElement) ? '' : $in.0.someNullableElement);
-----
-
-(In Mule 3.4.0 and later, you can use the *Set Null Values* feature by clicking the Properties icon of the Output pane of the DataMapper view.)
 
 == Chained Elements
 
-Given chained methods or properties, the expression `&#x0023;[a['b']['c'] == 'foo']`  evaluates correctly even in the case that ' c ' is a null value. But if ' b ' is a null value, you will get a NullPointer exception.
+Given chained methods or properties, the expression `#[[a.b.c] == 'foo']` evaluates correctly even in the case that \'c' is a null value. However, if \'b' is a null value, the expression throws a NullPointerException.
 
-For example, the expression evaluates correctly and returns true or false according to the value of `Host` in `http.headers`.
-
-----
-message.inboundProperties['http.headers']['Host'] == 'localhost'
-----
-
-Attempting to reference the value of a non-existent key in `http.headers` also returns null, as in the expression below.
+In this example, if address is null, the expression will throw a NullPointerException.
 
 ----
-payload['http.headers']['non-existent'] == 'localhost'
+#[payload.address.zipcode]
 ----
 
-However, the the following expression returns a NullPointer exception:
+To make this same expression null safe, use the .? operator.
 
 ----
-payload['non-existent']['Host'] == 'localhost'
+#[payload.address.zipcode]
+----
+
+Using this operator avoids a NullPointerException if address is an empty value, instead returning null.
+
+If you'd like the expression to return a different value if no address is defined, you an use a chained or operator.
+
+----
+#[payload.address.?zipcode or 'Zipcode not set']
 ----
 
 == Flow and Session Variables
 
 Flow variables and session variables are available as top level variables.
 
-* To create a session variable named `sessionId` whose value is the concatenation of the current message ID, "@" and the Mule instance node ID, use either `set-session-variable` or MEL code, both shown hereafter:
+* To create a session variable named sessionId whose value is the concatenation of the current message ID,"@" and the Mule instance node ID, use either set-session-variable or MEL code, both show hereafter:
 +
 [source,xml,linenums]
 ----
@@ -135,18 +115,17 @@ Flow variables and session variables are available as top level variables.
 <expression-component>sessionVars.sessionId = message.id+'@'+mule.nodeId;</expression-component>
 ----
 
-* The following shows how a bean can be dynamically retrieved from the registry, based on a name created by taking a value from a bean payload with a `getTargetService()` accessor:
+* The following shows how a bean can be dynamically retrieved from the registry, based on a name created by taking a value from a bean with a `getTargetService()` accessor:
 +
-
 [source,xml,linenums]
 ----
 <set-variable variableName="beanName" value="#[message.payload.targetService+'Processor']" />
-<set-variable variableName="bean" value="#[app.registry[beanName]]" />
+<set-variable variableName="bean" value="#[app.registry.beanName]" />
 ----
 
 == Payload and Attachments
 
-* To copy the current payload in a flow variable named `originalPayload` then restore it:
+* To copy current payload in a flow variable named `originalPayload` then restore it:
 +
 [source,xml,linenums]
 ----
@@ -163,46 +142,45 @@ Flow variables and session variables are available as top level variables.
 
 * To extract all *.txt and *.xml attachments, use a filtered projection:
 +
-[source,xml]
+[source,xml,linenums]
 ----
 <expression-transformer expression="#[($.value in message.inboundAttachments.entrySet() if $.key ~= '(.*\\.txt|.*\\.xml)')]" />
 ----
 
 * To ask for a null payload:
 +
-[source,text,linenums]
 ----
 #[payload is NullPayload]
 ----
 
 == Regex Support
 
-Regular expression helper functions retrieve `null`, a single value or an array of values, depending on matches. The forms that take a mel `Expression` argument apply the regex to the result of its evaluation instead of `message.payload`.
+Regular expression helper functions retrieve `null`, a single value or an array of values, depending on matches. The forms that take a melExpression argument apply the regex to the result of its evaluation instead of `message.payload`.
 
 ----
-regex(regularExpression [, melExpression [, matchFlags]])
+#[regex(regularExpression [, melExpression [, matchFlags]])]
 ----
 
 For example to select all the lines of the payload that begin with `To:`, `From:`, or `Cc:` use:
 
 ----
-regex('^(To|From|Cc):')
+#[regex('^(To|From|Cc):')]
 ----
 
 == XPath Support
 
-XPath helper functions return DOM4J nodes. By default the XPath expression is evaluated on `message.payload` unless an `xmlElement` is specified:
+XPath3 helper functions return DOM4J nodes. By default the XPath3 expression is evaluated on `message.payload` unless an xmlElement is specified:
 
 ----
-xpath(xPathExpression [, xmlElement])
+#[xpath3(xPathExpression [, xmlElement])]
 ----
 
 To get the text content of an element or an attribute:
 
 [source,text,linenums]
 ----
-#[xpath('//title').text]
-#[xpath('//title/@id').value]
+#[xpath3('//title').text]
+#[xpath3('//title/@id').value]
 ----
 
 == JSON Processing
@@ -216,12 +194,12 @@ MEL has no direct support for JSON. The `json-to-object-transformer` can turn a 
     expression='#[($.price in message.payload if $.title =='Moby Dick')[0]]" />
 ----
 
-Miscellaneous Operations
+== Miscellaneous Operations
 
-* Assign to variable `lastname` the value of the message inbound property `lastname`:
+* Assign to variable `lastname` the value of the message inbound property `lastname`
 +
 ----
-#[lastname=message.inboundProperties['lastname']]
+#[lastname = message.inboundProperties.lastname]
 ----
 
 * Append a string to the message payload:
@@ -244,7 +222,7 @@ Miscellaneous Operations
 
 == Cheat Sheet Examples
 
-*  Create a directory named `target` in the system's temporary directory and set it as the current payload:
+* Create a directory named `target` in the system's temporary directory and set it as the current payload:
 +
 [source,xml,linenums]
 ----
@@ -267,18 +245,17 @@ Miscellaneous Operations
 [source,xml,linenums]
 ----
 <mulexml:context-property key="transactionId"
-                           value="#[java.util.UUID.randomUUID().toString()]" />
+         value="#[java.util.UUID.randomUUID().toString()]" />
 ----
 
-* Safe bean property navigation,_ _for example to retrieve `fullName` only if the `name` object is not null:
+* Retrieve `fullName` only if the `name` object is not null:
 +
-
-[source,xml,linenums]
+[source,xml]
 ----
-<set-variable variableName="fullName" value="#[message.payload.?name.fullName]" />
+<set-variable variableName="fullName" value="#[payload.name ? payload.name.fullName : otherCondition]"/>
 ----
 
-* Local variable assignment_, _as in this splitter expression that splits a multi-line payload in rows and drops the first row:
+* Local variable assignment, as in this splitter expression that splits a multi-line payload in rows and drops the first row:
 +
 [source,text,linenums]
 ----
@@ -286,15 +263,22 @@ splitter expression='#[rows=StringUtils.split(message.payload,'\n\r');
                        ArrayUtil.subarray(rows,1,rows.size())]" />
 ----
 
-* "Elvis" operator, to return the first non-null value of a list of values:
+* *Elvis operator* - Returns the first non-null value of a list of values:
 +
 ----
 #[message.payload.userName or message.payload.userId]
 ----
++
+*Note:* Mule checks the operands for emptiness, but not when a value is set to `null`.
++
+For example:
++
+If you set `myop = ""`, Mule detects the operand as null. However, if you set `myop = null`, Mule does not detect that `myop` is null.
+
 
 == Global Configuration
 
-Define global imports, aliases and global functions in the global configuration element. Global functions can be loaded from the file system, a URL, or a classpath resource.
+Define global imports, aliases, and global functions int eh global configuration element. Global functions can be loaded from the file system, a URL, or a classpath resource.
 
 [source,xml,linenums]
 ----
@@ -315,7 +299,7 @@ Define global imports, aliases and global functions in the global configuration 
 
 === Accessing the Cache
 
-You can access the xref:scopes/cache-scope.adoc[Mule cache] through the object store that serves as the cache repository. Depending on the nature of the object store, you can count, list, remove or perform other operations on entries.
+Yoou can access the xref:scopes/cache-scope.adoc[Mule cache] through the object store that serves as the cache repository. Depending on the nature of the object store, you can count, list, remove, or perform other operations on entries.
 
 The code below shows the XML representation of a cache scope that uses a custom object store class.
 
@@ -326,38 +310,39 @@ The code below shows the XML representation of a cache scope that uses a custom 
 </ee:object-store-caching-strategy>
 ----
 
-The object store above is an implementation of a ListableObjectStore, which allows you to obtain lists of the entries it contains. You can access the contents of the cache by invoking the `getStore` method on the `CachingStrategy` property of `app.registry`.
+The object store above is an implementation of a `ListableObjectStore`, which allows you to obtain lists of the entries it contains. You can access the contents of the cache by invoking the `getStore` method on the `CachingStrategy` property of `app.registry`.
 
-The expression below obtains the size of the cache by invoking `allKeys()`, which returns an iterable list.
+The expression below obtains the size of the cache by invoking `allKeys()`, which returns an iterable list
 
 ----
-#[app.registry['CachingStrategy'].getStore().allKeys().size()]"
+#[app.registry.CachingStrategy.getStore().allKeys().size()]"
 ----
-
-If you need to manipulate the registry in a Java class, you can access it through `muleContext.getRegistry()`.
+If you need to manipulate the registry in Java class, you can access it through `muleContext.getRegistry()`.
 
 === Boolean Operations Gotchas
 
 * Boolean evaluations sometimes return unexpected responses, particularly when the value of a variable contains "garbage". See tables below.
-+
-[%header,cols="34,33,33"]
+
+[%header%autowidth.spread]
 |===
-|*Expression* |*When value of `var1` is...* |*... the expression evaluates to...*
-a|`#[var1 == true]`
-|`'true'` |`true`
-a|`#[var1 == true]`
-|`'True''false' ` |`false`
-a|`#[var1 == true]`
-|`'u5hsmg930'` |`true`
+|Expression |When value `var1` is... |...the expression evaluates to...
+|`#[var1 == true]` |`'true'` |`true`
+|`#[var1 == true]` a|`'True'`
+
+`'false'` |`false`
+|`#[var1 == true]` |`'u5hsmg930'` |`true`
 |===
-+
-[%header,cols="4*"]
+
+[%header%autowidth.spread]
 |===
-|*Expression* |*When the value of `something` is...* |*... and the value of `abc` is...* |*... MEL successfully evaluates the expression.*
-|`#[payload.something.abc == 'b']` |`'something'` |`'null'` |✔
-|`#[payload.something.abc == 'b']` |`'null'` |`'b'` |*X* +
+|Expression |When the value of `something` is... |...and the value of `abc` is... |...MEL successfully evaluates the expression.
+|`#[payload.something.abc == 'b']` |`'something'` |`'null'` ^|✔
+|`#[payload.something.abc == 'b']` |`'false'` |`'abc'` ^a|*X*
+
 produces a NullPointer exception
 |===
+
+Note also that, if given the expression `#[flowVars.abc.toString()]` and the value of 'abc' is null, Mule throws a NullPointerException.
 
 == See Also
 

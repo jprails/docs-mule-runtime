@@ -3,12 +3,13 @@ ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
 :page-aliases: activemq-integration.adoc
+:keywords: esb, mule, activemq
 
-http://activemq.apache.org/[Apache ActiveMQ] is a popular open source messaging provider which is easy to integrate with Mule. ActiveMQ supports the JMS 1.1 and J2EE 1.4 specifications and is released under the Apache 2.0 License.
+http://activemq.apache.org[Apache ActiveMQ] is a popular open source messaging provider which is easy to integrate with Mule. ActiveMQ supports the JMS 1.1 and J2EE 1.4 specifications and is released under the Apache 2.0 License.
 
 == Usage
 
-To configure ActiveMQ connector with most common settings, use `<jms:activemq-connector>` or `<jms:activemq-xa-connector>` (for XA transaction support) element in your Mule configuration, for example:
+To configure ActiveMQ connector with most common settings, use `<jms:activemq-connector>` or `<jms:activemq-xa-connector>` (for XA transaction support) element in your Mule configuration,for example:
 
 [source,xml,linenums]
 ----
@@ -18,8 +19,8 @@ To configure ActiveMQ connector with most common settings, use `<jms:activemq-co
       xmlns:mule="http://www.mulesoft.org/schema/mule/core"
       xmlns:jms="http://www.mulesoft.org/schema/mule/jms"
     xsi:schemaLocation="
-        http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.4/mule.xsd
-        http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/3.4/mule-jms.xsd">
+        http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+        http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd">
 
   <jms:activemq-connector name="jmsConnector"
                           brokerURL="tcp://localhost:61616"/>
@@ -29,41 +30,37 @@ To configure ActiveMQ connector with most common settings, use `<jms:activemq-co
 ...
 ----
 
-Also copy the `.jar` files you need to the Mule lib director (`$MULE_HOME/lib/user`) or your application lib directory.
+Also copy the JAR files you need to the Mule lib directory (`$MULE_HOME/lib/user`) or your application lib directory.
 
 [WARNING]
 ====
-Adding https://repository.apache.org/content/repositories/releases/org/apache/activemq/activemq-all/[ActiveMQ-all.jar] will create conflicts with other dependencies, so please add only the `.jar` files you need in relation to what you need ActiveMQ for:
+Adding https://repository.apache.org/content/repositories/releases/org/apache/activemq/activemq-all/[ActiveMq-all.jar]  creates conflicts with other dependencies, so please add only the jar files you need in relation to what you need ActiveMQ for:
 
+*JARs for Embedded ActiveMQ*
 
-*JARs for Embedded ActiveMQ*:
-
-apache-activemq-5.8.0/lib/activemq-kahadb-store-5.8.0.jar
-
-apache-activemq-5.8.0/lib/activemq-protobuf-1.1.jar
-apache-activemq-5.8.0/lib/activemq-openwire-legacy-5.8.0.jar
-apache-activemq-5.8.0/lib/hawtbuf-1.9.jar
-apache-activemq-5.8.0/lib/activemq-broker-5.8.0.jar
+apache-activemq-5.8.0/lib/activemq-kahadb-store-5.8.0.jar +
+apache-activemq-5.8.0/lib/activemq-protobuf-1.1.jar +
+apache-activemq-5.8.0/lib/activemq-openwire-legacy-5.8.0.jar +
+apache-activemq-5.8.0/lib/hawtbuf-1.9.jar +
+apache-activemq-5.8.0/lib/activemq-broker-5.8.0.jar +
 apache-activemq-5.8.0/lib/activemq-client-5.8.0.jar
 
+*JARs for External ActiveMQ*
 
-*JARs for External ActiveMQ*:
-
-apache-activemq-5.8.0/lib/activemq-client-5.8.0.jar
+apache-activemq-5.8.0/lib/activemq-client-5.8.0.jar +
 apache-activemq-5.8.0/lib/hawtbuf-1.9.jar
 
-*JARs for Failover ActiveMQ*:
+*JARs for Failover ActiveMQ*
 
-apache-activemq-5.8.0/lib/activemq-client-5.8.0.jar
+apache-activemq-5.8.0/lib/activemq-client-5.8.0.jar +
 apache-activemq-5.8.0/lib/hawtbuf-1.9.jar
 
-
-To include these `.jar` files in your project, simply right-click on your project and select *build path > add external archives*.
+To include these .jar files in your project, simply right-click on your project and select **build path > add external archives**.
 ====
 
-Mule initializes the ActiveMQ connector with default instance of ActiveMQ connection factory and establish a TCP connection to the remote standalone broker running on local host and listening on port 61616.
+Mule will initialize the ActiveMQ connector with default instance of ActiveMQ connection factory and establish a TCP connection to the remote standalone broker running on local host and listening on port 61616.
 
-Use `failover.//` protocol to connect to the cluster of brokers, and pass additional ActiveMQ options as URI parameters, for example:
+Use failover:// protocol to connect to the cluster of brokers, and pass additional ActiveMQ options as URI parameters, for example:
 
 [source,xml,linenums]
 ----
@@ -71,14 +68,14 @@ Use `failover.//` protocol to connect to the cluster of brokers, and pass additi
      brokerURL="failover:(tcp://primary:61616,tcp://secondary:61616)?randomize=false"/>
 ----
 
-To create an embedded instance of ActiveMQ broker, i.e. broker running on the same Java VM as Mule, uses `vm://` protocol, for example:
+To create an embedded instance of ActiveMQ broker, i.e. broker running on the same Java VM as Mule, use vm:// protocol, for example:
 
-[source,xml]
+[source,xml,linenums]
 ----
 <jms:activemq-connector name="jmsConnector" brokerURL="vm://localhost"/>
 ----
 
-You may also use additional connector attributes (See "Configuration Reference" for more details).
+You may also use additional connector attributes (See “Configuration Reference” for more details)
 
 Sometimes it might be necessary to explicitly configure an instance of ActiveMQ connection factory, for example, to set redelivery policy, or other ActiveMQ-specific features that are not exposed through Mule connector parameters. To create custom ActiveMQ connection factory instance, first configure it using Spring, for example:
 
@@ -332,7 +329,7 @@ The activemq-xa-connector element configures an ActiveMQ version of the JMS conn
 *Required*: no +
 *Default*: none
 
-|durable |Whether to make all topic subscribers durable.
+|durable |Whether to make all topic subscribers durable. If the durable attribute is set to true, then the clientId must be provided.
 
 *Type*: boolean +
 *Required*: no +

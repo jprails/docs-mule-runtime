@@ -13,14 +13,12 @@ Select the "Debug As > Mule Server" start-up mode from your configuration file. 
 
 You need to start Mule with the -debug to activate remote debugging, which gives (on Linux):
 
-[source,text,linenums]
 ----
 $MULE_HOME/bin/mule -debug
 ----
 
 With this option, Mule will start normally with the only difference being the following message logged in the console:
 
-[source,text,linenums]
 ----
 Listening for transport dt_socket at address: 5005
 ----
@@ -31,4 +29,4 @@ Switch to Eclipse and go the the *Run > Debug Configurations* menu. From there, 
 
 Also, in order to step debug with the source code attached, you need to add the source code of your Mule local instance as an external archive on the second tab of the configuration panel.
 
-You are now ready: click the *Debug* button at the lower right corner of the configuration screen: the local Mule instance will resume its start-up sequence and soon you'll be ready to step debug.
+Click the *Debug* button at the lower right corner of the configuration screen. The local Mule instance will resume its start-up sequence and soon you'll be ready to step debug.

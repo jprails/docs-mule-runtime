@@ -3,31 +3,13 @@ ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
 :page-aliases: rmi-transport-reference.adoc
+:keywords: anypoint studio, esb, connector, endpoint, rmi, jrmi, java remote message, jrmp
 
-The RMI transport can be used to send and receive Mule events over http://en.wikipedia.org/wiki/JRMP[JRMP]. This transport has a dispatcher that invokes an RMI method and a polling receiver that repeatedly does the same.
+The Java Remote Message Invocation (RMI) transport sends and receives Mule events over Java Remote Method Protocol (http://en.wikipedia.org/wiki/JRMP[JRMP]). This transport has a dispatcher that invokes an RMI method and a polling receiver that repeatedly does the same.
 
 You configure the RMI transport as follows:
 
-[source,xml,linenums]
-----
-<mule xmlns="http://www.mulesoft.org/schema/mule/core"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:spring="http://www.springframework.org/schema/beans"
-       xmlns:rmi="http://www.mulesoft.org/schema/mule/rmi"
-       xsi:schemaLocation="
-               http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
-               http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.4/mule.xsd
-               http://www.mulesoft.org/schema/mule/rmi http://www.mulesoft.org/schema/mule/rmi/3.4/mule-rmi.xsd">
-    <!-- specify the actual class of the JNDI factory you want to use -->
-    <spring:bean name="jndiFactory" class="org.mule.transport.rmi.MuleRMIFactory"/>
-
-    <spring:bean name="jndiContext" factory-bean="jndiFactory" factory-method="create"/>
-
-    <rmi:connector name="rmi" jndiContext-ref="jndiContext" securityPolicy="rmi.policy"/>
-
-    <rmi:endpoint name="hello" host="localhost" port="1099" object="HelloServer"
-              method="hello" methodArgumentTypes="java.lang.String"/>
-----
+*Note*: In the code examples in this guide, `spring-beans-current.xsd` is a placeholder. To locate the correct version, see http://www.springframework.org/schema/beans/.
 
 The connector looks for the `method` and `methodArgumentTypes`. It uses the payload as the argument.
 
@@ -35,30 +17,9 @@ The connector looks for the `method` and `methodArgumentTypes`. It uses the payl
 
 If you want to use the Java naming protocol to bind to remote objects, you can use the JNP connector instead simply by using the `jnp` namespace.
 
-[source,xml,linenums]
-----
-<mule xmlns="http://www.mulesoft.org/schema/mule/core"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:spring="http://www.springframework.org/schema/beans"
-       xmlns:jnp="http://www.mulesoft.org/schema/mule/jnp"
-       xsi:schemaLocation="
-               http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
-               http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.4/mule.xsd
-               http://www.mulesoft.org/schema/mule/jnp http://www.mulesoft.org/schema/mule/jnp/3.4/mule-jnp.xsd">
-
-    <!-- specify the actual class of the JNDI factory you want to use -->
-    <spring:bean name="jndiFactory" class="org.mule.transport.rmi.MuleRMIFactory"/>
-    <spring:bean name="jndiContext" factory-bean="jndiFactory" factory-method="create"/>
-
-    <jnp:connector name="jnp" jndiContext-ref="jndiContext" securityPolicy="rmi.policy"/>
-
-    <jnp:endpoint name="Sender2" host="localhost" port="1099" object="MatchingUMO" method="reverseString"/>
-...
-----
-
 == Configuration Reference
 
-== Connector
+=== Connector
 
 .Attributes of <connector...>
 [%header%autowidth.spread]
@@ -77,7 +38,7 @@ If you want to use the Java naming protocol to bind to remote objects, you can u
 |Name |Cardinality |Description
 |===
 
-== Endpoint
+=== Endpoint
 
 .Attributes of <endpoint...>
 [%header%autowidth.spread]

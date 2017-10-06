@@ -4,7 +4,7 @@ include::_attributes.adoc[]
 endif::[]
 :page-aliases: session-variable-transformer-reference.adoc
 
-Use a *session variable* to set or remove a variable that is tied to a message for its entire lifecycle, across multiple flows, applications, and even servers. (By contrast, variables specified through the xref:transformers/variable-transformer-reference.adoc[variable transformer] persist only as long as the message with which they are associated remains within the same flow.) To learn more about message scopes, refer to xref:concepts/index.adoc[Mule Concepts].
+Use a *session variable* to set or remove a variable that is tied to a message for its entire lifecycle, across multiple flows, applications, and even servers. (By contrast, variables specified through the xref:3.7@transformers/variable-transformer-reference.adoc[variable transformer] persist only as long as the message with which they are associated remains within the same flow.) To learn more about message scopes, refer to xref:3.7@concepts/index.adoc[Mule Concepts].
 
 *<<Complete Code Example>>*
 
@@ -14,11 +14,13 @@ The session variable transformer differs from the variable transformer and the p
 |===
 |  |Session Variable Transformer |Variable Transformer |Property Transformer
 |*Use* |Use to set or remove a variable that is tied to the current message for its entire lifecycle, across multiple flows, applications, and even servers. |Use to set or remove a variable on the message, tied to the current flow. |Use to set, remove, or copy properties on the outbound scope of a message.
-|*Persistence* |Session variables set with a session variable transformer persist for the entire message lifecycle, regardless of transport barriers. |Variables set with a variable transformer persist only for the current flow and cannot cross the transport barrier. |Once a message hits an outbound-endpoint, all properties in the outbound scope are sent with the message in the form of transport-specific metadata ( HTTP headers for an HTTP outbound-endpoint, for example).
+|*Persistence* |Session variables set with a session variable transformer persist for the entire message lifecycle, regardless of transport barriers. |Variables set with a variable transformer persist only for the current flow and cannot cross the transport barrier. |Once a message hits an outbound-connector, all properties in the outbound scope are sent with the message in the form of transport-specific metadata ( HTTP headers for an HTTP outbound-connector, for example).
 |===
 
-Once you have set a session variable, you can invoke it using the **`sessionVars`** map in a Mule expression. For example, if you have set a session variable with the name "`SVname`" and the value "`SVvalue`", you can later invoke that session variable using the expression `#[sessionVars['SVname']]`, which evaluates to `SVvalue`.
+Once you have set a session variable, you can invoke it using the *`sessionVars`* map in a Mule expression. For example, if you have set a session variable with the name "`SVname`" and the value "`SVvalue`", you can later invoke that session variable using the expression `#[sessionVars.SVname]`, which evaluates to `SVvalue`.
 
+[WARNING]
+Note that the session variable is linked to a Mule Message, but not to a MuleEvent. This means that if you make use of an element that makes copies of the message – such as an xref:3.6@scopes/async-scope-reference.adoc[async scope] or a xref:3.7@routers/scatter-gather.adoc[scatter gather component] – changes in flow variables won't be persisted in between these replicated messages, even though they started as one.
 
 == Configuration
 
@@ -27,7 +29,7 @@ Once you have set a session variable, you can invoke it using the **`sessionVars
 [discrete.view]
 === STUDIO Visual Editor
 
-image::transformers/studio-sessionvariableppp.png[Studio_SessionVariablePPP]
+image::transformers/session-transformer.png[session_transformer]
 
 [%header%autowidth.spread]
 |===
@@ -37,12 +39,12 @@ image::transformers/studio-sessionvariableppp.png[Studio_SessionVariablePPP]
 ----
 doc:name="Session Variable"
 ----
-.2+|*Operation* |Set Session Variable |Select to set a new session variable on your message (as shown in example screenshot above). a|
+|*Operation* |Set Session Variable |Select to set a new session variable on your message (as shown in example screenshot above). a|
 [source,xml,linenums]
 ----
 <set-session-variable>
 ----
-|Remove Session Variable |Select to delete an existing session variable from your message. a|
+| |Remove Session Variable |Select to delete an existing session variable from your message. a|
 [source,xml,linenums]
 ----
 <remove-session-variable>
@@ -80,30 +82,34 @@ value="MyNewSessionVariableValue"
 |*remove-session-variable* |Delete an existing variable from your message.
 |===
 
-[%header%autowidth.spread]
+[%header,cols="2*"]
 |===
 |Element Attribute |Description
-|*doc:name* a|Customize to display a unique name for the transformer in your application.
+|*doc:name* a|
+Customize to display a unique name for the transformer in your application.
 
 Note: Attribute not required in Mule Standalone configuration.
-|*variableName* a|The name of the session variable that you are setting or removing. Can be a string or a Mule expression.
 
-Note: If you are using the remove-session-variable element, you may use a wildcard "**"* character. For example, a remove-session-variable transformer with the element _variable_Name="http.*" will remove all variables whose names begin with "http." from the message.
-|*value* a|The value of the session variable that you are setting. This attribute is only relevant for the set-session-variable element. Can be a string or a Mule expression.
+|*variableName* a|
+The name of the session variable that you are setting or removing. Can be a string or a Mule expression.
+
+Note: If you are using the remove-session-variable element, you may use a wildcard "*" character. For example, a remove-session-variable transformer with the element `variableName="http.*"` will remove all variables whose names begin with "http." from the message.
+
+|*value* |The value of the session variable that you are setting. This attribute is only relevant for the set-session-variable element. Can be a string or a Mule expression.
 |===
+
 =====
 
 == Example
 
 In many cases, messages travel across multiple flows, applications and even servers. In such cases, it can be useful to attach some kind of metadata to a message so as to track it from its origin to its final destination across all systems. In the example below, we set a session variable named messageID. This messageID contains a unique identifier that persists on the message over its entire lifecycle (unless it is explicitly removed by another session variable transformer).
 
-
 [.ex]
 =====
 [discrete.view]
 === STUDIO Visual Editor
 
-image::transformers/studio-sessionvariable-ex.png[Studio_SessionVariable_ex]
+image::transformers/session-trans-example.png[session_trans_example]
 
 [discrete.view]
 === XML Editor or Standalone
@@ -111,25 +117,40 @@ image::transformers/studio-sessionvariable-ex.png[Studio_SessionVariable_ex]
 [source,xml,linenums]
 ----
 <flow name="SessionVariableTransformingFlow" doc:name="SessionVariableTransformingFlow">
-   <http:inbound-endpoint exchange-pattern="request-response" host="localhost" port="8081" doc:name="HTTP"/>
+   <http:inbound-endpoint host="localhost" port="8081" path="/" />
    <set-session-variable variableName="messageID" value="#[java.util.UUID.randomUUID().toString()]" doc:name="Set Message ID"/>
-</flow>
-----
-=====
-
-== Complete Code Example
-
-[source,xml,linenums]
-----
-<flow name="SessionVariableTransformingFlow" doc:name="SessionVariableTransformingFlow">
-   <http:inbound-endpoint exchange-pattern="request-response" host="localhost" port="8081" doc:name="HTTP"/>
-   <set-session-variable variableName="messageID" value="#[java.util.UUID.randomUUID().toString()]" doc:name="Set Message ID"/>
+   <logger message="Variable set with #[sessionVars.messageID]" level="INFO"/>
    <remove-session-variable "NameofSessionVariabletoRemove" doc:name="Session Variable"/>
 </flow>
 ----
 
+=====
+
+== Complete Code Example
+
+
+*View namespace*
+
+[source,xml,linenums]
+----
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation=" http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+----
+
+
+
+[source,xml,linenums]
+----
+<flow name="SessionVariableTransformingFlow" doc:name="SessionVariableTransformingFlow">
+   <http:inbound-endpoint host="localhost" port="8081" path="/" />
+   <set-session-variable variableName="messageID" value="#[java.util.UUID.randomUUID().toString()]" doc:name="Set Message ID"/>
+   <logger message="Variable set with #[sessionVars.messageID]" level="INFO"/>
+   <remove-session-variable "NameofSessionVariabletoRemove" doc:name="Session Variable"/>
+</flow>
+----
+
+
 == See Also
 
-* Refer to xref:concepts/index.adoc[Mule Concepts] to learn more about message scopes.
-* Read about related transformers, the xref:transformers/variable-transformer-reference.adoc[variable transformer] and the xref:transformers/property-transformer-reference.adoc[properties transformer], which you can use to set properties and variables for different scopes.
+* Refer to xref:3.7@concepts/index.adoc[Mule Concepts] to learn more about message scopes.
+* Read about related transformers, the xref:3.7@transformers/variable-transformer-reference.adoc[variable transformer] and the xref:3.6@transformers/property-transformer-reference.adoc[properties transformer], which you can use to set properties and variables for different scopes.
 * Learn how to use Mule Expression Language to read session variables using the `sessionVars` map.

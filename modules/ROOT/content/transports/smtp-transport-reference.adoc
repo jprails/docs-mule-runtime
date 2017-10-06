@@ -3,6 +3,7 @@ ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
 :page-aliases: smtp-transport-reference.adoc
+:keywords: email, transport, smtp
 
 The SMTP transport can be used for sending messages over SMTP using the `javax.mail` API. The implementation supports CC/BCC/ReplyTo addresses, attachments and custom Header properties. It also provides support for `javax.mail.Message` transformation. The SMTPS connector enables SMTP over SSL using the `javax.mail` APIs. It supports all the elements and attributes of the SMTP transport, plus some required properties for setting up the client key store and the trust store for the SSL connection.
 
@@ -22,8 +23,8 @@ XML Schema location:
 
 [source,text,linenums]
 ----
-http://www.mulesoft.org/schema/mule/smtp http://www.mulesoft.org/schema/mule/smtp/3.4/mule-smtp.xsd
-http://www.mulesoft.org/schema/mule/smtps http://www.mulesoft.org/schema/mule/smtps/3.4/mule-smtps.xsd
+http://www.mulesoft.org/schema/mule/smtp http://www.mulesoft.org/schema/mule/smtp/current/mule-smtp.xsd
+http://www.mulesoft.org/schema/mule/smtps http://www.mulesoft.org/schema/mule/smtps/current/mule-smtps.xsd
 ----
 
 Connector syntax:
@@ -80,13 +81,14 @@ See the sections below for more information.
 == Features
 
 * Simple to configure email access on outbound endpoints
-* Easy to configure TLS security
+* Easy to configure TLS security +
+
 
 == Usage
 
 If you want to include the SMTP email transport in your configuration, these are the namespaces you need to define:
 
-[source,xml,linenums]
+[source,text,linenums]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns="http://www.mulesoft.org/schema/mule/core"
@@ -95,8 +97,8 @@ If you want to include the SMTP email transport in your configuration, these are
        xmlns:smtp="http://www.mulesoft.org/schema/mule/smtp"
        xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
-       http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.4/mule.xsd
-       http://www.mulesoft.org/schema/mule/smtp http://www.mulesoft.org/schema/mule/smtp/3.4/mule-smtp.xsd">
+       http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+       http://www.mulesoft.org/schema/mule/smtp http://www.mulesoft.org/schema/mule/smtp/current/mule-smtp.xsd">
 ...
 ----
 
@@ -111,8 +113,8 @@ Secure version:
        xmlns:smtps="http://www.mulesoft.org/schema/mule/smtps"
        xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
-       http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.4/mule.xsd
-       http://www.mulesoft.org/schema/mule/smtps http://www.mulesoft.org/schema/mule/smtps/3.4/mule-smtps.xsd">
+       http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+       http://www.mulesoft.org/schema/mule/smtps http://www.mulesoft.org/schema/mule/smtps/current/mule-smtps.xsd">
 ----
 
 Then you need to configure your connector and endpoints as described below.
@@ -133,11 +135,11 @@ Say your CFO wants an email notification of all processed orders. The following 
        xmlns:email="http://www.mulesoft.org/schema/mule/email"
        xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
-       http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.4/mule.xsd
-       http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/3.4/mule-file.xsd
-       http://www.mulesoft.org/schema/mule/smtps http://www.mulesoft.org/schema/mule/smtps/3.4/mule-smtps.xsd
-       http://www.mulesoft.org/schema/mule/email http://www.mulesoft.org/schema/mule/email/3.4/mule-email.xsd
-       http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/3.4/mule-vm.xsd">
+       http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+       http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+       http://www.mulesoft.org/schema/mule/smtps http://www.mulesoft.org/schema/mule/smtps/current/mule-smtps.xsd
+       http://www.mulesoft.org/schema/mule/email http://www.mulesoft.org/schema/mule/email/current/mule-email.xsd
+       http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd">
 
     <smtp:connector name="smtpConnector"  />
 
@@ -168,11 +170,11 @@ Secure version:
        xmlns:email="http://www.mulesoft.org/schema/mule/email"
        xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
-       http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.4/mule.xsd
-       http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/3.4/mule-file.xsd
-       http://www.mulesoft.org/schema/mule/smtps http://www.mulesoft.org/schema/mule/smtps/3.4/mule-smtps.xsd
-       http://www.mulesoft.org/schema/mule/email http://www.mulesoft.org/schema/mule/email/3.4/mule-email.xsd
-       http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/3.4/mule-vm.xsd">
+       http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+       http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+       http://www.mulesoft.org/schema/mule/smtps http://www.mulesoft.org/schema/mule/smtps/current/mule-smtps.xsd
+       http://www.mulesoft.org/schema/mule/email http://www.mulesoft.org/schema/mule/email/current/mule-email.xsd
+       http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd">
 
     <smtps:connector name="smtpsConnector"> ❶
         <smtps:tls-client path="clientKeystore" storePassword="mulepassword" />
@@ -196,9 +198,9 @@ The smtps connector has a TLS client and server keystore information as defined 
 
 === Connectors
 
-The SMTP connector supports all the xref:3.5@transports/configuring-a-transport.adoc[common connector attributes and properties] and the following optional elements and attributes:
+The SMTP connector supports all the xref:3.7@transports/configuring-a-transport.adoc[common connector attributes and properties] and the following optional elements and attributes:
 
-[%header%autowidth.spread]
+[%header,cols="4*"]
 |===
 |Attribute |Description |Default |Required
 |bccAddresses |Comma separated list of addresses for blind copies. |  |False
@@ -209,7 +211,7 @@ The SMTP connector supports all the xref:3.5@transports/configuring-a-transport.
 |subject |The default subject for the outgoing message if none is set in the message. |  |False
 |===
 
-[%header%autowidth.spread]
+[%header,cols="2*"]
 |===
 |Element |Description
 |header |Additional header name and value, added to the message.
@@ -217,7 +219,7 @@ The SMTP connector supports all the xref:3.5@transports/configuring-a-transport.
 
 For the secure version, the following elements are also required:
 
-[%header%autowidth.spread]
+[%header,cols="2*"]
 |===
 |Element |Description
 |tls-client a|
@@ -232,6 +234,7 @@ Configures the trust store. The attributes are:
 
 * path: The location (which will be resolved relative to the current classpath and file system, if possible) of the trust store that contains public certificates of trusted servers
 * storePassword: The password used to protect the trust store
+
 |===
 
 For example:
@@ -306,16 +309,16 @@ subject="subject">
 
 === Endpoints
 
-SMTP endpoints describe details about the SMTP server and the recipients of messages sent from the SMTP endpoint. You configure the endpoints just as you would with any other transport, with the following additional attributes:
+SMTP endpoints describe details about the SMTP server and the recipients of messages sent from the SMTP endpoint. You xref:3.6@endpoints/endpoint-configuration-reference.adoc[configure the endpoints] just as you would with any other transport, with the following additional attributes:
 
-[%header%autowidth.spread]
+[%header,cols="2*"]
 |===
 |Attribute |Description
 |user |The user name of the mailbox owner
 |password |The password of the user
 |host |The IP address of the SMTP server, such as www.mulesoft.com, localhost, or 127.0.0.1
 |port |The port number of the SMTP server
-|to |The destination for the email
+|to |The destination for the email. You can provide multiple addresses separated by commas.
 |from |The address of the sender of the email
 |subject |The email subject
 |cc |A comma-separated list of email addresses to copy on this email
@@ -357,13 +360,13 @@ You can also define the endpoints using a URI syntax:
 
 This will send mail using `smtp.mail.yahoo.co.uk` (using the default SMTP port) to the address `dave@mycompany.com`. The SMTP request is authenticated using the username `muletestbox` and the password `123456`.
 
-For more information about transformers, see the xref:3.5@transports/email-transport-reference.adoc[Transformers] section in the Email Transport Reference.
+For more information about transformers, see the xref:3.7@transports/email-transport-reference.adoc[Transformers] section in the Email Transport Reference.
 
-For more information about filters, see the xref:3.5@transports/email-transport-reference.adoc[Filters] section in the Email Transport Reference.
+For more information about filters, see the xref:3.7@transports/email-transport-reference.adoc[Filters] section in the Email Transport Reference.
 
 == Exchange Patterns / Features of the Transport
 
-See the xref:3.5@transports/transports-reference.adoc[transport matrix].
+See the xref:3.6@transports/transports-reference.adoc[transport matrix].
 
 == Schema Reference
 
@@ -385,6 +388,6 @@ If you are using Maven to build your application, use the following dependency s
 
 == Limitations
 
-For more information about the limitations, see the xref:3.5@transports/email-transport-reference.adoc[Limitations] section in the Email Transport Reference.
+For more information about the limitations, see the xref:3.7@transports/email-transport-reference.adoc[Limitations] section in the Email Transport Reference.
 
-So far, all configuration has been static, in that you define all the information in the configuration of the endpoint. However, you can set the connector properties to control the settings of the outgoing message. These properties will override the endpoint properties. If you always want to set the email address dynamically, you can leave out the `to` attribute (or the `address` parameter if you're using URIs} on the SMTP endpoint.
+So far, all configuration has been static, in that you define all the information in the configuration of the endpoint. However, you can set the connector properties to control the settings of the outgoing message. These properties will override the endpoint properties. If you always want to set the email address dynamically, you can leave out the `to` attribute (or the `address` parameter if you're using URIs) on the SMTP endpoint.

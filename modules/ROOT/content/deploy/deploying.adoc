@@ -11,12 +11,15 @@ As of version 3.1, Mule standalone can run multiple applications. This means you
 * It will also restart apps if it detects that they have changed, meaning you can drop a revised version of an existing, running application into the /apps directory, Mule will stop the existing app and restart using the new files.
 * This results in one fewer reason to run Mule inside a container.
 
-* xref:deploy/deployment-scenarios.adoc[Deployment Scenarios]
-* xref:administer/clustering/mule-high-availability-ha-clusters.adoc[Mule High Availability HA Clusters]
-* xref:deploy/mule-deployment-model.adoc[Mule Deployment Model]
+* xref:3.6@deploy/starting-and-stopping-mule-esb.adoc[Starting and Stopping Mule ESB]
+* xref:3.7@deploy/deployment-scenarios.adoc[Deployment Scenarios]
+* xref:3.7@deploy/deploying-to-multiple-environments.adoc[Deploying to Multiple Environments]
+* xref:3.6@administer/clustering/mule-high-availability-ha-clusters.adoc[Mule High Availability HA Clusters]
+* xref:3.7@deploy/mule-deployment-model.adoc[Mule Deployment Model]
 * xref:configuring-logging.adoc[Configuring Logging]
-* xref:mule-server-notifications.adoc[Mule Server Notifications]
-* xref:testing/profiling-mule.adoc[Profiling Mule]
-* xref:deploy/hardening-your-mule-installation.adoc[Hardening your Mule Installation]
-* xref:deploy/configuring-mule-for-standalone-deployment-scenarios.adoc[Configuring Mule for Different Deployment Scenarios]
+* xref:3.7@mule-server-notifications.adoc[Mule Server Notifications]
+* xref:3.7@testing/profiling-mule.adoc[Profiling Mule]
+* xref:3.6@deploy/hardening-your-mule-installation.adoc[Hardening your Mule Installation]
+* xref:3.7@deploy/configuring-mule-for-standalone-deployment-scenarios.adoc[Configuring Mule for Different Deployment Scenarios]
+* xref:3.6@preparing-a-gitignore-file.adoc[Preparing a gitignore File]
 * xref:5@studio::using-subversion-with-studio.adoc[Using Subversion with Studio]

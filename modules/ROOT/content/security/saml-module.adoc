@@ -3,6 +3,7 @@ ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
 :page-aliases: saml-module.adoc
+:keywords: anypoint studio, esb, saml, security, federated
 
 *_Enterprise_*
 
@@ -12,7 +13,7 @@ Mule Enterprise offers support for the http://saml.xml.org/about-saml[Security A
 ====
 This module implements SAML 1.1.
 
-Mule's xref:modules/cxf-module-reference.adoc[CXF Module] includes WS-Security with a SAML option that supports SAML 2.0.
+Mule's xref:3.6@modules/cxf-module-reference.adoc[CXF Module] includes WS-Security with a SAML option that supports SAML 2.0.
 ====
 
 == Using the SAML Module
@@ -30,7 +31,7 @@ To use the features of the SAML module, add the SAML module namespace to your Mu
 [source,xml,linenums]
 ----
 <mule xmlns:saml="http://www.mulesoft.org/schema/mule/ee/saml"
-      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/saml http://www.mulesoft.org/schema/mule/ee/saml/3.4/mule-saml-ee.xsd">
+      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/saml http://www.mulesoft.org/schema/mule/ee/saml/current/mule-saml-ee.xsd">
     <!-- Rest of your mule configuration -->
 
 </mule>
@@ -59,7 +60,7 @@ In this example, two security realms are defined. One uses the sender vouches SA
 
 === Configuring Security on an Connector
 
-Once you've defined a security manager, you can configure security filters on CXF endpoints as shown in the examples below. The first example does not specify a security realm, so the default realm is used. Both filters specify the same certificate that is used to verify the SAML assertions as issued by the assertion provider.
+Once you've defined a security manager, you can configure security filters on CXF connectors as shown in the examples below. The first example does not specify a security realm, so the default realm is used. Both filters specify the same certificate that is used to verify the SAML assertions as issued by the assertion provider.
 
 [source,xml,linenums]
 ----
@@ -82,7 +83,7 @@ For a more detailed description of these profiles and the use cases when they're
 
 == Example
 
-Since SAML is used for single sign-on, authentication of the user is assumed to have already occurred, and the SAML token simply contains one or more *subjects*, which provide some information understood by other systems. In this case we will configure our flow to require a SAML subject of `AllowGreetingServices`. To our inbound endpoint we add a `SAMLVerifyInterceptor` with a callback, which will check for the correct SAML subject:
+Since SAML is used for single sign-on, authentication of the user is assumed to have already occurred, and the SAML token simply contains one or more *subjects*, which provide some information understood by other systems. In this case we will configure our flow to require a SAML subject of `AllowGreetingServices`. To our inbound connector we add a `SAMLVerifyInterceptor` with a callback, which will check for the correct SAML subject:
 
 [source,xml,linenums]
 ----
@@ -139,4 +140,93 @@ To verify that the received SAML token is authentic, SAML offers two different m
 
 == Configuration Reference
 
-xslt: Unexpected program error: java.lang.NullPointerException
+=== SAML Module
+Mule enterprise offers support for the Security Assertion Markup Language (SAML), a standard for exchange of security information between federated systems.
+
+=== Security manager
+
+.Attributes of <security-manager...>
+[%header%autowidth.spread]
+|===
+|Name |Type |Required |Default |Description
+|===
+
+.Child Elements of <security-manager...>
+[%header%autowidth.spread]
+|===
+|Name |Cardinality |Description
+|saml-security-provider |0..1 |A security provider that delegates authorization to some other provider.
+|===
+
+=== Saml security provider
+
+A security provider that delegates authorization to some other provider.
+
+.Attributes of <saml-security-provider...>
+[%header%autowidth.spread]
+|===
+|Name |Type |Required |Default |Description
+|saml-version |samlVersion |no |1.1|
+|default-realm |string |no | |
+|===
+
+.Child Elements of <saml-security-provider...>
+[%header%autowidth.spread]
+|===
+|Name |Cardinality |Description
+|abstract-key-provider |1..* |
+|abstract-security-realm |1..* |
+|===
+
+=== Keystore provider
+
+.Attributes of <keystore-provider...>
+[%header%autowidth.spread]
+|===
+|Name |Type |Required |Default |Description
+|name |string |yes | |
+|key-store-file |string |yes | |
+|key-store-type |string |yes | |
+|key-store-password |string |yes | |
+|===
+
+.Child Elements of <keystore-provider...>
+[%header%autowidth.spread]
+|===
+|Name |Cardinality |Description
+|===
+
+=== Sender vouches realm
+
+.Attributes of <sender-vouches-realm...>
+[%header%autowidth.spread]
+|===
+|Name |Type |Required |Default |Description
+|name |string |yes | |
+|key-provider-ref |name (no spaces) |yes | |
+|sign-key-alias |string |no | |
+|sign-key-password |string |no | |
+|resign-assertions |boolean |no | |
+|===
+
+.Child Elements of <sender-vouches-realm...>
+[%header%autowidth.spread]
+|===
+|Name |Cardinality |Description
+|===
+
+=== Holder of key realm
+
+.Attributes of <holder-of-key-realm...>
+[%header%autowidth.spread]
+|===
+|Name |Type |Required |Default |Description
+|name |string |yes | |
+|key-provider-ref |name (no spaces) |yes | |
+|===
+
+.Child Elements of <holder-of-key-realm...>
+[%header%autowidth.spread]
+|===
+|Name |Cardinality |Description
+|===

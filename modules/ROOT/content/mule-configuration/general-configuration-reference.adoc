@@ -4,7 +4,7 @@ include::_attributes.adoc[]
 endif::[]
 :page-aliases: general-configuration-reference.adoc
 
-Mule provides Javadoc-style http://www.mulesoft.org/docs/site/3.0.0/schemadocs/[schema documentation], making it easier to familiarize yourself with all the elements and attributes permissible in XML configuration files.
+Mule provides Javadoc-style http://www.mulesoft.org/docs/site/current3/schemadocs/[schema documentation], making it easier to familiarize yourself with all the elements and attributes permissible in XML configuration files.
 
 [cols="2*"]
 |===
@@ -28,5 +28,3 @@ a|
 |===
 
 For configuration reference on transports, see xref:transports/transports-reference.adoc[Transports Reference]. For modules, see xref:modules/modules-reference.adoc[Modules Reference].
-
-For transports and modules contributed by the community, see https://www.mulesoft.com/exchange#!/?types=connector&sortBy=name[Anypoint Exchange].

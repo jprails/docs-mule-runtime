@@ -3,12 +3,9 @@ ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
 :page-aliases: jaas-security.adoc
+:keywords: mule, esb, studio, enterprise, security, jaas authentication
 
-The
-
-https://www.mulesoft.org/docs/site/current/apidocs/org/mule/module/jaas/JaasSimpleAuthenticationProvider.html[JaasSimpleAuthenticationProvider]
-
-is a security provider that provides a way to interact with the Jaas Authentication Service.
+The JaasSimpleAuthenticationProvider is a security provider that provides a way to interact with the Jaas Authentication Service.
 
 The security provider for Jaas can be configured in a couple of different ways. It allows you to configure Jaas either by passing to the provider a Jaas configuration file or by passing the required attributes directly to the `JaasSimpleAuthenticationProvider`. These two configuration methods are described below.
 
@@ -16,7 +13,7 @@ The security provider for Jaas can be configured in a couple of different ways. 
 
 Usually, JAAS authentication is performed in a pluggable fashion, so applications can remain independent from underlying authentication technologies.
 
-[source,text,linenums]
+[source,java,linenums]
 ----
 jaasTest{
    org.mule.module.jaas.loginmodule.DefaultLoginModule required
@@ -84,7 +81,7 @@ The third option is to enter your own login module.
 
 In the above configuration, we have added the `loginModule` property, which allows you to specify the login module you want to use to authenticate the user. Since the `NTLoginModule` does not require you to input a list of accepted usernames and passwords, the property for the `credentials` was removed.
 
-== Configuring the Security Filter on an Endpoint
+== Configuring the Security Filter on an Connector
 
 You can use `JaasSecurityFilter` as a security filter, as follows:
 
@@ -101,6 +98,48 @@ You can use `JaasSecurityFilter` as a security filter, as follows:
 
 This module provides security via JAAS. +
 
-====
-xslt: Unexpected program error: java.lang.NullPointerException
-====
+== Security Manager
+
+This is the security provider type that is used to configure JAAS related functionality.
+
+=== Child Elements of <security-manager...>
+
+[%header,cols="34,33,33"]
+|===
+|Name |Cardinality |Description
+|security-provider |0..1 |This is the security provider type that is used to configure JAAS related functionality.
+|password-encryption-strategy |0..* |
+|===
+
+== Security Provider
+
+This is the security provider type that is used to configure JAAS related functionality.
+
+=== Attributes of <security-provider...>
+
+[%header,cols="34,33,33"]
+|===
+|Name
+|Type
+|Required
+
+|loginContextName
+|string
+|no
+
+|credentials
+|string
+|no
+
+|loginConfig
+|string
+|no
+
+|loginModule
+|string
+|no
+|===
+
+== Jaas Security Filter
+
+Authenticates users via JAAS.

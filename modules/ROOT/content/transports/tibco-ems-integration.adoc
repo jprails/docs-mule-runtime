@@ -3,6 +3,7 @@ ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
 :page-aliases: tibco-ems-integration.adoc
+:keywords: tibco, ems
 
 The following example demonstrates how to configure Mule to use the http://www.tibco.com/products/automation/enterprise-messaging/enterprise-message-service[TIBCO Enterprise Message Server (EMS)] with authentication in place.
 
@@ -15,8 +16,8 @@ The following example demonstrates how to configure Mule to use the http://www.t
       xmlns:jms="http://www.mulesoft.org/schema/mule/jms"
     xsi:schemaLocation="
       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
-      http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.4/mule.xsd
-      http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/3.4/mule-jms.xsd">
+      http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+      http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd">
 
     <jms:connector name="jmsConnector"
                    jndiProviderUrl="tibjmsnaming://host:port"
@@ -37,7 +38,7 @@ The following example demonstrates how to configure Mule to use the http://www.t
 ...
 ----
 
-Note that when you use `tibjmsnaming` as the protocol in your `jndiProviderUrl`, you can also specify TCP or SSL with the JNDI property `com.tibco.tibjms.naming.security_protocol`.
+*Note*: When you use `tibjmsnaming` as the protocol in your `jndiProviderUrl`, you can also specify TCP or SSL with the JNDI property `com.tibco.tibjms.naming.security_protocol`.
 
 For XA transactions, you must create an XA Connection Factory from the TIBCO administration-tool (tibemsadmin) as follows:
 

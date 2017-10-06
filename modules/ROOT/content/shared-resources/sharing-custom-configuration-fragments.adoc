@@ -5,7 +5,7 @@ endif::[]
 :page-aliases: sharing-custom-configuration-fragments.adoc
 :keywords: anypoint studio, esb, share configuration
 
-Thanks to its element naming and referencing strategy, the Mule configuration mechanism supports re-using fragments of applications within teams. This is very convenient for sharing complex, repetitive, or critical bits of configuration.
+Using element naming and referencing strategy, the Mule configuration mechanism supports re-using fragments of applications within teams. This is very convenient for sharing complex, repetitive, or critical bits of configuration.
 
 The following types of configuration fragments can be shared:
 

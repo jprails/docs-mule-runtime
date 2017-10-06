@@ -3,13 +3,14 @@ ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
 :page-aliases: message-filter.adoc
+:keywords: anypoint studio, filters, conditional, gates
 
-image::filters/filter-48x32.png[Filter-48x32]
+A message filter is used by a message processor to determine whether to handle incoming events or messages. A Message Filter may also include nested filters. Nested filters let you apply more complex logic to the filter. See xref:filters/logic-filter.adoc[Logic Filter] for more details about nesting filters.
 
-*Purpose:* Used by a message processor to determine whether to handle incoming events or messages.
+This filter determines whether or not a message processor should process an incoming event or message. You can use the On Unaccepted property to optionally specify a flow or subflow to handle any unaccepted events. Check the Throw On Unaccepted box to throw an exception if a message or event is not handled. The default when not checked is to not throw an exception.
 
-*Minimum Configuration:* None.
+*Note:* The flow or subflow that you specify does not return control to the parent flow.
 
-*Discussion:* This filter determines whether or not a message processor should process an incoming event or message. You can use the On Unaccepted property to optionally specify the name of the message processor that should handle any unaccepted events. Check the Throw On Unaccepted box to throw an exception if a message or event is not handled. The default when not checked is to not throw an exception.
+== See Also
 
-A Message Filter may also include nested filters. Nested filters let you apply more complex logic to the filter. See xref:filters/logic-filter.adoc[Logic Filter] for more details about nesting filters.
+* xref:filters/filters-configuration-reference.adoc[Filters Configuration Reference]

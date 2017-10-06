@@ -3,8 +3,7 @@ ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
 :page-aliases: logic-filter.adoc
-
-image::filters/filter-48x32.png[Filter-48x32]
+:keywords: anypoint studio, esb, filters, conditional, gates, logic
 
 *Purpose:* Allows filtering of messages using And/Or/Not logic expressions.
 
@@ -12,7 +11,7 @@ image::filters/filter-48x32.png[Filter-48x32]
 
 *Discussion:* Logic filters apply the And/Or/Not logic to one or more nested filters that they enclose. When you use these logic filters, you add nested filters to them from within the And/Or/Not-filter nested pane.
 
-image::filters/add-filter.png[Add-filter]
+image::filters/and-filter.png[and_filter]
 
 Use the And Filter to combine two or more filters. The And Filter accepts the message and returns true only if all of its enclosed filters return true.
 
@@ -20,7 +19,6 @@ The Or Filter returns true if any of its enclosed child filters return true. Tha
 
 The Not Filter inverts its enclosed filter. That is, the Not Filter accepts the message and returns true if the message does not match the filter criteria. For example, if the enclosed filter normally returns true for a specific message, when nested within the Not filter it returns false.
 
-== Mule ESB Reference
+== See Also
 
-* For more information about the And Filter, see xref:filters/filters-configuration-reference.adoc[here].
-* For more information about the Or Filter, see xref:filters/filters-configuration-reference.adoc[here].
+* xref:3.6@filters/filters-configuration-reference.adoc[Filter Configuration Reference]

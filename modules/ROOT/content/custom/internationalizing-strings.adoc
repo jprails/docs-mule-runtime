@@ -4,7 +4,7 @@ include::_attributes.adoc[]
 endif::[]
 :page-aliases: internationalizing-strings.adoc
 
-Mule supports internationalization of exception messages and any other type of string message.
+Mule ESB supports internationalization of exception messages and any other type of string message.
 
 ////
 Mule has support for the following languages:
@@ -98,7 +98,7 @@ This loads the message with ID 2 from `x-messages.properties`, format the messag
 Error message with 2 parameters; param one and param two
 ----
 
-== Creating Message Instances From Your Code
+== Creating Message Instances from your Code
 
 If you need `Message` instances from your custom code (e.g. from a custom transformer), you create them as follows:
 
