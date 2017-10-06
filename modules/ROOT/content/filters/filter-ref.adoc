@@ -6,7 +6,6 @@ endif::[]
 
 image::filters/filter-48x32.png[Filter-48x32]
 
- +
 *Purpose:* References a global filter.
 
 *Minimum Configuration:* The name of the globally-defined filter.
@@ -15,4 +14,4 @@ image::filters/filter-48x32.png[Filter-48x32]
 
 == Mule ESB Reference
 
-For more information about Custom Filter, see xref:filters/filters-configuration-reference.adoc[here].
+For more information about Custom Filter, see xref:3.4@filters/filters-configuration-reference.adoc[here].

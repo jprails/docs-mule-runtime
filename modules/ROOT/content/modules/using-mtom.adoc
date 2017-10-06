@@ -4,7 +4,7 @@ include::_attributes.adoc[]
 endif::[]
 :page-aliases: using-mtom.adoc
 
-This page describes the basics of how to use MTOM inside your service. For more information, go to the http://cwiki.apache.org/CXF20DOC/mtom.html[MTOM documentation] for CXF. Portions of the examples on this page are from that guide.
+This page describes the basics of how to use MTOM inside your service. For more information, go to the https://cwiki.apache.org/confluence/display/CXF20DOC/MTOM[MTOM documentation] for CXF. Portions of the examples on this page are from that guide.
 
 For a WSDL-first service, the general process is as follows:
 

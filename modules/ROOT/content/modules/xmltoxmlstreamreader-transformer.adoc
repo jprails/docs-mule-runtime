@@ -3,6 +3,7 @@ ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
 :page-aliases: xmltoxmlstreamreader-transformer.adoc
+:keywords: anypoint studio, esb, transformers
 
 The XmlToXMLStreamReader transformer converts XML representations to a StAX XMLStreamReader. XMLStreamReaders allow XML to be parsed as a series of events that are "pulled" from the stream. It is very efficient.
 
@@ -38,7 +39,7 @@ You can also create a "reversible" XMLStreamReader:
 
 This allows you to cache XML events and replay them:
 
-[source,text,linenums]
+[source,java,linenums]
 ----
 MuleMessage message = ...;
 ReversibleXMLStreamReader xsr = (ReversibleXMLStreamReader) message.getPayload();

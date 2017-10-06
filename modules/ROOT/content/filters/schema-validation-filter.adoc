@@ -19,4 +19,4 @@ By default, the Return result box is checked, which caches the result of the XML
 
 == Mule ESB Reference
 
-For more information about Custom Filter, see [here].
+For more information about Custom Filter, see xref:filters/filters-configuration-reference.adoc[here].

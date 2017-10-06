@@ -3,6 +3,7 @@ ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
 :page-aliases: configuring-mule-as-a-windows-service.adoc
+:keywords: anypoint, esb, on premises, on premise, windows
 
 If you want to install Mule as a Windows NT Service, type
 
